@@ -7,8 +7,9 @@
             <!-- User profile image -->
             <div class="profile-img"><img src="{{asset('org')}}/assets/images/users/profile.png" alt="user"/></div>
             <!-- User profile text-->
-            <div class="profile-text"><a href="#" class="dropdown-toggle u-dropdown" data-toggle="dropdown"
-                                         role="button" aria-haspopup="true" aria-expanded="true">Markarn Doe</a>
+            <div class="profile-text">
+                <a href="#" class="dropdown-toggle u-dropdown" data-toggle="dropdown" role="button" aria-haspopup="true"
+                   aria-expanded="true"> {{auth('admin')->user()->username}}</a>
                 <div class="dropdown-menu animated flipInY"><a href="#" class="dropdown-item"><i
                             class="ti-user"></i> My Profile</a> <a href="#" class="dropdown-item"><i
                             class="ti-wallet"></i> My Balance</a> <a href="#" class="dropdown-item"><i
@@ -16,7 +17,8 @@
                     <div class="dropdown-divider"></div>
                     <a href="#" class="dropdown-item"><i class="ti-settings"></i> Account Setting</a>
                     <div class="dropdown-divider"></div>
-                    <a href="login.html" class="dropdown-item"><i class="fa fa-power-off"></i> Logout</a></div>
+                    <a href="{{route('admin.logout')}}" class="dropdown-item"><i class="fa fa-power-off"></i> Logout</a>
+                </div>
             </div>
         </div>
         <!-- End User profile text-->
@@ -27,22 +29,15 @@
                 <li><a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i
                             class="mdi mdi-gauge"></i><span class="hide-menu">商城系统</span></a>
                     <ul aria-expanded="false" class="collapse">
-                        <li><a href="index.html">栏目管理</a></li>
-                        <li><a href="index2.html">商品管理</a></li>
-                        <li><a href="index3.html">Dashboard 3</a></li>
-                        <li><a href="index4.html">Dashboard 4</a></li>
-                        <li><a href="index5.html">Dashboard 5</a></li>
-                        <li><a href="index6.html">Dashboard 6</a></li>
+                        <li><a href="{{route('admin.category.index')}}">栏目管理</a></li>
+                        <li><a href="{{route('admin.good.index')}}">商品管理</a></li>
                     </ul>
                 </li>
-                <li><a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i
-                            class="mdi mdi-laptop-windows"></i><span class="hide-menu">Template Demos</span></a>
+                <li><a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false">
+                        <i class="mdi mdi-settings"></i><span class="hide-menu">配置管理</span></a>
                     <ul aria-expanded="false" class="collapse">
-                        <li><a href="{{asset('org')}}/minisidebar/index.html">Minisidebar</a></li>
-                        <li><a href="{{asset('org')}}/horizontal/index2.html">Horizontal</a></li>
-                        <li><a href="{{asset('org')}}/dark/index3.html">Dark Version</a></li>
-                        <li><a href="{{asset('org')}}/material-rtl/index4.html">RTL Version</a></li>
-                        <li><a href="javascript:angular">Anuglar-CLI Starter kit</a></li>
+                        <li><a href="">站点配置</a></li>
+                        <li><a href="">上传配置</a></li>
                     </ul>
                 </li>
                 <li><a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i
@@ -254,7 +249,8 @@
     <div class="sidebar-footer">
         <!-- item--><a href="" class="link" data-toggle="tooltip" title="Settings"><i class="ti-settings"></i></a>
         <!-- item--><a href="" class="link" data-toggle="tooltip" title="Email"><i class="mdi mdi-gmail"></i></a>
-        <!-- item--><a href="{{route('admin.logout')}}" class="link" data-toggle="tooltip" title="Logout"><i class="mdi mdi-power"></i></a>
+        <!-- item--><a href="{{route('admin.logout')}}" class="link" data-toggle="tooltip" title="Logout"><i
+                class="mdi mdi-power"></i></a>
     </div>
     <!-- End Bottom points-->
 </aside>

@@ -15,7 +15,8 @@
     <!-- chartist CSS -->
     <link href="{{asset('org')}}/assets/plugins/chartist-js/dist/chartist.min.css" rel="stylesheet">
     <link href="{{asset('org')}}/assets/plugins/chartist-js/dist/chartist-init.css" rel="stylesheet">
-    <link href="{{asset('org')}}/assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.css" rel="stylesheet">
+    <link href="{{asset('org')}}/assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.css"
+          rel="stylesheet">
     <!--This page css - Morris CSS -->
     <link href="{{asset('org')}}/assets/plugins/c3-master/c3.min.css" rel="stylesheet">
     <!-- Custom CSS -->
@@ -28,6 +29,17 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script src="{{asset('org/assets/plugins/jquery/jquery.min.js')}}"></script>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    {{--<script>--}}
+        {{--$.ajaxSetup({--}}
+            {{--headers: {--}}
+                {{--'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')--}}
+            {{--}--}}
+        {{--});--}}
+    {{--</script>--}}
+    @stack('css')
 </head>
 <body class="fix-header fix-sidebar card-no-border">
 <!-- ============================================================== -->
@@ -42,29 +54,31 @@
 <!-- Main wrapper - style you can find in pages.scss -->
 <!-- ============================================================== -->
 <div id="main-wrapper">
-    {{--头部导航栏--}}
-    @include('admin.layouts.header')
-    {{--左侧边栏--}}
-    @include('admin.layouts.left_sidebar')
+{{--头部导航栏--}}
+@include('admin.layouts.header')
+{{--左侧边栏--}}
+@include('admin.layouts.left_sidebar')
     {{--底部导航栏--}}
-    @include('admin.layouts.foot')
+@include('admin.layouts.foot')
 </div>
-<script src="{{asset('org')}}/assets/plugins/jquery/jquery.min.js"></script>
-<script src="{{asset('org')}}/assets/plugins/bootstrap/js/popper.min.js"></script>
-<script src="{{asset('org')}}/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="{{asset('org/assets')}}/plugins/jquery/jquery.min.js"></script>
+<script src="{{asset('org/assets')}}/plugins/bootstrap/js/popper.min.js"></script>
+<script src="{{asset('org/assets')}}/plugins/bootstrap/js/bootstrap.min.js"></script>
 <script src="{{asset('org/assets')}}/js/jquery.slimscroll.js"></script>
 <script src="{{asset('org/assets')}}/js/waves.js"></script>
 <script src="{{asset('org/assets')}}/js/sidebarmenu.js"></script>
-<script src="{{asset('org')}}/assets/plugins/sticky-kit-master/dist/sticky-kit.min.js"></script>
-<script src="{{asset('org')}}/assets/plugins/sparkline/jquery.sparkline.min.js"></script>
+<script src="{{asset('org/assets')}}/plugins/sticky-kit-master/dist/sticky-kit.min.js"></script>
+<script src="{{asset('org/assets')}}/plugins/sparkline/jquery.sparkline.min.js"></script>
 <script src="{{asset('org/assets')}}/js/custom.min.js"></script>
-<script src="{{asset('org')}}/assets/plugins/chartist-js/dist/chartist.min.js"></script>
-<script src="{{asset('org')}}/assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.min.js"></script>
-<script src="{{asset('org')}}/assets/plugins/d3/d3.min.js"></script>
-<script src="{{asset('org')}}/assets/plugins/c3-master/c3.min.js"></script>
-<script src="{{asset('org/assets')}}/js/dashboard1.js"></script>
-<script src="{{asset('org')}}/assets/plugins/styleswitcher/jQuery.style.switcher.js"></script>
+<script src="{{asset('org/assets')}}/plugins/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js"></script>
+<script src="{{asset('org/assets')}}/plugins/jquery.easy-pie-chart/easy-pie-chart.init.js"></script>
+<script src="{{asset('org/assets')}}/plugins/styleswitcher/jQuery.style.switcher.js"></script>
+
+
+
+<!-- ============================================================== -->
 <!-- ============================================================== -->
 @include('layouts.message')
+@stack('js')
 </body>
 </html>

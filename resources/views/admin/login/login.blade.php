@@ -45,12 +45,12 @@
                     <h3 class="box-title m-b-20" style="text-align: center">桀骜商城管理登录入口</h3>
                     <div class="form-group ">
                         <div class="col-xs-12">
-                            <input class="form-control" name="username" type="text" value="{{old('username')}}" placeholder="用户名">
+                            <input class="form-control" name="username" type="text" required value="{{old('username')}}" placeholder="用户名">
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-xs-12">
-                            <input class="form-control" name="password" type="password" placeholder="密码">
+                            <input class="form-control" name="password" required type="password" placeholder="密码">
                         </div>
                     </div>
                     <div class="form-group">
