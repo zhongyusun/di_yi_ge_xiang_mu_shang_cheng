@@ -46,22 +46,25 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-{{--                                    @foreach($categories as $category)--}}
-                                        {{--<tr>--}}
-                                            {{--<td>{{$category['id']}}</td>--}}
-{{--                                            <td>{!! $category['_title'] !!}</td>--}}
-{{--                                            <td>{{$category['created_at']}}</td>--}}
-                                            {{--<td>--}}
-                                                {{--<a href="{{route('admin.category.edit',$category['id'])}}"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>--}}
-                                                {{--<a href="javascript:;" onclick="del(this)" data-toggle="tooltip"--}}
-                                                   {{--data-original-title="Close"> <i class="fa fa-close text-danger"></i>--}}
-                                                {{--</a>--}}
-                                                {{--<form action="{{route('admin.category.destroy',$category['id'])}}" method="post">--}}
-                                                    {{--@csrf @method('DELETE')--}}
-                                                {{--</form>--}}
-                                            {{--</td>--}}
-                                        {{--</tr>--}}
-                                    {{--@endforeach--}}
+                                    @foreach($goods as $good)
+                                        <tr>
+                                            <td>{{$good['id']}}</td>
+                                            <td>{!! $good['title'] !!}</td>
+                                            <td><img src="{{$good['list_pic']}}" alt="" style="height: 50px"></td>
+                                            <td>{{$good['price']}}</td>
+                                            <td>{{$good->getCatId()}}</td>
+                                            <td>{{$good['created_at']}}</td>
+                                            <td>
+                                                <a href="{{route('admin.good.edit',$good['id'])}}"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
+                                                <a href="javascript:;" onclick="del(this)" data-toggle="tooltip"
+                                                   data-original-title="Close"> <i class="fa fa-close text-danger"></i>
+                                                </a>
+                                                <form action="{{route('admin.good.destroy',$good['id'])}}" method="post">
+                                                    @csrf @method('DELETE')
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                     </tbody>
                                 </table>
                             </div>

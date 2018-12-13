@@ -21,9 +21,15 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="{{route('admin.good.create')}}">
+                <a class="nav-link" href="{{route('admin.good.create')}}">
                     <span class="hidden-sm-up"><i class="ti-user"></i></span> <span
                         class="hidden-xs-down">添加商品</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="{{route('admin.good.edit',$good)}}">
+                    <span class="hidden-sm-up"><i class="ti-user"></i></span> <span
+                        class="hidden-xs-down">编辑商品</span>
                 </a>
             </li>
         </ul>
@@ -31,31 +37,34 @@
         <div class="tab-content">
             <div class="card-header"></div>
             <div class="card-body">
-                <form action="{{route('admin.good.store')}}" method="post" class="form-horizontal ">
-                    @csrf
+                <form action="{{route('admin.good.update',$good)}}" method="post" class="form-horizontal ">
+                    @csrf @method('PUT')
                     <div class="row">
                         <div style="border-right: 1px dashed #cccccc" class="col-8">
                             <!--/row-->
                             <div class="form-group row">
                                 <label class="control-label text-right col-md-2">商品名称</label>
                                 <div class="col-md-9">
-                                    <input type="text" name="title" placeholder="请输入商品名称" value="{{old ('title')}}" class="form-control">
+                                    <input type="text" name="title" placeholder="请输入商品名称" value="{{$good['title']}}"
+                                           class="form-control">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="control-label text-right col-md-2">商品价格</label>
                                 <div class="col-md-9">
-                                    <input type="number" name="price"  value="{{old ('price')}}" placeholder="请输入商品价格" class="form-control">
+                                    <input type="number" name="price" value="{{$good['price']}}" placeholder="请输入商品价格"
+                                           class="form-control">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label  class="control-label text-right col-md-2">所属分类</label>
+                                <label class="control-label text-right col-md-2">所属分类</label>
                                 <div class="col-md-9">
-                                    <select name="category_id" class="form-control custom-select" data-placeholder="Choose a good"
-                                            tabindex="1">
-                                        <option  value="">请选择分类</option>
+                                    <select name="category_id" class="form-control custom-select"
+                                            data-placeholder="Choose a good" tabindex="1">
+                                        <option value="">请选择分类</option>
                                         @foreach($categories as $category)
-                                            <option value="{{$category['id']}}">{!! $category['_title'] !!}</option>
+                                            <option @if($category['id'] == $good['category_id']) selected
+                                                    @endif  value="{{$category['id']}}">{!! $category['_title'] !!}</option>
                                         @endforeach
                                     </select>
                                     <small class="form-control-feedback"> 请选择父级商品</small>
@@ -65,8 +74,8 @@
                                 <label class="control-label text-right col-md-2">商品列表图片</label>
                                 <div class="col-md-9">
                                     <div class="layui-upload-drag" id="test10">
-                                        <i class="layui-icon"></i>
-                                        <p>点击上传，或将文件拖拽到此处</p>
+                                        <img src="{{$good['list_pic']}}" alt="" style="height: 50px">
+                                        <input type="hidden" name="list_pic" value="{{$good['list_pic']}}">
                                     </div>
                                 </div>
                             </div>
@@ -76,7 +85,16 @@
                                     <div class="layui-upload">
                                         <button type="button" class="layui-btn" id="test2">多图片上传</button>
                                         <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
-                                            <div class="layui-upload-list" id="demo2"></div>
+                                            <div class="layui-upload-list" id="demo2">
+                                                @if($pics==null)
+
+                                                @else
+                                                    @foreach($pics as $v)
+                                                        <img src="{{$v}}" alt="" style="height: 50px">
+                                                        <input type="hidden" name="list_pic" value="{{$v}}">
+                                                    @endforeach
+                                                @endif
+                                            </div>
                                         </blockquote>
                                     </div>
                                 </div>
@@ -84,13 +102,15 @@
                             <div class="form-group row">
                                 <label class="control-label text-right col-md-2">商品描述</label>
                                 <div class="col-md-9">
-                                    <textarea class="form-control" name="description" rows="5"></textarea>
+                                    <textarea class="form-control" name="description"
+                                              rows="5">{{$good['description']}}</textarea>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="control-label text-right col-md-2">商品详情</label>
                                 <div class="col-md-9">
-                                    <textarea id="demo" style="display: none;" name="content" class="layui-hide"></textarea>
+                                    <textarea id="demo" style="display: none;" name="content"
+                                              class="layui-hide">{{$good['content']}}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -100,22 +120,25 @@
                                     <div class="form-group row">
                                         <label class="control-label text-right col-md-3">规格名称</label>
                                         <div class="col-md-9">
-                                            <input type="text" v-model="v.spec" placeholder="14寸 64G 内存" class="form-control">
+                                            <input type="text" v-model="v.spec" placeholder="14寸 64G 内存"
+                                                   class="form-control">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="control-label text-right col-md-3">库存</label>
                                         <div class="col-md-9">
-                                            <input type="number" v-model="v.total" placeholder="100" class="form-control">
+                                            <input type="number" v-model="v.total" placeholder="100"
+                                                   class="form-control">
                                         </div>
                                     </div>
-                                    <button class="btn btn-danger btn-sm pull-right" @click="del(k)" type="button">删除</button>
+                                    <button class="btn btn-danger btn-sm pull-right" @click="del(k)" type="button">删除
+                                    </button>
                                 </div>
                             </div>
                             <div class="">
                                 <button type="button" @click="add" class="btn btn-success">添加规格</button>
                             </div>
-                            <textarea name="specs" id="" hidden cols="30" rows="10">@{{ specs }}</textarea>
+                            <textarea name="specs" hidden id="" cols="30" rows="10">@{{ specs }}</textarea>
                         </div>
                     </div>
                     <hr>
@@ -215,19 +238,18 @@
     <script src="https://cdn.bootcss.com/vue/2.5.18-beta.0/vue.min.js"></script>
     <script>
         new Vue({
-            el:'#add',
-            data:{
-                specs:[
-
-                ]
+            el: '#add',
+            data: {
+                specs:{!! $specs !!}
             },
-            methods:{
-                add(){
-                    this.specs.push({spec:'',total:''})
+            methods: {
+                add() {
+                    this.specs.push({spec: '', total: ''})
                 },
-                del(k){
-                  this.specs.splice(k,1)
-                }
+                del(k) {
+                    this.specs.splice(k, 1)
+                },
+
             }
 
         })

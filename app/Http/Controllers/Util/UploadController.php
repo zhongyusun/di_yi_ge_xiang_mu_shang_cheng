@@ -38,7 +38,7 @@ class UploadController extends Controller
         }
     }
     //验证大小
-    public function dataSize($file){
+    protected function dataSize($file){
         //$file->getSize()获取上传文件大小
         if($file->getSize() > 900000){
             //return  ['message' =>'上传文件过大', 'code' => 403];
@@ -49,8 +49,8 @@ class UploadController extends Controller
     }
 
     //验证类型
-    public function dataType($file){
-        if(!in_array(strtolower($file->getClientOriginalExtension()),['jpg'])){
+    protected function dataType($file){
+        if(!in_array(strtolower($file->getClientOriginalExtension()),['jpg','png','jpeg'])){
             //return  ['message' =>'类型不允许', 'code' => 403];
             throw new UploadExceptions('类型不允许');
         }

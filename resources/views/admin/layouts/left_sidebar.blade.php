@@ -25,9 +25,10 @@
         <!-- Sidebar navigation-->
         <nav class="sidebar-nav">
             <ul id="sidebarnav">
-                <li class="nav-small-cap">PERSONAL</li>
-                <li><a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i
-                            class="mdi mdi-gauge"></i><span class="hide-menu">商城系统</span></a>
+                <li class="nav-small-cap"></li>
+                <li><a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false">
+                        <i class="mdi mdi-gauge"></i>
+                        <span class="hide-menu">商城系统</span></a>
                     <ul aria-expanded="false" class="collapse">
                         <li><a href="{{route('admin.category.index')}}">栏目管理</a></li>
                         <li><a href="{{route('admin.good.index')}}">商品管理</a></li>
@@ -36,8 +37,8 @@
                 <li><a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false">
                         <i class="mdi mdi-settings"></i><span class="hide-menu">配置管理</span></a>
                     <ul aria-expanded="false" class="collapse">
-                        <li><a href="">站点配置</a></li>
-                        <li><a href="">上传配置</a></li>
+                        <li><a href="{{route('admin.config.edit',['name'=>'site'])}}">站点配置</a></li>
+                        <li><a href="{{route('admin.config.edit',['name'=>'upload'])}}">上传配置</a></li>
                     </ul>
                 </li>
                 <li><a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i
