@@ -7,5 +7,5 @@
             </div>
         </div>
     </div>
-    <footer class="footer"> © 2017 Material Pro Admin by wrappixel.com</footer>
+    <footer class="footer"> {{hd_config('site.site_icp')?hd_config('site.site_icp'):'京ICP证070359号'}}</footer>
 </div>

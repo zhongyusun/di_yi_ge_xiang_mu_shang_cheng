@@ -9,6 +9,7 @@ use App\Models\Good;
 use App\Models\Spec;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 class GoodController extends Controller
 {

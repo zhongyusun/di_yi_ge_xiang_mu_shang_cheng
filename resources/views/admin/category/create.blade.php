@@ -49,7 +49,7 @@
                                                 tabindex="1">
                                             <option value="0">顶级分类</option>
                                             @foreach($categories as $category)
-                                                <option value="{{$category['id']}}">{{$category['_title']}}</option>
+                                                <option value="{{$category['id']}}">{!! $category['_title'] !!}</option>
                                             @endforeach
                                         </select>
                                         <small class="form-control-feedback"> 请选择父级分类</small>

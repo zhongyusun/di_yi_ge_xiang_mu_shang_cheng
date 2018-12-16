@@ -16,11 +16,13 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+            $table->string('name')->comment('用户名称');
+            $table->string('email')->unique()->comment('用户邮箱');
+            $table->string('icon')->default('')->comment('用户头像');
+            $table->unsignedTinyInteger('membership')->default(0)->comment('会员级别');
+            $table->timestamp('email_verified_at')->nullable()->comment('注册时间');
+            $table->string('password')->comment('密码');
+            $table->rememberToken()->comment('七天登录');
             $table->timestamps();
         });
     }

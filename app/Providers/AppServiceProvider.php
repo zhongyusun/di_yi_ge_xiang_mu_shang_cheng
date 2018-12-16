@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Config;
+use App\Observers\ConfigObserver;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 
@@ -14,7 +16,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        //解决php版本过低
         Schema::defaultStringLength(191);
+        /*******注册观察者****/
+        Config::observe(ConfigObserver::class);
+        /****注册观察者******/
     }
 
     /**

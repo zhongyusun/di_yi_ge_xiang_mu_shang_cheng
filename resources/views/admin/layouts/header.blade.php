@@ -4,22 +4,21 @@
         <!-- Logo -->
         <!-- ============================================================== -->
         <div class="navbar-header">
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" href="/">
                 {{--logo--}}
                 <b>
                     <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
-                    <img src="{{asset('org')}}/assets/images/logo-icon.png" alt="homepage" class="dark-logo"/>
+                    <img
+                        src="{{hd_config('site.site_logo')?hd_config('site.site_logo'):"/icon/Pdz6UZbG96rWjf1rvkjgPeA8KYGlbpblctWaiOM7.png"}}"
+                        alt="homepage" class="dark-logo"/>
                     <!-- Light Logo icon -->
-                    <img src="{{asset('org')}}/assets/images/logo-light-icon.png" alt="homepage"
-                         class="light-logo"/>
+                    <img
+                        src="{{hd_config('site.site_logo')?hd_config('site.site_logo'):"/icon/Pdz6UZbG96rWjf1rvkjgPeA8KYGlbpblctWaiOM7.png"}}"
+                        width="100" height="60" alt="homepage"
+                        class="light-logo"/>
+                    <span style="color: white;size: 30px">桀骜后台管理</span>
                 </b>
-                <!--End Logo icon -->
-                <!-- Logo text --><span>
-                         <!-- dark Logo text -->
-                         <img src="{{asset('org')}}/assets/images/logo-text.png" alt="homepage" class="dark-logo"/>
-                    <!-- Light Logo text -->
-                         <img src="{{asset('org')}}/assets/images/logo-light-text.png" class="light-logo"
-                              alt="homepage"/></span> </a>
+            </a>
         </div>
         <!-- ============================================================== -->
         <!-- End Logo -->
@@ -46,39 +45,7 @@
                                 class="ti-close"></i></a></form>
                 </li>
             </ul>
-            <!-- ============================================================== -->
-            <!-- User profile and search -->
-            <!-- ============================================================== -->
-            <ul class="navbar-nav my-lg-0">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href=""
-                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img
-                            src="{{asset('org')}}/assets/images/users/1.jpg" alt="user" class="profile-pic"/></a>
-                    <div class="dropdown-menu dropdown-menu-right scale-up">
-                        <ul class="dropdown-user">
-                            <li>
-                                <div class="dw-user-box">
-                                    <div class="u-img"><img src="{{asset('org')}}/assets/images/users/1.jpg"
-                                                            alt="user"></div>
-                                    <div class="u-text">
-                                        <h4>Steave Jobs</h4>
-                                        <p class="text-muted">varun@gmail.com</p><a href="profile.html"
-                                                                                    class="btn btn-rounded btn-danger btn-sm">View
-                                            Profile</a></div>
-                                </div>
-                            </li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#"><i class="ti-user"></i> My Profile</a></li>
-                            <li><a href="#"><i class="ti-wallet"></i> My Balance</a></li>
-                            <li><a href="#"><i class="ti-email"></i> Inbox</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#"><i class="ti-settings"></i> Account Setting</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#"><i class="fa fa-power-off"></i>退出</a></li>
-                        </ul>
-                    </div>
-                </li>
-            </ul>
+
         </div>
     </nav>
 </header>

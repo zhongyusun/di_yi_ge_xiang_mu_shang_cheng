@@ -91,7 +91,7 @@
                                                 @else
                                                     @foreach($pics as $v)
                                                         <img src="{{$v}}" alt="" style="height: 50px">
-                                                        <input type="hidden" name="list_pic" value="{{$v}}">
+                                                        <input type="hidden" name="pics[]" value="{{$v}}">
                                                     @endforeach
                                                 @endif
                                             </div>
@@ -189,13 +189,19 @@
             //拖拽上传
             upload.render({
                 elem: '#test10'
-                , url: "{{route('util.upload')}}"
-                , accept: 'images'
-                , multiple: false
-                // , acceptMime: 'image/jpg, image/png'
-                , size: 50000000000 //最大允许上传的文件大小，单位 KB。不支持ie8/9
+                ,
+                url: "{{route('util.upload')}}"
+                ,
+                accept: 'images'
+                ,
+                multiple: false
+                ,
+                acceptMime: "{{hd_config('upload.upload_accept_mime')}}" ? "{{hd_config('upload.upload_accept_mime')}}" : "image/jpg, image/png,image/jpeg"
+                ,
+                size: {{hd_config('upload.upload_size')}} ?{{hd_config('upload.upload_size')}}: 500000000 //最大允许上传的文件大小，单位 KB。不支持ie8/9
                 //成功过后的回调
-                , done: function (res) {
+                ,
+                done: function (res) {
                     //console.log(res)
                     if (res.code == 0) {
                         $('#test10').html('<img src="' + res.data.src + '" alt="" width="150px" class="layui-upload-img"><input type="hidden" name="list_pic" value="' + res.data.src + '">')
@@ -209,19 +215,26 @@
             //多图上传
             upload.render({
                 elem: '#test2'
-                , url: "{{route('util.upload')}}"
-                , multiple: true
-                , accept: 'images' //指定允许上传时校验的文件类型，可选值有：images（图片）、file（所有文件）、video（视频）、audio（音频）
-                // , acceptMime: 'image/jpg, image/png'
-                , size: 50000000000 //最大允许上传的文件大小，单位 KB。不支持ie8/9
-                , exts: 'jpg|png'
+                ,
+                url: "{{route('util.upload')}}"
+                ,
+                multiple: true
+                ,
+                accept: 'images' //指定允许上传时校验的文件类型，可选值有：images（图片）、file（所有文件）、video（视频）、audio（音频）
+                ,
+                acceptMime: "{{hd_config('upload.upload_accept_mime')}}" ? "{{hd_config('upload.upload_accept_mime')}}" : "image/jpg, image/png,image/jpeg"
+                ,
+                size: {{hd_config('upload.upload_size')}} ?{{hd_config('upload.upload_size')}}: 500000000 //最大允许上传的文件大小，单位 KB。不支持ie8/9
+                ,
+                exts: '{{hd_config('upload.upload_type')}}' ? '{{hd_config('upload.upload_type')}}' : 'jpg|png|jpeg'
                 // ,before: function(obj){
                 //     //预读本地文件示例，不支持ie8
                 //     obj.preview(function(index, file, result){
                 //         $('#demo2').append('<img src="'+ result +'" alt="'+ file.name +'" class="layui-upload-img">')
                 //     });
                 // }
-                , done: function (res) {
+                ,
+                done: function (res) {
                     //上传完毕
                     if (res.code == 0) {
                         $('#demo2').append('<img src="' + res.data.src + '" alt="" width="100px" class="layui-upload-img"><input type="hidden" name="pics[]" value="' + res.data.src + '">')

@@ -39,21 +39,24 @@
                             <div class="form-group row">
                                 <label class="control-label text-right col-md-2">商品名称</label>
                                 <div class="col-md-9">
-                                    <input type="text" name="title" placeholder="请输入商品名称" value="{{old ('title')}}" class="form-control">
+                                    <input type="text" name="title" placeholder="请输入商品名称" value="{{old ('title')}}"
+                                           class="form-control">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="control-label text-right col-md-2">商品价格</label>
                                 <div class="col-md-9">
-                                    <input type="number" name="price"  value="{{old ('price')}}" placeholder="请输入商品价格" class="form-control">
+                                    <input type="number" name="price" value="{{old ('price')}}" placeholder="请输入商品价格"
+                                           class="form-control">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label  class="control-label text-right col-md-2">所属分类</label>
+                                <label class="control-label text-right col-md-2">所属分类</label>
                                 <div class="col-md-9">
-                                    <select name="category_id" class="form-control custom-select" data-placeholder="Choose a good"
+                                    <select name="category_id" class="form-control custom-select"
+                                            data-placeholder="Choose a good"
                                             tabindex="1">
-                                        <option  value="">请选择分类</option>
+                                        <option value="">请选择分类</option>
                                         @foreach($categories as $category)
                                             <option value="{{$category['id']}}">{!! $category['_title'] !!}</option>
                                         @endforeach
@@ -90,7 +93,8 @@
                             <div class="form-group row">
                                 <label class="control-label text-right col-md-2">商品详情</label>
                                 <div class="col-md-9">
-                                    <textarea id="demo" style="display: none;" name="content" class="layui-hide"></textarea>
+                                    <textarea id="demo" style="display: none;" name="content"
+                                              class="layui-hide"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -100,16 +104,19 @@
                                     <div class="form-group row">
                                         <label class="control-label text-right col-md-3">规格名称</label>
                                         <div class="col-md-9">
-                                            <input type="text" v-model="v.spec" placeholder="14寸 64G 内存" class="form-control">
+                                            <input type="text" v-model="v.spec" placeholder="14寸 64G 内存"
+                                                   class="form-control">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="control-label text-right col-md-3">库存</label>
                                         <div class="col-md-9">
-                                            <input type="number" v-model="v.total" placeholder="100" class="form-control">
+                                            <input type="number" v-model="v.total" placeholder="100"
+                                                   class="form-control">
                                         </div>
                                     </div>
-                                    <button class="btn btn-danger btn-sm pull-right" @click="del(k)" type="button">删除</button>
+                                    <button class="btn btn-danger btn-sm pull-right" @click="del(k)" type="button">删除
+                                    </button>
                                 </div>
                             </div>
                             <div class="">
@@ -143,7 +150,6 @@
 @endpush
 @push('js')
     <script src="{{asset('org/layui/layui.js')}}" charset="utf-8"></script>
-    <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
     <script>
         $.ajaxSetup({
             headers: {
@@ -166,13 +172,19 @@
             //拖拽上传
             upload.render({
                 elem: '#test10'
-                , url: "{{route('util.upload')}}"
-                , accept: 'images'
-                , multiple: false
-                // , acceptMime: 'image/jpg, image/png'
-                , size: 50000000000 //最大允许上传的文件大小，单位 KB。不支持ie8/9
+                ,
+                url: "{{route('util.upload')}}"
+                ,
+                accept: 'images'
+                ,
+                multiple: false
+                ,
+                acceptMime: "{{hd_config('upload.upload_accept_mime')}}" ? "{{hd_config('upload.upload_accept_mime')}}" : "image/jpg, image/png,image/jpeg"
+                ,
+                size: {{hd_config('upload.upload_size')}} ?{{hd_config('upload.upload_size')}}: 500000000 //最大允许上传的文件大小，单位 KB。不支持ie8/9
                 //成功过后的回调
-                , done: function (res) {
+                ,
+                done: function (res) {
                     //console.log(res)
                     if (res.code == 0) {
                         $('#test10').html('<img src="' + res.data.src + '" alt="" width="150px" class="layui-upload-img"><input type="hidden" name="list_pic" value="' + res.data.src + '">')
@@ -183,22 +195,30 @@
                     }
                 }
             });
+
             //多图上传
             upload.render({
                 elem: '#test2'
-                , url: "{{route('util.upload')}}"
-                , multiple: true
-                , accept: 'images' //指定允许上传时校验的文件类型，可选值有：images（图片）、file（所有文件）、video（视频）、audio（音频）
-                // , acceptMime: 'image/jpg, image/png'
-                , size: 50000000000 //最大允许上传的文件大小，单位 KB。不支持ie8/9
-                , exts: 'jpg|png'
+                ,
+                url: "{{route('util.upload')}}"
+                ,
+                multiple: true
+                ,
+                accept: 'images' //指定允许上传时校验的文件类型，可选值有：images（图片）、file（所有文件）、video（视频）、audio（音频）
+                ,
+                acceptMime: "{{hd_config('upload.upload_accept_mime')}}" ? "{{hd_config('upload.upload_accept_mime')}}" : "image/jpg, image/png,image/jpeg"
+                ,
+                size: {{hd_config('upload.upload_size')}} ?{{hd_config('upload.upload_size')}}: 500000000 //最大允许上传的文件大小，单位 KB。不支持ie8/9
+                ,
+                exts: '{{hd_config('upload.upload_type')}}'?'{{hd_config('upload.upload_type')}}':'jpg|png|jpeg'
                 // ,before: function(obj){
                 //     //预读本地文件示例，不支持ie8
                 //     obj.preview(function(index, file, result){
                 //         $('#demo2').append('<img src="'+ result +'" alt="'+ file.name +'" class="layui-upload-img">')
                 //     });
                 // }
-                , done: function (res) {
+                ,
+                done: function (res) {
                     //上传完毕
                     if (res.code == 0) {
                         $('#demo2').append('<img src="' + res.data.src + '" alt="" width="100px" class="layui-upload-img"><input type="hidden" name="pics[]" value="' + res.data.src + '">')
@@ -215,18 +235,16 @@
     <script src="https://cdn.bootcss.com/vue/2.5.18-beta.0/vue.min.js"></script>
     <script>
         new Vue({
-            el:'#add',
-            data:{
-                specs:[
-
-                ]
+            el: '#add',
+            data: {
+                specs: []
             },
-            methods:{
-                add(){
-                    this.specs.push({spec:'',total:''})
+            methods: {
+                add() {
+                    this.specs.push({spec: '', total: ''})
                 },
-                del(k){
-                  this.specs.splice(k,1)
+                del(k) {
+                    this.specs.splice(k, 1)
                 }
             }
 

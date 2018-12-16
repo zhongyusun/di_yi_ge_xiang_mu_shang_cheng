@@ -8,15 +8,14 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="{{asset('org')}}/assets/images/favicon.png">
-    <title>桀骜后台管理</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="{{asset('icon/yjtp.png')}}">
+    <title>{{hd_config('site.site_name')?hd_config('site.site_name'):'桀骜(JIEAO.CN)-正品低价，品质保证，轻松购物!'}}后台管理</title>
     <!-- Bootstrap Core CSS -->
     <link href="{{asset('org')}}/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- chartist CSS -->
     <link href="{{asset('org')}}/assets/plugins/chartist-js/dist/chartist.min.css" rel="stylesheet">
     <link href="{{asset('org')}}/assets/plugins/chartist-js/dist/chartist-init.css" rel="stylesheet">
-    <link href="{{asset('org')}}/assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.css"
-          rel="stylesheet">
+    <link href="{{asset('org')}}/assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.css" rel="stylesheet">
     <!--This page css - Morris CSS -->
     <link href="{{asset('org')}}/assets/plugins/c3-master/c3.min.css" rel="stylesheet">
     <!-- Custom CSS -->
@@ -54,12 +53,12 @@
 <!-- Main wrapper - style you can find in pages.scss -->
 <!-- ============================================================== -->
 <div id="main-wrapper">
-{{--头部导航栏--}}
-@include('admin.layouts.header')
-{{--左侧边栏--}}
-@include('admin.layouts.left_sidebar')
+    {{--头部导航栏--}}
+    @include('admin.layouts.header')
+    {{--左侧边栏--}}
+    @include('admin.layouts.left_sidebar')
     {{--底部导航栏--}}
-@include('admin.layouts.foot')
+    @include('admin.layouts.foot')
 </div>
 <script src="{{asset('org/assets')}}/plugins/jquery/jquery.min.js"></script>
 <script src="{{asset('org/assets')}}/plugins/bootstrap/js/popper.min.js"></script>
@@ -73,7 +72,6 @@
 <script src="{{asset('org/assets')}}/plugins/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js"></script>
 <script src="{{asset('org/assets')}}/plugins/jquery.easy-pie-chart/easy-pie-chart.init.js"></script>
 <script src="{{asset('org/assets')}}/plugins/styleswitcher/jQuery.style.switcher.js"></script>
-
 
 
 <!-- ============================================================== -->
