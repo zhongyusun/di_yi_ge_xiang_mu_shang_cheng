@@ -93,6 +93,7 @@
 @include('layouts.message')
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
 <script>
+
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -100,7 +101,11 @@
     });
 
     function send(obj) {
-        if ($(obj).is('.layui-disabled')) {
+        var tew = $('#username').val();
+        if (tew==''){
+            alert('请输入邮箱')
+        }
+        if ($(obj).is('layui-disabled')) {
             return false;
         }
         let time = 5;
@@ -116,7 +121,7 @@
             //重新构建发送验证码按钮
             $(obj).html(time + 's后再发');
         }, 1000);
-        var tew = $('#username').val();
+
         var params = {
             "username":tew,
         }

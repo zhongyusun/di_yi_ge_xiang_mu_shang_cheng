@@ -9,10 +9,11 @@
             </ol>
         </div>
     </div>
+
     <div class="col-lg-12">
         <div class="card">
             <div class="card-body p-b-0">
-                <h4 class="card-title">站点配置</h4>
+                <h4 class="card-title">轮播图配置</h4>
             </div>
             <!-- Tab panes -->
             <div class="tab-content">

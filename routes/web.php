@@ -10,6 +10,10 @@ Route::group(['prefix' => 'home', 'namespace' => 'Home', 'as' => 'home.'], funct
     Route::get('/list/{list}','ListController@index')->name('list');
     //商品详情
     Route::get('/content/{content}','ContentController@index')->name('content');
+    //根据规格请求对应的库存
+    Route::post('/spec_to_get_total','ContentController@specGetTotal')->name('spec_to_get_total');
+    //购物车
+    Route::resource('cart','CartController');
     //注册页
     Route::get('/register', 'UserController@register')->name('register');
     //用户注册数据
@@ -20,11 +24,13 @@ Route::group(['prefix' => 'home', 'namespace' => 'Home', 'as' => 'home.'], funct
     Route::post('/loginpost', 'UserController@loginPost')->name('loginpost');
     //注销登录
     Route::get('/loginout', 'UserController@logout')->name('loginout');
-    //密码重置页面
-    Route::get('/passwordreplace', 'UserController@passwordreplace')->name('passwordreplace');
-    //密码数据
-    Route::post('/passwordpost', 'UserController@passwordpost')->name('passwordpost');
-    //
+
+    //忘记密码
+    Route::get('/changepassword', 'UserController@changepassword')->name('changepassword');
+    Route::post('/passwordstore', 'UserController@passwordstore')->name('passwordstore');
+    //重置密码
+    Route::get('/restpassword/{token}','UserController@restpasswordview')->name('restpassword');
+    Route::post('/restpassword/{token}','UserController@restpassword')->name('restpassword_token');
 });
 
 //后台需要验证的路由
@@ -39,6 +45,8 @@ Route::group(['middleware' => ['admin.auth'], 'prefix' => 'admin', 'namespace' =
     Route::resource('good', 'GoodController');
     //配置项管理
     Route::resource('config', 'ConfigController');
+    //轮播图
+    Route::resource('flash','FlashController');
 });
 //后台不需要验证的路由
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], function () {

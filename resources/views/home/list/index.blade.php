@@ -17,99 +17,25 @@
                 </ul>
             </div>
             <div class="bend_shengh_haoh">
-                <div class="bengd_daoh">
-                    <div class="bengd_daoh_ann">
-                        <h3>美食</h3>
-                        <i>></i>
-                    </div>
-                    <div class="bengd_daoh_lieb">
-                        <h3>美食</h3>
-                        <div class="detail_content">
-                            <a href="#">代金券甜点</a><a href="#">饮品</a><a href="#">火锅</a><a href="#">自助餐</a><a
-                                href="#">小吃</a><a
-                                href="#">快餐</a><a href="#">日韩料理</a><a href="#">西餐</a><a href="#">聚餐宴请</a><a
-                                href="#">烧烤烤肉</a><a href="#">东北菜</a><a href="#">川湘菜</a>
+                <?php $i = 0; ?>
+                @foreach($categoryData['_data'] as $v)
+                    <?php $i++;?>
+                    @if($i<8)
+                        <div class="bengd_daoh">
+                            <div class="bengd_daoh_ann">
+                                <h3><a href="{{route('home.list',['list'=>$v['id']])}}">{{$v['title']}}</a></h3>
+                                <i>></i>
+                            </div>
+                            <div class="bengd_daoh_lieb">
+                                <div class="detail_content">
+                                    @foreach($v['_data'] as $vv)
+                                        <a href="{{route('home.list',['list'=>$v['id']])}}">{{$vv['title']}}</a>
+                                    @endforeach
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="bengd_daoh">
-                    <div class="bengd_daoh_ann">
-                        <h3>酒店/客栈</h3>
-                        <i>></i>
-                    </div>
-                    <div class="bengd_daoh_lieb">
-                        <h3>酒店</h3>
-                        <div class="detail_content">
-                            <a href="#">经济型</a><a href="#">舒适</a><a href="#">三星高档</a><a href="#">四星豪华</a><a
-                                href="#">五星</a>
-                        </div>
-                        <h3>客栈</h3>
-                        <div class="detail_content">
-                            <a href="#">经济型</a><a href="#">舒适</a><a href="#">三星高档</a><a href="#">四星豪华</a><a
-                                href="#">五星</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="bengd_daoh">
-                    <div class="bengd_daoh_ann">
-                        <h3>KTV</h3>
-                        <i>></i>
-                    </div>
-                    <div class="bengd_daoh_lieb">
-                        <h3>KTV</h3>
-                        <div class="detail_content">
-                            <a href="#">KTV</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="bengd_daoh">
-                    <div class="bengd_daoh_ann">
-                        <h3>教育培训</h3>
-                        <i>></i>
-                    </div>
-                    <div class="bengd_daoh_lieb">
-                        <h3>教育培训</h3>
-                        <div class="detail_content">
-                            <a href="#">中考培训</a><a href="#">高考培训</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="bengd_daoh">
-                    <div class="bengd_daoh_ann">
-                        <h3>医疗服务</h3>
-                        <i>></i>
-                    </div>
-                    <div class="bengd_daoh_lieb">
-                        <h3>医疗服务</h3>
-                        <div class="detail_content">
-                            <a href="#">mmm保健机构</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="bengd_daoh">
-                    <div class="bengd_daoh_ann">
-                        <h3>生活服务</h3>
-                        <i>></i>
-                    </div>
-                    <div class="bengd_daoh_lieb">
-                        <h3>生活服务</h3>
-                        <div class="detail_content">
-                            <a href="#">mmm保健机构</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="bengd_daoh">
-                    <div class="bengd_daoh_ann">
-                        <h3>丽人</h3>
-                        <i>></i>
-                    </div>
-                    <div class="bengd_daoh_lieb">
-                        <h3>丽人</h3>
-                        <div class="detail_content">
-                            <a href="#">美发</a><a href="#">美甲</a>
-                        </div>
-                    </div>
-                </div>
+                    @endif
+                @endforeach
             </div>
         </div>
     </div>
@@ -162,24 +88,18 @@
     <div class="beij_center">
         <div class="meis_kuang">
             <div class="meis_biaot">
-                <h2>美食</h2>
-                <ul>
-                    <li><a href="#">美食</a></li>
-                    <li><a href="#">自助餐</a></li>
-                    <li><a href="#">火锅</a></li>
-                    <li><a href="#">烧烤烤肉</a></li>
-                    <li><a href="#">西餐</a></li>
-                    <li><a href="#">全部+</a></li>
-                </ul>
+                <h2>{{$categoryData['title']}}</h2>
             </div>
             <div class="meis_neir_lieb">
                 <ul>
                     @foreach($goods as $good)
                         <li>
-                            <a href="{{route('home.content',['content'=>$good['id']])}}" class="meis_tup_kuang"><img src="{{$good->list_pic}}"></a>
+                            <a href="{{route('home.content',['content'=>$good['id']])}}" class="meis_tup_kuang"><img
+                                    src="{{$good->list_pic}}"></a>
                             <div class="meis_neir">
                                 <a href="{{route('home.content',['content'=>$good['id']])}}">{{$good['title']}}</a>
-                                <h4 style="text-align: center"><span style="text-align: center">￥:{{$good['price']}}</span></h4>
+                                <h4 style="text-align: center"><span
+                                        style="text-align: center">￥:{{$good['price']}}</span></h4>
                             </div>
                         </li>
                     @endforeach

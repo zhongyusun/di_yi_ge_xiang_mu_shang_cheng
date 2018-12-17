@@ -57,7 +57,7 @@
                             <label for="autoLoginFlag">自动登录</label>
                         </div>
                         <div class="fr">
-                            <a href="#" class="fl" target="_blank" title="忘记密码">忘记密码?</a>
+                            <a href="{{route('home.changepassword')}}" class="fl" target="_blank" title="忘记密码">忘记密码?</a>
                         </div>
                     </div>
                     <input type="submit" tabindex="5" value="登 录" class="btnnuw">

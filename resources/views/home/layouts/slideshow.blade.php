@@ -70,10 +70,10 @@
 <!--轮播图-->
 <div id="lunbo">
     <ul id="one">
-        <li><a href=""><img src="./images/banner.jpg"></a></li>
-        <li><a href=""><img src="./images/banner1.jpg"></a></li>
-        <li><a href=""><img src="./images/banner.jpg"></a></li>
-        <li><a href=""><img src="./images/banner1.jpg"></a></li>
+        <li><a href=""><img src="{{asset('org/receptionist')}}/images/banner.jpg"></a></li>
+        <li><a href=""><img src="{{asset('org/receptionist')}}/images/banner1.jpg"></a></li>
+        <li><a href=""><img src="{{asset('org/receptionist')}}/images/banner.jpg"></a></li>
+        <li><a href=""><img src="{{asset('org/receptionist')}}/images/banner1.jpg"></a></li>
     </ul>
     <ul id="two">
         <li class="on">1</li>

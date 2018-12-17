@@ -506,24 +506,15 @@
         {{--所属分类--}}
         <div class="left_luj">
             <ul>
-                <li>
-                    <a href="#" title="服饰鞋帽">服饰鞋帽</a>
-                    <i class="icon-crumbs-right"></i>
-                </li>
-                <li>
-                    <a title="女装">女装</a>
-                    <i class="icon-crumbs-right"></i>
-                </li>
-                <li>
-                    <a href="#" title="连衣裙">连衣裙</a>
-                    <i class="icon-crumbs-right"></i>
-                </li>
-                <li>
-                    <a href="#" title="Mistletoe">Mistletoe</a>
-                    <i class="icon-crumbs-right"></i>
-                </li>
+                @foreach($fatherData as $v)
+                    <li>
+                        <a href="{{route('home.list',['list'=>$v['id']])}}" title="{{$v['title']}}" style="text-align: center;!important;">{{$v['title']}}</a>
+                        <i class="icon-crumbs-right"></i>
+                    </li>
+                @endforeach
                 <li class="active">
-                    <a href="#" title="Mistletoe碎花夏季新款女装韩版印花连衣裙F6641(白色 M)">Mistletoe碎花夏季新款女装韩版印花连衣裙F6641(白色 M)</a>
+                    <a href="{{route('home.content',['content'=>$content['id']])}}"
+                       title="{{$content['title']}}">{{$content['title']}}</a>
                 </li>
             </ul>
         </div>
@@ -550,7 +541,7 @@
             <!---->
             <div id="magnifier">
                 <div class="small-box">
-                    <img src="{{$content->list_pic}}" style="height: 100%;width: 100%;" alt="#">
+                    <img src="{{$content->list_pic}}" width="312px" style="margin: 0 auto" alt="#">
                     <span class="hover"></span>
                 </div>
                 <div class="thumbnail-box">
@@ -566,7 +557,7 @@
                     </div>
                 </div>
                 <div class="big-box">
-                    <img src="{{$content->list_pic}}" height="200%" width="200%" alt="#">
+                    <img src="{{$content->list_pic}}" alt="#">
                 </div>
             </div>
             {{--<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>--}}
@@ -605,7 +596,7 @@
                     </p>
                     <p>
                         <label class="prd_price_left">促&nbsp;销&nbsp;价</label>
-                        <span class="price"><em>¥</em>{{$content->price}}</span>
+                        <span class="price"><em>¥</em>{{$content->promotion}}</span>
                     </p>
                 </div>
                 <div class="prd_price_flr">
@@ -629,8 +620,8 @@
                             @foreach($content->specs as $v)
                                 <div class="prdcol">
                                     {{--class="select"选中效果--}}
-                                    <a href="javascript:;" class="qwe" onclick="chooseSpec({{$v['id']}})"
-                                       title="{{$v['spec']}}" data-alt="{{$v['spec']}}">
+                                    <a href="javascript:;" class="" onclick="chooseSpec({{$v['id']}},this)"
+                                       title="{{$v['spec']}}" data-alt="{{$v['spec']}}" spec="{{$v['id']}}">
                                         <img src="{{$content->list_pic}}" gome-src="{{$content->list_pic}}"
                                              alt="{{$v['spec']}}">
                                         <span>{{$v['spec']}}</span><i></i>
@@ -639,22 +630,27 @@
                             @endforeach
                         </div>
                     </div>
-                    <div class="prd_properties_other" style="display:block">
-                        <label class="prdLeft">选择系列</label>
-                        <div class="prdRight_1">
-                            @foreach($content->specs as $v)
-                                <div class="prdmod">
-                                    <a href="javascript:;" class="clicks" title="{{$v['sort']}}"
-                                       data-alt="{{$v['sort']}}">{{$v['sort']}}<i></i></a>
-                                </div>
-                            @endforeach
+                    @if($spec)
+                        <div class="prd_properties_other" style="display:block">
+                            <label class="prdLeft">选择系列</label>
+                            <div class="prdRight_1">
+                                @foreach($content->specs as $v)
+                                    <div class="prdmod">
+                                        <a href="javascript:;" onclick="clicks(this)" class=""
+                                           title="{{$v['sort']}}"
+                                           data-alt="{{$v['sort']}}">{{$v['sort']}}<i></i></a>
+                                    </div>
+                                @endforeach
+                            </div>
                         </div>
-                    </div>
+                    @else
+
+                    @endif
                 </div>
             </div>
             <div class="prd_properties_1 hou_jia">
                 <label class="prd_price_left">货&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;源</label>
-                <span>库存仅剩5件</span>
+                <span id="cr_total">库存仅剩{{$content['total']}} 件</span>
             </div>
             <style type="text/css">
                 .hou_jia {
@@ -673,8 +669,8 @@
                     <a href="javascript:;" onclick="jia()" class="plus j-gACbtnA">+</a>
                     <a href="javascript:;" onclick="jian()" class="minus j-gACbtn">-</a>
                 </div>
-                <a href="#" class="btn-product btn-addcart">立即购买</a>
-                <a href="jiar_rouw_c.html" class="btn-product">加入购物车</a>
+                <a href="javascript:;" class="btn-product btn-addcart">立即购买</a>
+                <a href="javascript:;" onclick="addCart(this)" class="btn-product">加入购物车</a>
 
             </div>
             <!---->
@@ -1546,53 +1542,108 @@
 @endpush
 @push('js')
     <script src="{{asset('org/receptionist')}}/js/jquery-1.11.3.min.js"></script>
+
+    <script src="{{asset ('org/layer/layer.js')}}"></script>
+
     {{--    <script src="{{asset('org/receptionist/js/jquery1.42.min.js')}}"></script>--}}
     <script type="text/javascript" src="{{asset('org/receptionist')}}/js/jquery-1.11.1.min.js"></script>
     <script type="text/javascript" src="{{asset('org/receptionist')}}/js/jquery.SuperSlide.2.1.1.source.js"></script>
     <script type="text/javascript" src="{{asset('org/receptionist')}}/houl/jquery.fancybox-1.3.4.js"></script>
+
+    <script>
+
+        //加入购物车
+        function addCart(obj) {
+            if ($(obj).parents('.prd_buttons').siblings('.prd_properties').children('.prd-properties-2').children('.prd_properties_other').children('.prdRight').children('.prdcol').children('a').hasClass('select')) {
+                $.ajax({
+                    url:"{{route('home.cart.store')}}",
+                    type:'post',
+                    data:{
+                        id:"{{$content['id']}}",
+                        spec:$('.prdcol').find('.select').attr('spec'),
+                        num:$('.count-wrapper').find('input').val(),
+                        _token:'{{csrf_token()}}'
+                    },
+                    dataType:'json',
+                    success:function (response) {
+                        if(response.code ==0 ){
+                            location.href = "{{route('home.login')}}?from={{url()->full()}}"
+                        }else{
+                            layer.msg(response.msg)
+                        }
+                    },
+                    error:function (error) {
+                        console.log(error)
+                    }
+                })
+            } else {
+                // alert(2);
+                layer.msg('请先选择规格');
+                return;
+            }
+        }
+
+        //异步库存
+        function chooseSpec(id, obj) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            var params = {
+                id: id,
+                "_token": '{{csrf_token()}}'
+            }
+            //选中效果
+            $(obj).addClass('select').parents('.prdcol').siblings('.prdcol').find('a').removeClass('select');
+            layer.load();
+            //发送异步请求对应的库存
+            // $.post(请求地址,请求携带参数,成功回调,请求返回的数据类型)
+            $.post("{{route ('home.spec_to_get_total')}}", params, function (res) {
+                layer.closeAll('loading');
+                //console.log(res)
+                $('#cr_total').html(res.total);
+            }, 'json')
+            //alert(1);
+        }
+
+        //选中
+        function clicks(obj) {
+            $(obj).addClass('select').parents('.prdmod').siblings('.prdmod').find('a').removeClass('select')
+        }
+
+        //数量加
+        function jia() {
+            //alert(1);
+            var ppp = $('.quantity').val();
+            if (ppp >= 0) {
+                ppp++;
+                $('.quantity').val(ppp);
+            }
+            if (ppp > {{$content['total']}}) {
+                //alert('nidaye')
+                layer.msg('1');
+                $('.quantity').val({{$content['total']}});
+            }
+        }
+
+        //数量减
+        function jian() {
+            //alert(1);
+            var ppp = $('.quantity').val();
+            if (ppp <= 1) {
+                $('.quantity').val(1);
+            }
+            if (ppp > 1) {
+                //alert('nidaye')
+                ppp--;
+                $('.quantity').val(ppp);
+            }
+        }
+
+        //放大镜
+    </script>
 @endpush
-<script src="{{asset('org/layui/layui.js')}}"></script>
-<script src="{{asset('org/layui/lay/modules/layer.js')}}"></script>
-<script>
 
-    function chooseSpec(id) {
-        layer.load();
-        //发送异步请求对应的库存
-        {{--$.post("{{route ('home.spec_to_get_total')}}", {id: id}, function (res) {--}}
-            {{--layer.closeAll('loading');--}}
-            {{--//console.log(res)--}}
-            {{--$('#cr_total').html(res.total);--}}
-            {{--$('.nobdr').find('h6').removeClass('disabled')--}}
-        {{--}, 'json')--}}
-        //alert(1);
-    }
 
-    function jia() {
-        //alert(1);
-        var ppp = $('.quantity').val();
-        if (ppp >= 0) {
-            ppp++;
-            $('.quantity').val(ppp);
-        }
-        if (ppp > 9) {
-            //alert('nidaye')
-            $('.quantity').val(9);
-        }
-
-    }
-
-    function jian() {
-        //alert(1);
-        var ppp = $('.quantity').val();
-        if (ppp <= 1) {
-            $('.quantity').val(1);
-        }
-        if (ppp > 1) {
-            //alert('nidaye')
-            ppp--;
-            $('.quantity').val(ppp);
-        }
-
-    }
-</script>
 

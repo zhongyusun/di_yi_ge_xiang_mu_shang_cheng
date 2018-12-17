@@ -44,6 +44,7 @@
                     <ul aria-expanded="false" class="collapse">
                         <li><a href="{{route('admin.config.edit',['name'=>'site'])}}">站点配置</a></li>
                         <li><a href="{{route('admin.config.edit',['name'=>'upload'])}}">上传配置</a></li>
+                        <li><a href="{{route('admin.flash.index')}}">轮播图管理</a></li>
                     </ul>
                 </li>
                 <li class="nav-devider"></li>

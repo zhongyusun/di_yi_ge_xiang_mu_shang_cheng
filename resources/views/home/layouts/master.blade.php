@@ -87,7 +87,7 @@
                 <li><img src="{{auth()->user()->icon}}" height="35px" width="35px" border="0" alt=""></li>
                 <li><a href="{{route('home.loginout')}}">退出</a></li>
             @else
-                <li class="denglu">Hi~<a class="red" href="{{route('home.login')}}">请登录!</a> <a
+                <li class="denglu">Hi~<a class="red" href="{{route('home.login',['from'=>url()->full()])}}">请登录!</a> <a
                         href="{{route('home.register')}}">[免费注册]</a></li>
                 <li class="shu"></li>
             @endauth
@@ -97,7 +97,7 @@
 </div>
 <!--搜索栏-->
 <div class="toub_beij">
-    <div class="logo"><a href="./"><img
+    <div class="logo"><a href="{{route('home.home')}}"><img
                 src="{{hd_config('site.site_logo')?hd_config('site.site_logo'):"/icon/Pdz6UZbG96rWjf1rvkjgPeA8KYGlbpblctWaiOM7.png"}}"></a>
     </div>
     <div class="search">

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Good extends Model
 {
-    protected $fillable=['title','price','admin_id','category_id','list_pic','description','content','pics','total'];
+    protected $fillable=['title','price','admin_id','category_id','list_pic','promotion','description','content','pics','total'];
 
     protected $casts    = [
         'pics' => 'array'

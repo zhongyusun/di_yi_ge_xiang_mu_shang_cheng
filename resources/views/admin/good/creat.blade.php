@@ -51,6 +51,14 @@
                                 </div>
                             </div>
                             <div class="form-group row">
+                                <label class="control-label text-right col-md-2">商品促销价格</label>
+                                <div class="col-md-9">
+                                    <input type="number" name="promotion" value="{{old ('promotion')}}"
+                                           placeholder="请输入商品价格"
+                                           class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group row">
                                 <label class="control-label text-right col-md-2">所属分类</label>
                                 <div class="col-md-9">
                                     <select name="category_id" class="form-control custom-select"
@@ -105,6 +113,13 @@
                                         <label class="control-label text-right col-md-3">规格名称</label>
                                         <div class="col-md-9">
                                             <input type="text" v-model="v.spec" placeholder="14寸 64G 内存"
+                                                   class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="control-label text-right col-md-3">产品分类</label>
+                                        <div class="col-md-9">
+                                            <input type="text" v-model="v.sort" placeholder="白色"
                                                    class="form-control">
                                         </div>
                                     </div>
@@ -169,6 +184,7 @@
                     type: 'post'
                 }
             });
+            {{--alert({{hd_config('upload.upload_size')}} ?{{hd_config('upload.upload_size')}}: 500000000);--}}
             //拖拽上传
             upload.render({
                 elem: '#test10'
@@ -210,7 +226,7 @@
                 ,
                 size: {{hd_config('upload.upload_size')}} ?{{hd_config('upload.upload_size')}}: 500000000 //最大允许上传的文件大小，单位 KB。不支持ie8/9
                 ,
-                exts: '{{hd_config('upload.upload_type')}}'?'{{hd_config('upload.upload_type')}}':'jpg|png|jpeg'
+                exts: '{{hd_config('upload.upload_type')}}' ? '{{hd_config('upload.upload_type')}}' : 'jpg|png|jpeg'
                 // ,before: function(obj){
                 //     //预读本地文件示例，不支持ie8
                 //     obj.preview(function(index, file, result){
@@ -241,7 +257,7 @@
             },
             methods: {
                 add() {
-                    this.specs.push({spec: '', total: ''})
+                    this.specs.push({spec: '', total: '', sort : ''})
                 },
                 del(k) {
                     this.specs.splice(k, 1)

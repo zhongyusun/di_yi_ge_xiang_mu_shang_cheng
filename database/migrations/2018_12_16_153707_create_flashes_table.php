@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddSortToSoecsTable extends Migration
+class CreateFlashesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,11 @@ class AddSortToSoecsTable extends Migration
      */
     public function up()
     {
-        Schema::table('specs', function (Blueprint $table) {
-            $table->string('sort')->default('')->comment('商品类别');
+        Schema::create('flashes', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('title')->comment('轮播图标题');
+            $table->string('path')->comment('图片链接');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +28,6 @@ class AddSortToSoecsTable extends Migration
      */
     public function down()
     {
-        Schema::table('specs', function (Blueprint $table) {
-            $table->dropColumn ('sort');
-        });
+        Schema::dropIfExists('flashes');
     }
 }

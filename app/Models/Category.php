@@ -37,7 +37,7 @@ class Category extends Model
     //获取编辑时候所有分类栏目数据（不包括自己，和父集）
     public function getEditCategories($id)
     {
-       // dd($id);
+        // dd($id);
         //获取全部的栏目数据
         //$categories = self::all();
         //$categories = Category::all();
@@ -55,6 +55,7 @@ class Category extends Model
         return $this->getTreeData($qe->toArray());
     }
 
+    //获取子集分类
     public function getSon($data, $id)
     {
         static $pas = [];
@@ -65,5 +66,19 @@ class Category extends Model
             }
         }
         return $pas;
+    }
+
+    //获取父集分类
+    public function getFacher($data, $id)
+    {
+        static $temp = [];
+        foreach ($data as $v) {
+            if ($v['id'] == $id) {
+                $temp[] = $v;
+                $this->getFacher($data, $v['parent_id']);
+            }
+        }
+
+        return $temp;
     }
 }
