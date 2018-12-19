@@ -10,17 +10,10 @@ use App\Http\Controllers\Controller;
 
 class ListController extends CommonController
 {
-
     public function index($list, Category $category)
     {
         //获取所有的分类数据
         $categories = Category::all()->toArray();
-        //dd($categories);
-        //获取所有的父集分类和所有子集分类的数据
-        $categoryData = (new Arr())->channelLevel($categories, $parent_id = 0, $html = "&nbsp;", $fieldPri = 'id', $fieldPid = 'parent_id');
-        //dd($categoryData);
-        //获取所有的当前分类下的所有数据
-        $categoryData = $categoryData[$list];
         //dd($categories);
         //获取当前分类的所有的子级分类
         $sonIds = $category->getSon($categories, $list);
@@ -36,7 +29,37 @@ class ListController extends CommonController
         if (\request()->query('price') == 'desc') {
             $goods = $goods->orderBy('price', 'desc');
         }
-//        dd($goods);
-        return view('home.list.index', compact('goods', 'list', 'categoryData'));
+        //dd($sonIds);
+        if ($list > 7) {
+            $ppp = [];
+            foreach ($sonIds as $v) {
+                //dd($categories[$v]);
+                $ppp[] = $categories[$v];
+            }
+            $ppp = $category->getSon($ppp, $list);
+//            foreach ($ppp as $v){
+//                //dd($v);
+//                $ppp=$categories[$v];
+//
+//               // dd($ppp);
+//            }
+            //$sonIds=$categories[$sonIds['8']];
+            //dd($sonIds);
+        } else {
+            //获取所有的父集分类和所有子集分类的数据
+            $categoryData = (new Arr())->channelLevel($categories, $parent_id = 0, $html = "&nbsp;", $fieldPri = 'id', $fieldPid = 'parent_id');
+            //获取所有的当前分类下的所有数据
+            $categoryData = $categoryData[$list];
+            //dd($categoryData);
+        }
+
+        return view('home.list.index', compact('goods', 'list','ppp','categoryData','categories'));
+    }
+
+    public function contentlist($list){
+
+
+        return view('home.list.content');
+
     }
 }

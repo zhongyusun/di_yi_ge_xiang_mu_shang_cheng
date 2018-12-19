@@ -14,6 +14,7 @@ class CreateFlashesTable extends Migration
     public function up()
     {
         Schema::create('flashes', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('title')->comment('轮播图标题');
             $table->string('path')->comment('图片链接');

@@ -92,6 +92,7 @@
 </body>
 @include('layouts.message')
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<script src="{{asset('org/layer/layer.js')}}"></script>
 <script>
 
     $.ajaxSetup({
@@ -103,7 +104,7 @@
     function send(obj) {
         var tew = $('#username').val();
         if (tew==''){
-            alert('请输入邮箱')
+            layer.msg('请输入邮箱')
         }
         if ($(obj).is('layui-disabled')) {
             return false;

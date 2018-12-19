@@ -6,14 +6,20 @@ Route::get('/', 'Home\HomeController@index');
 Route::group(['prefix' => 'home', 'namespace' => 'Home', 'as' => 'home.'], function () {
     //首页
     Route::get('/', 'HomeController@index')->name('home');
-    //list
+    //二级菜单分类
     Route::get('/list/{list}','ListController@index')->name('list');
+    //商品具体分类
+    Route::get('/contentlist/{list}','ListController@contentlist')->name('content.list');
     //商品详情
     Route::get('/content/{content}','ContentController@index')->name('content');
     //根据规格请求对应的库存
     Route::post('/spec_to_get_total','ContentController@specGetTotal')->name('spec_to_get_total');
     //购物车
     Route::resource('cart','CartController');
+    //结算页
+    Route::resource('order','OrderController');
+    //收货地址
+    Route::resource('site','SiteController');
     //注册页
     Route::get('/register', 'UserController@register')->name('register');
     //用户注册数据
@@ -31,6 +37,8 @@ Route::group(['prefix' => 'home', 'namespace' => 'Home', 'as' => 'home.'], funct
     //重置密码
     Route::get('/restpassword/{token}','UserController@restpasswordview')->name('restpassword');
     Route::post('/restpassword/{token}','UserController@restpassword')->name('restpassword_token');
+    //个人中心
+    Route::get('/personal/{personal}','PersonalcenterController@index')->name('personal');
 });
 
 //后台需要验证的路由

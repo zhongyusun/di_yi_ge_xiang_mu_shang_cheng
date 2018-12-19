@@ -10,13 +10,20 @@ use App\Http\Controllers\Controller;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth', [
+            'except' => ['register', 'login', 'registerpost', 'loginPost'],
+        ]);
+    }
+
     //注册
     public function register()
     {
         return view('home.register.regist');
     }
 
-
+    //注册数据
     public function registerpost(RegisterRequest $request)
     {
         // dd($request->all());
@@ -34,7 +41,7 @@ class UserController extends Controller
     //加载登录页面
     public function login(Request $request)
     {
-        //dd($request->all());
+        //dd($request->from);
         return view('home.login.login');
     }
 
@@ -57,8 +64,10 @@ class UserController extends Controller
         $credentials = $request->only('email', 'password');
         if (\Auth::attempt($credentials, $request->remember)) {
             //登录成功，跳转到首页
+
             if ($request->from) {
-                return redirect($request->from)->with('success', '登录成功');
+
+                return redirect($request->query('from'))->with('success', '登录成功');
             }
             return redirect()->route('home.home')->with('success', '登录成功');
         }

@@ -16,27 +16,47 @@
                     <li><a href="#">周边游 </a></li>
                 </ul>
             </div>
-            <div class="bend_shengh_haoh">
-                <?php $i = 0; ?>
-                @foreach($categoryData['_data'] as $v)
-                    <?php $i++;?>
-                    @if($i<8)
-                        <div class="bengd_daoh">
-                            <div class="bengd_daoh_ann">
-                                <h3><a href="{{route('home.list',['list'=>$v['id']])}}">{{$v['title']}}</a></h3>
-                                <i>></i>
-                            </div>
-                            <div class="bengd_daoh_lieb">
-                                <div class="detail_content">
-                                    @foreach($v['_data'] as $vv)
-                                        <a href="{{route('home.list',['list'=>$v['id']])}}">{{$vv['title']}}</a>
-                                    @endforeach
+            @if($list>7)
+                <div class="bend_shengh_haoh">
+                    <?php $i = 0; ?>
+                    @foreach($ppp as $v)
+                        <?php $i++;?>
+                        @if($i<8)
+                            <div class="bengd_daoh">
+                                <div class="bengd_daoh_ann">
+                                    <h3>
+                                        <a href="{{route('home.content.list',['list'=>$categories[$v]['id']])}}">{{$categories[$v]['title']}}</a>
+                                    </h3>
+                                    <i>></i>
                                 </div>
                             </div>
-                        </div>
-                    @endif
-                @endforeach
-            </div>
+                        @endif
+                    @endforeach
+                </div>
+            @else
+                <div class="bend_shengh_haoh">
+                    <?php $i = 0; ?>
+                    @foreach($categoryData['_data'] as $v)
+                        <?php $i++;?>
+                        @if($i<8)
+                            <div class="bengd_daoh">
+                                <div class="bengd_daoh_ann">
+                                    <h3><a href="{{route('home.list',['list'=>$v['id']])}}">{{$v['title']}}</a></h3>
+                                    <i>></i>
+                                </div>
+                                <div class="bengd_daoh_lieb">
+                                    <div class="detail_content">
+                                        @foreach($v['_data'] as $vv)
+                                            <a href="{{route('home.content.list',['list'=>$vv['id']])}}">{{$vv['title']}}</a>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+                    @endforeach
+                </div>
+            @endif
+
         </div>
     </div>
     <div class="beij_center bengd_hov">
@@ -88,7 +108,7 @@
     <div class="beij_center">
         <div class="meis_kuang">
             <div class="meis_biaot">
-                <h2>{{$categoryData['title']}}</h2>
+                {{--<h2>{{$categoryData['title']}}</h2>--}}
             </div>
             <div class="meis_neir_lieb">
                 <ul>

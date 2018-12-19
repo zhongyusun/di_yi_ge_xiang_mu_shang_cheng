@@ -44,7 +44,7 @@
                 {{--</div>--}}
                 {{--</div>--}}
             </div>
-            <form method="post" action="{{route('home.loginpost')}}">
+            <form method="post" action="{{route('home.loginpost',['from'=>Request::query('from')])}}">
                 @csrf
                 <div class="kengl_kuang">
                     <div class="txt_kuang">

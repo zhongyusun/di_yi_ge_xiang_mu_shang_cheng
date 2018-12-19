@@ -8,18 +8,35 @@ use App\Models\Spec;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class CartController extends Controller
+class CartController extends CommonController
 {
     public function __construct()
     {
         $this->middleware('auth', [
             'except' => [],
         ]);
+        //因为如要执行父级构造方法,运行父级构造方法,不然当前构造方法会覆盖父级构造方法
+        parent::__construct();
     }
 
+    /**
+     * 购物车管理控制器类
+     * Class CartController
+     *
+     * @package App\Http\Controllers\Home
+     */
     public function index()
     {
-        //
+        //获取当前登录的用户的购物车中的全部商品
+        $carts = Cart::all()->where('user_id', auth()->id())->toArray();
+        foreach ($carts as $k => $cart) {
+            $carts[$k]['checked'] = false;
+        }
+        //dd($carts);
+        $carts = json_encode($carts);
+        //dd($carts);
+
+        return view('home.cart.index', compact('carts'));
     }
 
 
@@ -64,12 +81,7 @@ class CartController extends Controller
         return ['code' => 1, 'msg' => '添加成功'];
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Cart $cart
-     * @return \Illuminate\Http\Response
-     */
+
     public
     function show(Cart $cart)
     {
@@ -98,7 +110,23 @@ class CartController extends Controller
     public
     function update(Request $request, Cart $cart)
     {
-        //
+        $specs = Good::all()->find($cart->good_id)->specs->where('id', $cart->spec_id)->toArray();
+        $specs = current($specs);//去除最外层数组
+        //dd($specs['total']);
+//        foreach ($specs as $spec){
+//            dd($spec);
+//        }
+        //dd($request->num);
+        if ($request->num <=     $specs['total']) {
+            $cart->num = $request->num;
+            $cart->save();
+            return ['code'=>1,'msg'=>''];
+        } else {
+            return ['code'=>0,'msg' => '库存不足'];
+        }
+
+        //$cart->update(['num'=>$request->num]);
+        //return ['code' => 1, 'msg' => '更新成功'];
     }
 
     /**
@@ -110,6 +138,7 @@ class CartController extends Controller
     public
     function destroy(Cart $cart)
     {
-        //
+        $cart->delete();
+        return ['code' => 0, 'msg' => '删除成功'];
     }
 }

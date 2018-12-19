@@ -11,7 +11,7 @@
     <script type="text/javascript" src="{{asset('org/receptionist')}}/js/jquery1.42.min.js"></script>
     <script type="text/javascript" src="{{asset('org/receptionist')}}/js/jquery-1.11.1.min.js"></script>
     <script type="text/javascript" src="{{asset('org/receptionist')}}/js/jquery.SuperSlide.2.1.1.source.js"></script>
-    @stack('js')
+
 </head>
 <body>
 <!--侧边-->
@@ -78,7 +78,8 @@
         <ul class="header-right">
             @auth()
                 <li>
-                    <a href="#" class="avatar avatar-sm avatar-online dropdown-toggle" role="button"
+                    <a href="{{route('home.personal',['id'=>auth()->id()])}}"
+                       class="avatar avatar-sm avatar-online dropdown-toggle" role="button"
                        data-toggle="dropdown"
                        aria-haspopup="true" aria-expanded="false">
                         {{auth()->user()->name}}
@@ -113,12 +114,24 @@
         </div>
         <a href="gouw_che.html">我的购物车</a>
         <div class="dorpdown-layer">
-            <ul>
-                <li class="meiyou">
-                    <img src="{{asset('org/receptionist')}}/images/settleup-nogoods.png">
-                    <span>购物车中还没有商品，赶紧选购吧！</span>
-                </li>
-            </ul>
+            @if(auth()->check())
+                <ul>
+                    <li class="meiyou">
+                        <img src="{{asset('org/receptionist')}}/images/settleup-nogoods.png">
+                        <span>购物车中还没有商品，赶紧选购吧！</span>
+                    </li>
+                </ul>
+            @else
+                <ul>
+                    <li class="meiyou">
+                        <div>
+                            <div>
+                                你大爷永远是你大爷
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            @endif
         </div>
     </div>
     <div class="hotwords">
@@ -164,5 +177,6 @@
         </div>
     </div>
 </div>
+@stack('js')
 </body>
 </html>

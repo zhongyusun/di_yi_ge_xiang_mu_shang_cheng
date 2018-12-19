@@ -14,6 +14,7 @@ class CreateCartsTable extends Migration
     public function up()
     {
         Schema::create('carts', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('list_pic')->comment('商品列表图');
             $table->string('title')->comment('商品名称');

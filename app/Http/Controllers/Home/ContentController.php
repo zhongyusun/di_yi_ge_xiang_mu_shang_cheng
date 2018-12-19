@@ -12,9 +12,8 @@ class ContentController extends CommonController
 {
     public function index(Good $content, Category $category)
     {
-        //dd($content->specs);
-        foreach ($content->specs as $spec){
-            $spec=$spec['sort'];
+        foreach ($content->specs as $spec) {
+            $spec = $spec['sort'];
         }
         //dd($spec);
         //获取所有的分类
@@ -25,8 +24,8 @@ class ContentController extends CommonController
         $fatherData = $category->getFacher($categories, $list);
         //dd($fatherData);
         //数组反转
-        $fatherData = array_reverse ($fatherData);
-        return view('home.content.index', compact('content','fatherData','spec'));
+        $fatherData = array_reverse($fatherData);
+        return view('home.content.index', compact('content', 'fatherData', 'spec'));
     }
 
     //获取库存
