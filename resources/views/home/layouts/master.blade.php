@@ -20,8 +20,17 @@
         <div class="jdm-toolbar-panels J-panel"></div>
         <div class="jdm-toolbar-tabs J-tab">
             <div data-type="bar" class="J-trigger jdm-toolbar-tab jdm-tbar-tab-ger">
-                <i class="tab-ico"></i>
-                <em class="tab-text">购物车</em>
+                @if(auth()->check())
+                    <a href="{{route('home.personal',auth()->id())}}"><i class="tab-ico"></i></a>
+                @else
+                    <a href="{{route('home.login')}}"><i class="tab-ico"></i></a>
+                @endif
+                <em class="tab-text">@if(auth()->check())
+                        {{auth()->user()->name}}
+                    @else
+                        个人中心
+                    @endif
+                </em>
             </div>
             <div data-type="bar" class="J-trigger jdm-toolbar-tab jdm-tbar-tab-cart">
                 <i class="tab-ico"></i>
@@ -109,26 +118,41 @@
         <i class="gw-left"></i>
         <i class="gw-right"></i>
         <div class="sc">
-            <i class="gw-count">0</i>
+            <i class="gw-count">{{count($carts)}}</i>
             <i class="sd"></i>
         </div>
-        <a href="gouw_che.html">我的购物车</a>
+        <a href="{{route('home.cart.index')}}">我的购物车</a>
         <div class="dorpdown-layer">
             @if(auth()->check())
-                <ul>
-                    <li class="meiyou">
-                        <img src="{{asset('org/receptionist')}}/images/settleup-nogoods.png">
-                        <span>购物车中还没有商品，赶紧选购吧！</span>
-                    </li>
-                </ul>
+                @if(\App\Models\Cart::all()->toArray()==null)
+                    <ul>
+                        <li class="meiyou">
+                            <img src="{{asset('org/receptionist')}}/images/settleup-nogoods.png">
+                            <span>购物车中还没有商品，赶紧选购吧！</span>
+                        </li>
+                    </ul>
+                @else
+                    <ul>
+                        @foreach($carts as $cart)
+                            <li class="meiyou">
+                                <div class="gouwc_tup">
+                                    <a href="{{route('home.cart.index')}}"><img src="{{$cart['list_pic']}}"></a>
+                                </div>
+                                <div class="gouwc_biaot">
+                                    <a href="{{route('home.cart.index')}}">{{$cart['title']}} <br> {{$cart['num']}} </a>
+                                </div>
+                                <div class="gouwc_shanc">
+                                    <span>￥ {{$cart['price']}}</span>
+                                    <a href="{{route('home.cart.destroy',$cart['id'])}}">删除</a>
+                                </div>
+                            </li>
+                        @endforeach
+                    </ul>
+                @endif
             @else
-                <ul>
-                    <li class="meiyou">
-                        <div>
-                            <div>
-                                你大爷永远是你大爷
-                            </div>
-                        </div>
+                <ul class="meiyou">
+                    <li>
+                        请登录后查看
                     </li>
                 </ul>
             @endif
@@ -145,8 +169,6 @@
         <a href="#">威士忌</a>
     </div>
 </div>
-
-
 @yield('content')
 @include('layouts.message')
 <!--底部-->

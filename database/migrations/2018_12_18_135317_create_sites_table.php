@@ -22,6 +22,7 @@ class CreateSitesTable extends Migration
             $table->string('site')->comment('详细地址');
             $table->unsignedInteger('user_id')->index()->comment('用户id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedInteger('moren')->default(0)->comment('设置默认');
             $table->timestamps();
         });
     }

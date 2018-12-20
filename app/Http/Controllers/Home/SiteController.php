@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Home;
 
+use App\Models\Cart;
 use App\Models\Site;
+use Illuminate\Foundation\Testing\Constraints\SeeInOrder;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -26,7 +28,10 @@ class SiteController extends Controller
         //从数据库中读取数据
         $datas = Site::all()->where('user_id', auth()->id())->toArray();
         //dd($datas);
-        return view('home.site.index', compact('datas'));
+        //获取所有的购物车数据
+        $carts = Cart::all()->where('user_id', auth()->id())->toArray();
+        //dd($carts);
+        return view('home.site.index', compact('datas', 'carts'));
     }
 
     /**
@@ -74,7 +79,7 @@ class SiteController extends Controller
      */
     public function edit(Site $site)
     {
-        //
+        return view('home.site.edit', compact('site'));
     }
 
     /**
@@ -86,7 +91,17 @@ class SiteController extends Controller
      */
     public function update(Request $request, Site $site)
     {
-        //
+        //dd(1);
+        //dd($site->moren);
+        if (!$site->moren) {
+            //dd(1);
+            Site::where('user_id', auth()->id())->where('id', $site['id'])->update(['moren' => 1]);
+            Site::where('user_id', auth()->id())->where('id', '!=', $site['id'])->update(['moren' => 0]);
+            return ['code' => 99];
+        }
+        //dd(2);
+        $site->update($request->all());
+        return redirect()->route('home.site.index')->with('success', '编辑成功');
     }
 
     /**
@@ -99,6 +114,6 @@ class SiteController extends Controller
     {
         //dd(1);
         $site->delete();
-        return back()->with('success','删除成功');
+        return back()->with('success', '删除成功');
     }
 }

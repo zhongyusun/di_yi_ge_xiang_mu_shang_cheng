@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Home;
 
+use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Good;
 use Houdunwang\Arr\Arr;
@@ -52,8 +53,10 @@ class ListController extends CommonController
             $categoryData = $categoryData[$list];
             //dd($categoryData);
         }
-
-        return view('home.list.index', compact('goods', 'list','ppp','categoryData','categories'));
+        //获取所有的购物车数据
+        $carts = Cart::all()->where('user_id', auth()->id())->toArray();
+        //dd($carts);
+        return view('home.list.index', compact('goods', 'list','ppp','categoryData','categories','carts'));
     }
 
     public function contentlist($list){

@@ -21,7 +21,7 @@ class CreateCartsTable extends Migration
             $table->string('spec')->default('')->comment('商品规格');
             $table->string('sort')->default('')->comment('商品分类');
             $table->decimal('price',10,2)->comment('商品价格');
-            $table->unsignedInteger('num')->default(0)->comment('购物车数量');
+            $table->unsignedInteger('num')->default(0)->comment('商品数量');
             $table->unsignedInteger('user_id')->index()->comment('用户id');
             $table->unsignedInteger('good_id')->index()->default(0)->comment('商品 id');
             $table->unsignedInteger('spec_id')->index()->default(0)->comment('规格 id');

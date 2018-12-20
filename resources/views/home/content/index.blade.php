@@ -1046,10 +1046,11 @@
                     },
                     dataType:'json',
                     success:function (response) {
+                        // console.log(response)
                         if(response.code ==0 ){
                             location.href = "{{route('home.login')}}?from={{url()->full()}}"
                         }else{
-                            location.href = "{{route('home.cart.index')}}"
+                            location.href ="{{route('home.cart.store')}}"
                         }
                     },
                     error:function (error) {

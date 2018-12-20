@@ -284,9 +284,9 @@ _display: block;
 	color: #999
 }
 .toub_beij .right a{
-	font-size: 18px;
+	/*font-size: 18px;*/
 	color: #5d6265;
-	line-height: 45px;
+	/*line-height: 45px;*/
 }
 .toub_beij .right .sc{
 	position: absolute;

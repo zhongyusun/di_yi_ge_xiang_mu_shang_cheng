@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Home;
 
+use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Good;
 use App\Models\Spec;
@@ -25,7 +26,10 @@ class ContentController extends CommonController
         //dd($fatherData);
         //数组反转
         $fatherData = array_reverse($fatherData);
-        return view('home.content.index', compact('content', 'fatherData', 'spec'));
+        //获取所有的购物车数据
+        $carts = Cart::all()->where('user_id', auth()->id())->toArray();
+        //dd($carts);
+        return view('home.content.index', compact('content', 'fatherData', 'spec','carts'));
     }
 
     //获取库存

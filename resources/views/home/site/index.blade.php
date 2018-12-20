@@ -30,8 +30,12 @@
                                         <p>{{$data['phone']}}</p>
                                     </div>
                                     <div class="bianj_yv_shanc">
-                                        <a href="#" class="mor_color">当前默认地址</a>
-                                        <a href="#" data-reveal-id="myModal_1">编辑</a>
+                                        @if($data['moren']==0)
+                                            <a href="javascript:;" onclick="moren({{$data['id']}})" class="mor_color">点击设为默认</a>
+                                        @else
+                                            <a href="#" class="mor_color" style="color: red;">当前默认地址</a>
+                                        @endif
+                                        <a href="{{route('home.site.edit',$data['id'])}}">编辑</a>
                                         <a href="javascript:;" onclick="del(this)">删除</a>
                                         <form action="{{route('home.site.destroy',$data['id'])}}" method="post">
                                             @csrf @method('DELETE')
@@ -67,7 +71,7 @@
                                 <div class="form-group">
                                     <div style="position: relative;">
                                         <input id="city-picker3" class="form-control" readonly type="text" name="city"
-                                               value="北京市/北京市/朝阳区" data-toggle="city-picker">
+                                               value="" data-toggle="city-picker">
                                     </div>
                                 </div>
                             </div>
@@ -91,58 +95,6 @@
         </div>
         <a class="close-reveal-modal">&#215;</a>
     </div>
-
-    <div id="myModal_1" class="reveal-modal">
-        <div class="xint_biaot">
-            <h3>新添收货地址</h3>
-        </div>
-        <div class="shouj_diz_b">
-            <div class="biaod_1">
-                <p><em>*</em>联系人：</p>
-                <input type="text" class="text">
-            </div>
-            <div class="biaod_1">
-                <p><em>*</em>收货地址：</p>
-                <div class="xinz_diz_cs">
-                    <div class="docs-methods">
-                        <form class="form-inline">
-                            <div id="distpicker">
-                                <div class="form-group">
-                                    <div style="position: relative;">
-                                        <input id="city-picker3" class="form-control" readonly type="text"
-                                               value="北京市/北京市/朝阳区" data-toggle="city-picker">
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div class="biaod_1">
-                <p><em>*</em>详细地址：</p>
-                <input type="text" class="text text1" )">
-            </div>
-            <div class="biaod_1 biaod_2">
-                <div class="liangp_e">
-                    <p><em>*</em>手机号码：</p>
-                    <input type="text" class="text" )">
-                </div>
-                <span class="huo_z">或</span>
-                <div class="liangp_e">
-                    <p>固定电话：</p>
-                    <input type="text" class="text" )">
-                </div>
-            </div>
-            <div class="biaod_1">
-                <p>邮箱：</p>
-                <input type="text" class="text text1" )">
-            </div>
-            <div class="biaod_1">
-                <a href="#" class="diz_baoc">保存</a>
-            </div>
-        </div>
-        <a class="close-reveal-modal">&#215;</a>
-    </div>
     @push('js')
         <script type="text/javascript" src="{{asset('org/receptionist')}}/js/jquery-1.4.4.min.js"></script>
         <script type="text/javascript" src="{{asset('org/receptionist')}}/js/jquery.reveal.js"></script>
@@ -151,12 +103,21 @@
         <script type="text/javascript" src="{{asset('org/receptionist')}}/js/chengs/city-picker.data.js"></script>
         <script type="text/javascript" src="{{asset('org/receptionist')}}/js/chengs/city-picker.js"></script>
         <script type="text/javascript" src="{{asset('org/receptionist')}}/js/chengs/main.js"></script>
+        <script src="https://cdn.bootcss.com/axios/0.19.0-beta.1/axios.min.js"></script>
         <script>
             function del(obj) {
-
                 $(obj).next('form').submit();
-
             }
+
+            function moren(id) {
+                //console.log(id)
+                axios.put("/home/site/" + id, {'id': id}).then((res) => {
+                    if (res.data.code == 99) {
+                        window.location.reload();
+                    }
+                })
+            }
+
         </script>
     @endpush
 @endsection

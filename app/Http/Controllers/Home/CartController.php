@@ -29,14 +29,14 @@ class CartController extends CommonController
     {
         //获取当前登录的用户的购物车中的全部商品
         $carts = Cart::all()->where('user_id', auth()->id())->toArray();
+        //dd($carts);
         foreach ($carts as $k => $cart) {
             $carts[$k]['checked'] = false;
         }
-        //dd($carts);
-        $carts = json_encode($carts);
-        //dd($carts);
 
-        return view('home.cart.index', compact('carts'));
+        $datas= json_encode($carts);
+        //dd($carts);
+        return view('home.cart.index', compact('carts', 'datas'));
     }
 
 
@@ -49,7 +49,7 @@ class CartController extends CommonController
     public function store(Request $request, Cart $cart)
     {
         //dd(1);
-        //dd($request->all());
+        // dd($request->all());
         //dd($request->id);
         //根据商品 id 获取商品数据
         $good = Good::find($request->id);
@@ -61,7 +61,9 @@ class CartController extends CommonController
         //dd(Cart::all());
         $newCart = Cart::where('user_id', auth()->id())->where('good_id', $request->id)->where('spec_id', $request->spec)->first();
         //dd($newCart);
+        //dd($spec->sort);
         if (!$newCart) {
+            //dd($good->list_pic);
             //执行购物车添加
             $cart->list_pic = $good->list_pic;
             $cart->good_id = $request->id;
@@ -73,40 +75,33 @@ class CartController extends CommonController
             $cart->user_id = auth()->id();
             $cart->spec_id = $request->spec;
             $cart->save();
+            //dd(1);
         } else {
             //dd(22);
             $newCart->num = (int)$newCart['num'] + (int)$request->num;
             $newCart->save();
+            $cart=$newCart;
         }
-        return ['code' => 1, 'msg' => '添加成功'];
+        return ['code' => 1, 'msg' => '添加成功', 'data' => $cart];
     }
 
 
-    public
-    function show(Cart $cart)
+    public function show(Cart $cart)
     {
-        //
+//        获取当前登录的用户的购物车中的全部商品
+//        $carts = Cart::all()->where('user_id', auth()->id())->toArray();
+        //dd($carts);
+//        return view('home.cart.cart', compact('cart','carts'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Cart $cart
-     * @return \Illuminate\Http\Response
-     */
+
     public
     function edit(Cart $cart)
     {
-        //
+
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \App\Models\Cart $cart
-     * @return \Illuminate\Http\Response
-     */
+
     public
     function update(Request $request, Cart $cart)
     {
@@ -117,12 +112,12 @@ class CartController extends CommonController
 //            dd($spec);
 //        }
         //dd($request->num);
-        if ($request->num <=     $specs['total']) {
+        if ($request->num <= $specs['total']) {
             $cart->num = $request->num;
             $cart->save();
-            return ['code'=>1,'msg'=>''];
+            return ['code' => 1, 'msg' => ''];
         } else {
-            return ['code'=>0,'msg' => '库存不足'];
+            return ['code' => 0, 'msg' => '库存不足'];
         }
 
         //$cart->update(['num'=>$request->num]);

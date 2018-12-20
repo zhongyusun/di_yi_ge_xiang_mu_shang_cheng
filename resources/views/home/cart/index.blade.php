@@ -10,29 +10,47 @@
         </div>
     </div>
     <div id="cart">
-        <div class="beij_center">
-            <div class="cart-main-header clearfix">
-                <div class="cart-col-1">
-                    <input type="checkbox" v-model="allCheckStatus" @click="allChecked" class="jdcheckbox">
+
+        @if(count($carts)==0)
+            <div class="beij_center">
+                <div class="cart-main-header clearfix">
+                    <div class="cart-col-1">
+                        <input type="checkbox" v-model="allCheckStatus" @click="allChecked" class="jdcheckbox">
+                    </div>
+                    <div class="cart-col-2">全选</div><!-- $page.site 主站 团购 抢购   style -->
+                    <div class="cart-col-3">商品信息</div>
+                    <div class="cart-col-4">
+                        <div class="cart-good-real-price">单价</div>
+                    </div>
+                    <div class="cart-col-5">数量</div>
+                    <div class="cart-col-6">
+                        <div class="cart-good-amount">小计</div>
+                    </div>
+                    <div class="cart-col-7">操作</div>
                 </div>
-                <div class="cart-col-2">全选</div><!-- $page.site 主站 团购 抢购   style -->
-                <div class="cart-col-3">商品信息</div>
-                <div class="cart-col-4">
-                    <div class="cart-good-real-price">单价</div>
-                </div>
-                <div class="cart-col-5">数量</div>
-                <div class="cart-col-6">
-                    <div class="cart-good-amount">小计</div>
-                </div>
-                <div class="cart-col-7">操作</div>
             </div>
-        </div>
-        @if($carts==[])
             <div class="container">
                 <p style="color: #adadad ;font-size: 60px;text-align: center;height: 100px;margin-top: 30px">
                     购物车中空空如也</p>
             </div>
         @else
+            <div class="beij_center">
+                <div class="cart-main-header clearfix">
+                    <div class="cart-col-1">
+                        <input type="checkbox" v-model="allCheckStatus" @click="allChecked" class="jdcheckbox">
+                    </div>
+                    <div class="cart-col-2">全选</div><!-- $page.site 主站 团购 抢购   style -->
+                    <div class="cart-col-3">商品信息</div>
+                    <div class="cart-col-4">
+                        <div class="cart-good-real-price">单价</div>
+                    </div>
+                    <div class="cart-col-5">数量</div>
+                    <div class="cart-col-6">
+                        <div class="cart-good-amount">小计</div>
+                    </div>
+                    <div class="cart-col-7">操作</div>
+                </div>
+            </div>
             <div v-for="(v,k) in carts">
                 <div class="container">
                     {{--<div class="cart-shop-header">--}}
@@ -47,6 +65,7 @@
                                 <input type="checkbox" @click="select(v)" v-model="v.checked" v-bind:value="true"
                                        class="jdcheckbox">
                             </div>
+                            {{--@{{hasChecked}}--}}
                             {{--图片--}}
                             <div class="cart-col-2" style="height: 82px;">
                                 <a href="" target="_blank" class="g-img">
@@ -101,16 +120,18 @@
             </div>
             <div class="jies_beij" style="width: 1200px;margin: 0 auto;">
                 <div class="beij_center over_dis">
-                    <div class="qianm_shanc_yvf" style="margin-left: 10px"><a href="">继续购物</a></div>
+                    <div class="qianm_shanc_yvf" style="margin-left: 10px"><a href="{{route('home.home')}}">继续购物</a>
+                    </div>
                     <div class="jies_ann_bei">
 
                         <p>共计 <em>@{{ carts.length }}</em> 件商品 总计（不含运费）：<span>￥ @{{ totalPrice }} </span></p>
-                        <a href="tij_dingd.html" class="order_btn">去结算</a>
+                        <a href="javascript:;" @click="goSettlement" class="order_btn">去结算</a>
                     </div>
                 </div>
             </div>
         @endif
     </div>
+
     {{--轮播图--}}
     <div class="beij_center">
         <div class="investment_f">
@@ -320,21 +341,36 @@
         new Vue({
             el: '#cart',
             data: {
-                carts:{!! $carts !!},
+                carts:{!! $datas !!},
                 allCheckStatus: false,
                 hasChecked: []//记录谁现在是选中状态
             },
             methods: {
+                //去结算
+                goSettlement() {
+                    //alert(1);
+                    //判断用户是否勾选商品
+                    if (this.totalPrice == 0) {
+                        layer.msg('请选择要结算的商品')
+                        return
+                    } else {
+                        //跳转到结算页
+                        location.href = "{{route('home.order.index')}}?iqs=" + this.hasChecked;
+                    }
+                },
                 //全选单机事件
                 allChecked() {
                     //首先让自己状态 true/false 进行切换
                     this.allCheckStatus = !this.allCheckStatus
                     //根据全选状态变化让单选跟着变化
+                    this.hasChecked = [];
                     this.carts.forEach((v, k) => {
                         if (this.allCheckStatus) {
                             v.checked = true;
+                            this.hasChecked.push(v.id)
                         } else {
                             v.checked = false;
+                            this.hasChecked = [];
                         }
                     });
                 },
