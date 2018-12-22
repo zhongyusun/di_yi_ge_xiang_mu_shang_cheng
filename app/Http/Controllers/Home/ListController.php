@@ -56,13 +56,15 @@ class ListController extends CommonController
         //获取所有的购物车数据
         $carts = Cart::all()->where('user_id', auth()->id())->toArray();
         //dd($carts);
-        return view('home.list.index', compact('goods', 'list','ppp','categoryData','categories','carts'));
+        return view('home.list.index', compact('goods', 'list', 'ppp', 'categoryData', 'categories', 'carts'));
     }
 
-    public function contentlist($list){
+    public function contentlist($list)
+    {
 
-
-        return view('home.list.content');
+        //获取所有的购物车数据
+        $carts = Cart::all()->where('user_id', auth()->id())->toArray();
+        return view('home.list.content',compact('carts'));
 
     }
 }

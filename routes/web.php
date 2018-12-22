@@ -16,10 +16,16 @@ Route::group(['prefix' => 'home', 'namespace' => 'Home', 'as' => 'home.'], funct
     Route::post('/spec_to_get_total', 'ContentController@specGetTotal')->name('spec_to_get_total');
     //购物车
     Route::resource('cart', 'CartController');
+    //搜索
+    Route::get('search','HomeController@search')->name('search');
     //结算页
     Route::resource('order', 'OrderController');
     //支付页
     Route::get('index', 'PayController@index')->name('index');
+    //微信支付回调
+    Route::any('notify','PayController@notify')->name('notify');
+    //检测是否已经支付订单
+    Route::post('checkOrderStatus','PayController@checkOrderStatus')->name('checkOrderStatus');
     //收货地址
     Route::resource('site', 'SiteController');
     //注册页
@@ -28,6 +34,8 @@ Route::group(['prefix' => 'home', 'namespace' => 'Home', 'as' => 'home.'], funct
     Route::post('/registerpost', 'UserController@registerpost')->name('registerpost');
     //登录页
     Route::get('/login', 'UserController@login')->name('login');
+    //扣扣回掉登录
+    Route::get('qqback','HomeController@qqback')->name('qqback');
     //登录数据
     Route::post('/loginpost', 'UserController@loginPost')->name('loginpost');
     //注销登录
@@ -57,6 +65,8 @@ Route::group(['middleware' => ['admin.auth'], 'prefix' => 'admin', 'namespace' =
     Route::resource('config', 'ConfigController');
     //轮播图
     Route::resource('flash', 'FlashController');
+    //订单管理
+    Route::resource('order','OrderController');
 });
 //后台不需要验证的路由
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], function () {

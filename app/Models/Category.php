@@ -4,9 +4,12 @@ namespace App\Models;
 
 use Houdunwang\Arr\Arr;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 
 class Category extends Model
 {
+    use Searchable;
+
     /**
      * 重点：在分类操作时，主要看站立的角度问题，角度不同使用的方法就不同 。都是相对而言的
      * 自关联：找子类 或者 父类的方法注意事项：

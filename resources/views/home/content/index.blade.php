@@ -1025,7 +1025,6 @@
 
     <script src="{{asset ('org/layer/layer.js')}}"></script>
 
-    {{--    <script src="{{asset('org/receptionist/js/jquery1.42.min.js')}}"></script>--}}
     <script type="text/javascript" src="{{asset('org/receptionist')}}/js/jquery-1.11.1.min.js"></script>
     <script type="text/javascript" src="{{asset('org/receptionist')}}/js/jquery.SuperSlide.2.1.1.source.js"></script>
     <script type="text/javascript" src="{{asset('org/receptionist')}}/houl/jquery.fancybox-1.3.4.js"></script>

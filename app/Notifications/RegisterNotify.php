@@ -46,7 +46,9 @@ class RegisterNotify extends Notification
 //            ->action('Notification Action', url('/'))
 //            ->line('Thank you for using our application!');
         return ( new MailMessage )
-            ->subject( '桀骜商城邮箱验证' )//邮件主题
+            ->subject(hd_config('email.MAIL_FROM_NAME')?:'桀骜商城')
+            ->greeting('欢迎注册')
+            ->subject( hd_config('email.MAIL_FROM_NAME')?:'桀骜商城'.'邮箱验证' )//邮件主题
             ->line( '您的验证码为：' . $this->code );
     }
 

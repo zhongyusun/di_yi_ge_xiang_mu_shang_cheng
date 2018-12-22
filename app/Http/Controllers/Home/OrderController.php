@@ -6,6 +6,7 @@ use App\Models\Cart;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Site;
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -21,7 +22,6 @@ class OrderController extends Controller
 
     /**
      * 订单支付
-     * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
@@ -48,14 +48,17 @@ class OrderController extends Controller
         return view('home.order.index', compact('carts', 'datas', 'sites', 'totalprice', 'defaultAddress'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        //dd(1);
+        //购物车的数据
+        $carts = Cart::all()->where('user_id', auth()->id())->toArray();
+        //订单数据
+        $orders=Order::all()->where('user_id',auth()->id());
+        //找到当前用户的订单的收货人
+        $user=User::all()->where('id',auth()->id())->toArray();
+        $user=current($user);
+        return view('home.order.wddd',compact('carts','orders','user'));
     }
 
     /**
@@ -108,48 +111,41 @@ class OrderController extends Controller
         return ['code'=>1,'msg'=>'提交成功','number'=>$order->number];
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Order $order
-     * @return \Illuminate\Http\Response
-     */
     public function show(Order $order)
     {
-        //
+        //获取当前用户的所有的购物车数据
+        $carts = Cart::all()->where('user_id', auth()->id())->toArray();
+        //获取该订单的用户信息
+        $user=User::all()->where('id',$order->user_id)->toArray();
+        $user=current($user);
+        //获取订单详情信息
+        $datas=$order->orderDetail->toArray();
+        $datas=current($datas);
+        //获取详细地址
+        $sites=Site::all()->where('id',$order->site_id)->toArray();
+        $sites=current($sites);
+        //dd($order);
+//        dd($datas['spec_id']);
+        //dd($user);
+        return view('home.order.content',compact('carts','order','user','datas','sites'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Order $order
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit(Order $order)
     {
-        //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \App\Models\Order $order
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, Order $order)
     {
-        //
+
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Order $order
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy(Order $order)
     {
-        //
+        //dd(1);
+        $order->delete();
+        return ['code'=>1];
     }
 }

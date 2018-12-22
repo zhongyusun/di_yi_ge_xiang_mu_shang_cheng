@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 
 class Good extends Model
 {
+    use Searchable;
     protected $fillable=['title','price','admin_id','category_id','list_pic','promotion','description','content','pics','total'];
 
     protected $casts    = [

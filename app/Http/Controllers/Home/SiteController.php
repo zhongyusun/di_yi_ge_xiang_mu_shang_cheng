@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Home;
 
+use App\Http\Requests\SiteRequest;
 use App\Models\Cart;
 use App\Models\Site;
 use Illuminate\Foundation\Testing\Constraints\SeeInOrder;
@@ -50,7 +51,7 @@ class SiteController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SiteRequest $request)
     {
         //dd($request->all());
         $data = $request->all();
@@ -100,6 +101,18 @@ class SiteController extends Controller
             return ['code' => 99];
         }
         //dd(2);
+        $this->validate($request, [
+            'name' => 'required',
+            'site' => 'required',
+            'city' => 'required',
+            'phone' => 'required|digits:11',
+        ], [
+            'name.required' => '收货人姓名不能为空',
+            'phone.required' => '手机号不能为空',
+            'phone.digits' => '手机号输入有误',
+            'city.required' => '地址不能为空',
+            'site.required' => '地址不能为空',
+        ]);
         $site->update($request->all());
         return redirect()->route('home.site.index')->with('success', '编辑成功');
     }

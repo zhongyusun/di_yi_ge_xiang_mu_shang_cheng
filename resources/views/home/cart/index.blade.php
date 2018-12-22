@@ -1,14 +1,5 @@
 @extends('home.layouts.master')
 @section('content')
-    <div class="container">
-
-        <div class="cart-login-tip fl" id="idnotlogin" act-not-login-info="" style="display: none;">
-            您还没有登录！登录后购物车的商品将保存到您账号中。
-            <a class="cart-login-btn" href="dengl.html">
-                立即登录
-            </a>
-        </div>
-    </div>
     <div id="cart">
 
         @if(count($carts)==0)

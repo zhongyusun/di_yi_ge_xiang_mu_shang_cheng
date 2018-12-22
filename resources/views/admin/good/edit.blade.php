@@ -84,14 +84,18 @@
                                 <div class="col-md-9">
                                     <div class="layui-upload">
                                         <button type="button" class="layui-btn" id="test2">多图片上传</button>
-                                        <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                                        <blockquote class="layui-elem-quote layui-quote-nm"
+                                                    style="margin-top: 10px;overflow: hidden">
                                             <div class="layui-upload-list" id="demo2">
                                                 @if($pics==null)
 
                                                 @else
                                                     @foreach($pics as $v)
-                                                        <img src="{{$v}}" alt="" style="height: 50px">
-                                                        <input type="hidden" name="pics[]" value="{{$v}}">
+                                                        <li>
+                                                            <span onclick="delImage(this)" class="mdi mdi-close"></span>
+                                                            <img src="{{$v}}" alt="" style="height: 50px">
+                                                            <input type="hidden" name="pics[]" value="{{$v}}">
+                                                        </li>
                                                     @endforeach
                                                 @endif
                                             </div>
@@ -163,6 +167,23 @@
 @endsection
 @push('css')
     <link rel="stylesheet" href="{{asset('org/layui/css/layui.css')}}" media="all">
+    <style>
+        #demo2 li {
+            list-style: none;
+            float: left;
+            border: 1px solid #cccccc;
+            margin-right: 5px;
+            padding: 3px;
+            position: relative;
+        }
+
+        #demo2 li span {
+            position: absolute;
+            top: 0;
+            right: 0;
+            cursor: pointer;
+        }
+    </style>
 @endpush
 @push('js')
     <script src="{{asset('org/layui/layui.js')}}" charset="utf-8"></script>
@@ -237,13 +258,12 @@
                 done: function (res) {
                     //上传完毕
                     if (res.code == 0) {
-                        $('#demo2').append('<img src="' + res.data.src + '" alt="" width="100px" class="layui-upload-img"><input type="hidden" name="pics[]" value="' + res.data.src + '">')
+                        $('#demo2').append('<li><span onclick="delImage(this)" class="mdi mdi-close"></span><img src="' + res.data.src + '" alt="" width="100px" class="layui-upload-img"><input type="hidden" name="pics[]" value="' + res.data.src + '"></li>')
                     } else {
                         layer.msg(res.msg, function () {
 
                         })
                     }
-
                 }
             });
         });

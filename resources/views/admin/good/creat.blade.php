@@ -86,8 +86,10 @@
                                 <div class="col-md-9">
                                     <div class="layui-upload">
                                         <button type="button" class="layui-btn" id="test2">多图片上传</button>
-                                        <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
-                                            <div class="layui-upload-list" id="demo2"></div>
+                                        <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px; overflow: hidden">
+                                            <div class="layui-upload-list" id="demo2">
+
+                                            </div>
                                         </blockquote>
                                     </div>
                                 </div>
@@ -162,14 +164,33 @@
 @endsection
 @push('css')
     <link rel="stylesheet" href="{{asset('org/layui/css/layui.css')}}" media="all">
+    <style>
+        #demo2 li {
+            list-style: none;
+            float: left;
+            border: 1px solid #cccccc;
+            margin-right: 5px;
+            padding: 3px;
+            position: relative;
+        }
+
+        #demo2 li span {
+            position: absolute;
+            top: 0;
+            right: 0;
+            cursor: pointer;
+        }
+    </style>
 @endpush
 @push('js')
     <script src="{{asset('org/layui/layui.js')}}" charset="utf-8"></script>
     <script>
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
+        $(function () {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
         });
         layui.use(['upload', 'layedit'], function () {
             var $ = layui.jquery
@@ -192,12 +213,14 @@
                 url: "{{route('util.upload')}}"
                 ,
                 accept: 'images'
-                ,
+                , data: {
+                    '_token': "{{csrf_token ()}}"
+                },
                 multiple: false
                 ,
                 acceptMime: "{{hd_config('upload.upload_accept_mime')}}" ? "{{hd_config('upload.upload_accept_mime')}}" : "image/jpg, image/png,image/jpeg"
                 ,
-                size: {{hd_config('upload.upload_size')}} ?{{hd_config('upload.upload_size')}}: 500000000 //最大允许上传的文件大小，单位 KB。不支持ie8/9
+                size: {{hd_config('upload.upload_size')?hd_config('upload.upload_size'): 500000000}} //最大允许上传的文件大小，单位 KB。不支持ie8/9
                 //成功过后的回调
                 ,
                 done: function (res) {
@@ -224,7 +247,7 @@
                 ,
                 acceptMime: "{{hd_config('upload.upload_accept_mime')}}" ? "{{hd_config('upload.upload_accept_mime')}}" : "image/jpg, image/png,image/jpeg"
                 ,
-                size: {{hd_config('upload.upload_size')}} ?{{hd_config('upload.upload_size')}}: 500000000 //最大允许上传的文件大小，单位 KB。不支持ie8/9
+                size: {{hd_config('upload.upload_size')?hd_config('upload.upload_size'):500000000}} //最大允许上传的文件大小，单位 KB。不支持ie8/9
                 ,
                 exts: '{{hd_config('upload.upload_type')}}' ? '{{hd_config('upload.upload_type')}}' : 'jpg|png|jpeg'
                 // ,before: function(obj){
@@ -237,7 +260,7 @@
                 done: function (res) {
                     //上传完毕
                     if (res.code == 0) {
-                        $('#demo2').append('<img src="' + res.data.src + '" alt="" width="100px" class="layui-upload-img"><input type="hidden" name="pics[]" value="' + res.data.src + '">')
+                        $('#demo2').append('<li><span onclick="delImage(this)" class="mdi mdi-close"></span><img src="' + res.data.src + '" alt="" width="100px" class="layui-upload-img"><input type="hidden" name="pics[]" value="' + res.data.src + '"></li>')
                     } else {
                         layer.msg(res.msg, function () {
 
@@ -257,7 +280,7 @@
             },
             methods: {
                 add() {
-                    this.specs.push({spec: '', total: '', sort : ''})
+                    this.specs.push({spec: '', total: '', sort: ''})
                 },
                 del(k) {
                     this.specs.splice(k, 1)
@@ -265,6 +288,12 @@
             }
 
         })
+    </script>
+    {{--删除上传照片--}}
+    <script>
+        function delImage(obj) {
+            $(obj).parents('li').remove();
+        }
     </script>
 @endpush
 

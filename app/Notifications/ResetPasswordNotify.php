@@ -42,7 +42,7 @@ class ResetPasswordNotify extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->subject('桀骜密码修改')
+            ->subject(hd_config('email.MAIL_FROM_NAME') ?: '桀骜商城' . '密码修改')
             ->greeting('你好')
             ->line('点击以下按钮来重置密码:')
             ->action('重置密码', url(route('home.restpassword', ['token' => $this->token])))

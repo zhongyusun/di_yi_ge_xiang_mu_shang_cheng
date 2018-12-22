@@ -1,6 +1,5 @@
 @extends('home.layouts.master')
 @section('content')
-
     <div class="beij_center">
         <div class="checkout-tit">
             <span class="tit-txt">填写并核对订单信息</span>
@@ -154,8 +153,8 @@
             <div class="zuiz_diz">
 
                 @if($defaultAddress)
-                    <span>寄送至： {{$defaultAddress['city']}} {{$defaultAddress['site']}}</span>
-                    <span> 收货人：{{$defaultAddress['name']}} {{$defaultAddress['phone']}}</span>
+                    <span id="city">寄送至： {{$defaultAddress['city']}} {{$defaultAddress['site']}}</span>
+                    <span id="name"> 收货人：{{$defaultAddress['name']}} {{$defaultAddress['phone']}}</span>
                 @else
                     <span id="city">寄送至： </span>
                     <span id="name"> 收货人：</span>

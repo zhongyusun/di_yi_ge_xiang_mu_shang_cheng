@@ -111,8 +111,10 @@
                 src="{{hd_config('site.site_logo')?hd_config('site.site_logo'):"/icon/Pdz6UZbG96rWjf1rvkjgPeA8KYGlbpblctWaiOM7.png"}}"></a>
     </div>
     <div class="search">
-        <input type="text" value="家电一折抢" class="text" id="textt">
-        <button class="button">搜索</button>
+        <form action="{{route('home.search')}}" method="get">
+            <input type="text" name="wd" value="" class="text" id="textt">
+            <button class="button">搜索</button>
+        </form>
     </div>
     <div class="right">
         <i class="gw-left"></i>
@@ -133,7 +135,7 @@
                     </ul>
                 @else
                     <ul>
-                        @foreach($carts as $cart)
+                        @foreach($carts as $k=>$cart)
                             <li class="meiyou">
                                 <div class="gouwc_tup">
                                     <a href="{{route('home.cart.index')}}"><img src="{{$cart['list_pic']}}"></a>
@@ -143,7 +145,6 @@
                                 </div>
                                 <div class="gouwc_shanc">
                                     <span>￥ {{$cart['price']}}</span>
-                                    <a href="{{route('home.cart.destroy',$cart['id'])}}">删除</a>
                                 </div>
                             </li>
                         @endforeach
@@ -160,13 +161,11 @@
     </div>
     <div class="hotwords">
         <a class="biaoti">热门搜索：</a>
-        <a href="#">新款连衣裙</a>
-        <a href="#">四件套</a>
-        <a href="#">潮流T恤</a>
-        <a href="#">时尚女鞋</a>
-        <a href="#">乐1</a>
-        <a href="#">特步女鞋</a>
-        <a href="#">威士忌</a>
+        <a href="{{route('home.search',['wd'=>'电视'])}}">电视</a>
+        <a href="{{route('home.search',['wd'=>'手机'])}}">手机</a>
+        <a href="{{route('home.search',['wd'=>''])}}">潮流男鞋</a>
+        <a href="{{route('home.search',['wd'=>''])}}">特步女鞋</a>
+        <a href="{{route('home.search',['wd'=>''])}}">威士忌</a>
     </div>
 </div>
 @yield('content')

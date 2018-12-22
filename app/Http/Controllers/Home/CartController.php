@@ -52,6 +52,7 @@ class CartController extends CommonController
         // dd($request->all());
         //dd($request->id);
         //根据商品 id 获取商品数据
+       // dd($request->id);
         $good = Good::find($request->id);
         //dd($good);
         //根据规格 id 获取规格数据

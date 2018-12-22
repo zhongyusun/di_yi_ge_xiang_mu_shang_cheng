@@ -46,7 +46,7 @@
                 </div>
                 <div class="dengl_hou_xial_k">
                     <div class="zuid_xiao_toux">
-                        <a href="#"><img src="{{auth()->user()->icon}}"></a>
+                        <a href="{{route('home.personal',auth()->id())}}"><img src="{{auth()->user()->icon}}"></a>
                     </div>
                     <div class="huiy_dengj">
                         <a class="tuic_" href="{{route('home.loginout')}}">退出</a>
@@ -60,31 +60,6 @@
             </li>
             <li class="shu"></li>
             <li class="denglu"><a class="ing_ps" href="#">我的收藏</a></li>
-            <li class="shu"></li>
-            <li class="denglu"><a class="ing_ps ps1" href="#">申请入驻</a></li>
-            <li class="shu"></li>
-            <li class="denglu"><a class="ing_ps ps2" href="#">客户服务</a></li>
-            <li class="shu"></li>
-            <li class="shouji bj">
-                <a class="ing_ps ps3" href="#">手机通城</a>
-                <i class="ci-right ">
-                    <s class="jt">◇</s>
-                </i>
-                <div class="shouji1">
-                    <img src="images/mb_wangid.png" class="shouji4">
-                    <div class="shouji2">
-                        <p>通城客户端</p>
-                        <p class="red">首次下单满79元，送79元</p>
-                    </div>
-                    <div class="yi">
-                        <img src="images/mb_wangid.png" class="shouji4">
-                        <div class="er">
-                            <p>通城微信公众号</p>
-                            <p class="red">关注通城公众号的积分，换大礼</p>
-                        </div>
-                    </div>
-                </div>
-            </li>
         </ul>
     </div>
 </div>
@@ -92,8 +67,11 @@
 <div class="hongs_beij">
     <div class="beij_center">
         <div class="wode_tongc_logo">
-            <div class="logo"><a href="{{route('home.home')}}"><img
-                        src="{{hd_config('site.site_logo')?hd_config('site.site_logo'):"/icon/Pdz6UZbG96rWjf1rvkjgPeA8KYGlbpblctWaiOM7.png"}}"></a>
+            <div class="logo">
+                <a href="{{route('home.home')}}">
+                    <img
+                        src="{{hd_config('site.site_logo')?hd_config('site.site_logo'):"/icon/Pdz6UZbG96rWjf1rvkjgPeA8KYGlbpblctWaiOM7.png"}}">
+                </a>
             </div>
         </div>
         <div class="navitems">
@@ -120,7 +98,7 @@
             </div>
             <div id="settleup_2014">
                 <div class="cw_icon">
-                    <a href="gouw_che.html"><span>购物车<em>3</em>件</span></a>
+                    <a href="gouw_che.html"><span>购物车<em>{{count($carts)}}</em>件</span></a>
                     <i class="ci-right ">
                         <s class="jt">◇</s>
                     </i>
@@ -129,40 +107,27 @@
                     <div class="smt"><h4 class="fl">最新加入的商品</h4></div>
                     <ul>
                         <li class="meiyou">
-                            <div class="gouwc_tup">
-                                <a href="#"><img src="images/lieb_tupi3.jpg"></a>
-                            </div>
-                            <div class="gouwc_biaot">
-                                <a href="#">探路者TOREAD 情侣款男士三合一套绒冲锋衣 TAWB91603 黑色 </a>
-                            </div>
-                            <div class="gouwc_shanc">
-                                <span>￥50.00</span>
-                                <a href="#">删除</a>
-                            </div>
-                        </li>
-                        <li class="meiyou">
-                            <div class="gouwc_tup">
-                                <a href="#"><img src="images/lieb_tupi1.jpg"></a>
-                            </div>
-                            <div class="gouwc_biaot">
-                                <a href="#">探路者TOREAD 情侣款男士三合一套绒冲锋衣 TAWB91603 黑色 </a>
-                            </div>
-                            <div class="gouwc_shanc">
-                                <span>￥50.00</span>
-                                <a href="#">删除</a>
-                            </div>
-                        </li>
-                        <li class="meiyou">
-                            <div class="gouwc_tup">
-                                <a href="#"><img src="images/lieb_tupi2.jpg"></a>
-                            </div>
-                            <div class="gouwc_biaot">
-                                <a href="#">探路者TOREAD 情侣款男士三合一套绒冲锋衣 TAWB91603 黑色 </a>
-                            </div>
-                            <div class="gouwc_shanc">
-                                <span>￥50.00</span>
-                                <a href="#">删除</a>
-                            </div>
+                            @if(count($carts)==0)
+                                购物车中空空如也
+                            @else
+                                <?php $i = 0?>
+                                @foreach($carts as $cart)
+                                    <?php $i++?>
+                                    @if($i<4)
+                                        <div class="gouwc_tup">
+                                            <a href="{{route('home.cart.index')}}"><img src="{{$cart['list_pic']}}"></a>
+                                        </div>
+                                        <div class="gouwc_biaot">
+                                            <a href="{{route('home.cart.index')}}">{{$cart['title']}}
+                                                <br> {{$cart['num']}}</a>
+                                        </div>
+                                        <div class="gouwc_shanc">
+                                            <span>￥50.00</span>
+                                            <a href="{{route('home.cart.destroy',$cart['id'])}}">删除</a>
+                                        </div>
+                                    @endif
+                                @endforeach
+                            @endif
                         </li>
                     </ul>
                 </div>
@@ -182,58 +147,16 @@
         </div>
         <div class="zhongj_youx">
 
+
             <div class="lieb_daoh">
-                <h4>支付与账户</h4>
-                <ul>
-                    <li><a href="#">货到付款</a></li>
-                    <li><a href="#">在线支付</a></li>
-                    <li><a href="#">门店支付</a></li>
-                    <li><a href="#">账户安全</a></li>
-                </ul>
-            </div>
-            <div class="lieb_daoh">
-                <h4>购物帮助</h4>
-                <ul>
-                    <li><a href="#">购物保障</a></li>
-                    <li><a href="#">购物流程</a></li>
-                    <li><a href="#">焦点问题</a></li>
-                    <li><a href="#">联系我们</a></li>
-                </ul>
-            </div>
-            <div class="lieb_daoh">
-                <h4>售后服务</h4>
-                <ul>
-                    <li><a href="#">退换货服务</a></li>
-                    <li><a href="#">退款说明</a></li>
-                    <li><a href="#">专业维修</a></li>
-                    <li><a href="#">延保服务</a></li>
-                    <li><a href="#">家电回收</a></li>
-                </ul>
-            </div>
-            <div class="lieb_daoh">
-                <div class="kef_dianh">
-                    <p>客服电话</p><span>400-6677-937</span>
-                </div>
                 <div class="kef_dianh kef_dianh_youx">
                     <p>意见收集邮箱</p>
-                    <p>Ask@wangid.com</p>
-                </div>
-            </div>
-            <div class="lieb_daoh lieb_daoh_you">
-                <div class="erw_ma_beij">
-                    <div class="erw_m">
-                        <h1><img src="images/mb_wangid.png"></h1>
-                        <span>扫码下载通城客户端</span>
-                    </div>
-                    <div class="erw_m">
-                        <h1><img src="images/mb_wangid.png"></h1>
-                        <span>扫码下载通城客户端</span>
-                    </div>
+                    <p>2460245313@qq.com</p>
                 </div>
             </div>
         </div>
         <div class="beia_hao">
-            <p>京ICP备：14012449号 黔ICP证：B2-20140009号 </p>
+            <p>{{hd_config('site.site_icp')?hd_config('site.site_icp'):'京ICP证070359号'}}</p>
             <p class="gonga_bei">京公网安备：11010602030054号</p>
             <div class="renz_">
                 <span></span>

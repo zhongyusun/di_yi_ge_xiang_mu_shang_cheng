@@ -1,28 +1,19 @@
 <aside class="left-sidebar">
-    <!-- Sidebar scroll-->
     <div class="scroll-sidebar">
-        <!-- User profile -->
         <div class="user-profile"
              style="background: url({{asset('org')}}/assets/images/background/user-info.jpg) no-repeat;">
-            <!-- User profile image -->
-            <div class="profile-img"><img src="{{asset('org')}}/assets/images/users/profile.png" alt="user"/></div>
-            <!-- User profile text-->
+            <div class="profile-img">
+                <img src="{{asset('org')}}/assets/images/users/profile.png" alt="user"/>
+            </div>
             <div class="profile-text">
                 <a href="#" class="dropdown-toggle u-dropdown" data-toggle="dropdown" role="button" aria-haspopup="true"
                    aria-expanded="true"> {{auth('admin')->user()->username}}</a>
-                <div class="dropdown-menu animated flipInY"><a href="#" class="dropdown-item"><i
-                            class="ti-user"></i> My Profile</a> <a href="#" class="dropdown-item"><i
-                            class="ti-wallet"></i> My Balance</a> <a href="#" class="dropdown-item"><i
-                            class="ti-email"></i> Inbox</a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item"><i class="ti-settings"></i> Account Setting</a>
-                    <div class="dropdown-divider"></div>
-                    <a href="{{route('admin.logout')}}" class="dropdown-item"><i class="fa fa-power-off"></i> Logout</a>
+                <div class="dropdown-menu animated flipInY">
+                    <a href="{{route('admin.logout')}}" class="dropdown-item">
+                        <i class="fa fa-power-off"></i> 退出</a>
                 </div>
             </div>
         </div>
-        <!-- End User profile text-->
-        <!-- Sidebar navigation-->
         <nav class="sidebar-nav">
             <ul id="sidebarnav">
                 <li class="nav-small-cap"></li>
@@ -34,6 +25,7 @@
                     <ul aria-expanded="false" class="collapse">
                         <li><a href="{{route('admin.category.index')}}">栏目管理</a></li>
                         <li><a href="{{route('admin.good.index')}}">商品管理</a></li>
+                        <li><a href="{{route('admin.order.index')}}">订单管理</a></li>
                     </ul>
                 </li>
                 <li>
@@ -44,6 +36,8 @@
                     <ul aria-expanded="false" class="collapse">
                         <li><a href="{{route('admin.config.edit',['name'=>'site'])}}">站点配置</a></li>
                         <li><a href="{{route('admin.config.edit',['name'=>'upload'])}}">上传配置</a></li>
+                        <li><a href="{{route('admin.config.edit',['name'=>'email'])}}">邮箱配置</a></li>
+                        <li><a href="{{route('admin.config.edit',['name'=>'seach'])}}">搜索配置</a></li>
                         <li><a href="{{route('admin.flash.index')}}">轮播图管理</a></li>
                     </ul>
                 </li>
