@@ -12,6 +12,7 @@ class CategryController extends Controller
     //加载分类页面
     public function index(Category $category)
     {
+        admin_has_permission('Admin-category');
         //树状结构:https://packagist.org/packages/houdunwang/arr
         //安装方式:composer require houdunwang/arr
         $categories=$category->getTreeData(Category::all()->toArray());
@@ -22,6 +23,7 @@ class CategryController extends Controller
     //加载添加分类页面
     public function create(Category $category)
     {
+        admin_has_permission('Admin-category');
         // 因为在添加是，要选择是哪个分类下的数据，所以要获取所有分类数据，用下拉框表单来遍历数据
         //获取所有的父级分类
         $categories=$category->getTreeData(Category::all()->toArray());
@@ -32,6 +34,7 @@ class CategryController extends Controller
    //处理添加分类数据
     public function store(CategoryRequest $request,Category $category)
     {
+        admin_has_permission('Admin-category');
         // 因为每次添加的是一条数据，所以这里用Crete方法就可以添加数据了
         //dd($request->all());
         $category->title=$request->title;
@@ -43,6 +46,7 @@ class CategryController extends Controller
     //加载分类编辑页面
     public function edit(Category $category)
     {
+        admin_has_permission('Admin-category');
         //dd($category->toArray());
         // 因为是编辑单条数据，所以这里用依赖注入的形式，获取到当前被编辑的单条数据对象进行处理
         //$categories=$category->getTreeData(Category::all()->toArray());
@@ -54,6 +58,7 @@ class CategryController extends Controller
     //处理分类编辑数据
     public function update(CategoryRequest $request, Category $category)
     {
+        admin_has_permission('Admin-category');
         //dd($request->toArray());
         $category->title=$request->title;
         $category->parent_id=$request->parent_id;
@@ -64,6 +69,8 @@ class CategryController extends Controller
     //删除分类
     public function destroy(Category $category)
     {
+        //传的参数是该权限
+        admin_has_permission('Admin-category');
         // 检测当前需要删除的分类是否有子分类,如果有,不让删除
         if (Category::where('parent_id',$category['id'])->first()){
            return redirect()->back()->with('danger','请先删除子集');

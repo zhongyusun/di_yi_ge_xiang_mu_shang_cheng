@@ -15,6 +15,7 @@ class OrderController extends Controller
      */
     public function index()
     {
+        admin_has_permission('Admin-order');
         //获取全部的订单
         $orders=Order::latest()->paginate(10);
         //dd($orders);
@@ -50,6 +51,7 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
+        admin_has_permission('Admin-order');
         $orders=$order->orderDetail;
         return view('admin.order.show',compact('orders','order'));
     }
@@ -62,6 +64,7 @@ class OrderController extends Controller
      */
     public function edit(Order $order)
     {
+        admin_has_permission('Admin-order');
         //dd($order);
         if ($order->status==2){
             $order->status=3;

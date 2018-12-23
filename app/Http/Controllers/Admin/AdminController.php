@@ -10,7 +10,7 @@ class AdminController extends Controller
     //后台首页
     public function index(){
 
-
+        admin_has_permission('Admin-index');
         return view('admin.index.index');
     }
 }

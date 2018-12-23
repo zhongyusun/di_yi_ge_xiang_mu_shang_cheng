@@ -10,6 +10,7 @@ class FlashController extends Controller
 {
     public function index()
     {
+        admin_has_permission('Admin-flash');
         $flashs = Flash::all();
         return view('admin.flash.index', compact('flashs'));
     }
@@ -21,12 +22,14 @@ class FlashController extends Controller
      */
     public function create()
     {
+        admin_has_permission('Admin-flash');
         return view('admin.flash.create');
     }
 
 
     public function store(Request $request)
     {
+        admin_has_permission('Admin-flash');
         $this->validate($request, [
             'title' => 'required',
             'path' => 'required'

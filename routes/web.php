@@ -67,6 +67,18 @@ Route::group(['middleware' => ['admin.auth'], 'prefix' => 'admin', 'namespace' =
     Route::resource('flash', 'FlashController');
     //订单管理
     Route::resource('order','OrderController');
+    // 管理员
+    Route::resource('admin','IndexController');
+    //清理缓存
+    Route::get('forgetPermissionCache','PermissionController@forgetPermissionCache')->name('forgetPermissionCache');
+    //权限
+    Route::get('permission','PermissionController@index')->name('permission');
+    //角色
+    Route::resource('role','RoleController');
+    //给角色设置权限
+    Route::post('setRolePermission/{role}','RoleController@setRolePermission')->name('setRolePermission');
+    //给用户设置角色
+    Route::post('adminSetRoleStore/{admin}','IndexController@adminSetRoleStore')->name('adminSetRoleStore');
 });
 //后台不需要验证的路由
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], function () {

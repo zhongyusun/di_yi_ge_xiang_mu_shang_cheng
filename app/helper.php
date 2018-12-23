@@ -21,14 +21,27 @@ if (!function_exists('hd_config')) {
         return $cache[$info[0]][$info[1]] ?? '';
     }
 }
+//当从地址兰进去的时候提示
+        //检测是否有该函数
+if( !function_exists( 'admin_has_permission' ) ){
+    function admin_has_permission( $permission )
+    {
 
-//检测当前用户是否有制定角色
-function hdHasRole($role)
-{
+        if( is_array( $permission ) ){
+            //检测登陆的该用户是否有该权限
+            //dd(!auth( 'admin' )->user()->hasAnyPermission( $permission ));
+            if( !auth( 'admin' )->user()->hasAnyPermission( $permission ) ){
+                throw  new \App\Exceptions\PermissionException( '暂无权限' );
+            }
+        }
 
-    if (!auth()->user()->hasRole($role)) {
-
-        throw  new \App\Exceptions\AuthException('你敢进打死你,丨');
+        if( is_string( $permission ) ){
+            //检测登陆的该用户是否有该权限
+            //dd(!auth( 'admin' )->user()->hasPermissionTo( $permission ));
+            if( !auth( 'admin' )->user()->hasPermissionTo( $permission ) ){
+                throw  new \App\Exceptions\PermissionException( '暂无权限!!!' );
+            }
+        }
 
     }
 }

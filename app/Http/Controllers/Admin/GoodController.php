@@ -17,6 +17,7 @@ class GoodController extends Controller
     //加载商品列表
     public function index()
     {
+        admin_has_permission('Admin-good');
         //获取所有的数据
         $goods = Good::paginate(10);
         //dd($datas);
@@ -26,6 +27,7 @@ class GoodController extends Controller
     //加载商品添加页面
     public function create(Category $category)
     {
+        admin_has_permission('Admin-good');
         //加载所有的分类数据
         $categories = $category->getTreeData(Category::all()->toArray());
         //dd($categories);
@@ -35,6 +37,8 @@ class GoodController extends Controller
     //处理商品添加数据
     public function store(GoodRequest $request, Good $good)
     {
+        admin_has_permission('Admin-good');
+
         //dd($request->all());
         $data = $request->all();
         // dd($data);
@@ -74,6 +78,8 @@ class GoodController extends Controller
     //加载商品编辑页面
     public function edit(Good $good, Category $category)
     {
+        admin_has_permission('Admin-good');
+
         $pics = $good['pics'];
 //        dd($pics);
         //dd($good->specs);
