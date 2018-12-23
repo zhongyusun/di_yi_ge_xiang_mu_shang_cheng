@@ -3,6 +3,7 @@
 ////网站首页
 Route::get('/', 'Home\HomeController@index');
 
+//前台
 Route::group(['prefix' => 'home', 'namespace' => 'Home', 'as' => 'home.'], function () {
     //首页
     Route::get('/', 'HomeController@index')->name('home');
@@ -49,6 +50,8 @@ Route::group(['prefix' => 'home', 'namespace' => 'Home', 'as' => 'home.'], funct
     Route::post('/restpassword/{token}', 'UserController@restpassword')->name('restpassword_token');
     //个人中心
     Route::get('/personal/{personal}', 'PersonalcenterController@index')->name('personal');
+    //个人资料
+    Route::resource('basic','BasicController');
 });
 
 //后台需要验证的路由

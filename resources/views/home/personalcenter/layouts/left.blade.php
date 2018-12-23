@@ -3,41 +3,18 @@
         <div class="toux_kuang">
             <div class="userImage">
                 <div class="myGome_userPhoto">
-                    <img src="{{auth()->user()->icon}}">
-                    <a class="edit_photo_bitton" href="profile" target="_blank">编辑</a>
+                    <div class="layui-upload-drag" id="test10">
+                        <img src="{{auth()->user()->icon}}" class="layui-circle" id="user_icon">
+                        <form action="{{route('home.basic.update',auth()->user())}}" method="post" id="editCicon">
+                            @csrf @method('PUT')
+                            <input type="hidden" name="icon" value="">
+                        </form>
+                    </div>
                 </div>
             </div>
             <div class="user_name_Level">
                 <p class="user_name" title="{{auth()->user()->name}}">{{auth()->user()->name}}</p>
-                <p class="userLevel">会员：<span class="levelId icon_plus_nickname"></span></p>
             </div>
-        </div>
-        <div class="userInfo_bar">
-            <span>资料完成度</span>
-            <span class="userInfo_process_bar"><em class="active_bar"
-                                                   style="width: 40px;"> 20%</em></span>
-            <a href="#" target="_blank">完善</a>
-        </div>
-        <div class="myGome_accountSecurity">
-                        <span class="fl_ee" style="margin-top:2px;">账户安全 <em
-                                class="myGome_account_level"> 低</em> </span>
-            <div class="verifiBox fl_ee">
-                <div class="shab_1">
-                                    <span class="myGome_mobile" val="mobile"> <em
-                                            class=" myGome_onActive "></em> </span>
-                    <p class="myGome_verifiPop"><span>您已绑定手机：</span> <span>182****0710</span> <a
-                            href="#"
-                            target="_blank">管理</a>
-                    </p>
-                </div>
-                <div class="shab_1">
-                    <span class="myGome_email" val="email"> <em class=""></em> </span>
-                    <p class="myGome_verifiPop"><span>您还未绑定邮箱 </span><a href="#"
-                                                                        target="_blank">立即绑定</a>
-                    </p>
-                </div>
-            </div>
-            <a class="fl_ee" href="#" target="_blank" style="margin-top:2px;">提升</a>
         </div>
         <div class="user_counts">
             <ul>
@@ -87,18 +64,62 @@
             <ul>
                 <h3>管理中心</h3>
                 <li><a href="wod_shouc.html">我的收藏</a></li>
-                <li><a href="#">我的预约</a></li>
-                <li><a href="#">我的咨询</a></li>
-                <li><a href="#">投诉管理</a></li>
             </ul>
         </div>
         <div class="diy_top">
             <ul>
                 <h3>账户设置</h3>
-                <li><a href="#">基本资料</a></li>
-                <li><a href="#">账户安全</a></li>
+                <li><a href="{{route('home.basic.index')}}">基本资料</a></li>
                 <li><a href="{{route('home.site.index')}}">收货地址</a></li>
             </ul>
         </div>
     </div>
 </div>
+<script src="{{asset('org/layui/layui.js')}}"></script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<script>
+    $(function () {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+    });
+    layui.use(['upload', 'layedit'], function () {
+        var $ = layui.jquery
+            , upload = layui.upload;
+        //拖拽上传
+        upload.render({
+            elem: '#test10'
+            ,
+            url: "{{route('util.upload')}}"
+            ,
+            accept: 'images'
+            , data: {
+                '_token': "{{csrf_token ()}}"
+            },
+            multiple: false
+            ,
+            acceptMime: "{{hd_config('upload.upload_accept_mime')}}" ? "{{hd_config('upload.upload_accept_mime')}}" : "image/jpg, image/png,image/jpeg"
+            ,
+            size: {{hd_config('upload.upload_size')?hd_config('upload.upload_size'): 500000000}} //最大允许上传的文件大小，单位 KB。不支持ie8/9
+            //成功过后的回调
+            ,
+            done: function (res) {
+                //console.log(res)
+                if (res.code == 0) {
+                    // $('#test10').html('<img src="' + res.data.src + '" alt="" width="150px" class="layui-upload-img"><input type="hidden" name="list_pic" value="' + res.data.src + '">')
+                    $('#user_icon').attr('src',res.data.src);
+                    $('input[name=icon]').val(res.data.src);
+                    //触发表单提交
+                    $('#editCicon').submit();
+                } else {
+                    layer.msg(res.msg, function () {
+
+                    })
+                }
+            }
+        });
+    })
+    ;
+</script>

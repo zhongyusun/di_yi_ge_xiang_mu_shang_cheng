@@ -10,86 +10,74 @@
                     <div class="jib_xinx_kuang">
                         <div class="wt">
                             <ul>
-                                <li class="dangq_hongx"><a href="ger_xinx.html">个人信息</a></li>
-                                <li><a href="shez_toux.html">设置头像</a></li>
-                                <li><a href="gengd_ger_xinx.html">更多个人信息</a></li>
+                                <li class="dangq_hongx"><a href="{{route('home.basic.index')}}">个人信息</a></li>
                             </ul>
                         </div>
                         <div class="wd">
-                            <div class="user_set">
-                                <div class="item_meic">
-                                    <span class="label_meic"><em>*</em> 用户名：</span>
-                                    <div class="fl_e">
-                                        <div><strong>山的那边是海</strong></div>
+                            <form action="{{route('home.basic.update',$user)}}" method="post">
+                                @csrf @method('PUT')
+                                <div class="user_set">
+                                    <div class="item_meic">
+                                        <span class="label_meic"><em>*</em> 昵称：</span>
+                                        <div class="fl_e">
+                                            <input type="text" class="itxt_succ" maxlength="20" id="nickName"
+                                                   name="name" value="{{$user['name']}}">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="item_meic">
-                                    <span class="label_meic"><em>*</em> 登录名：</span>
-                                    <div class="fl_e">
-                                        <strong>山的那边是海</strong>
-                                        <a href="#" class="ftx05 ml10">修改</a>
-                                        <span class="ftx03">可用于登录，请牢记哦~</span>
+                                    <div class="item_meic">
+                                        <span class="label_meic">性别：</span>
+                                        <div class="fl_e">
+                                            <input type="radio" name="sex" class="jdradio" @if($user['sex']=='男') checked @endif value="男">
+                                            <label class="mr10">男</label>
+                                            <input type="radio" name="sex" class="jdradio" @if($user['sex']=='女') checked @endif value="女">
+                                            <label class="mr10">女</label>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="item_meic">
-                                    <span class="label_meic"><em>*</em> 昵称：</span>
-                                    <div class="fl_e">
-                                        <input type="text" class="itxt_succ itxt_succ_url" maxlength="20" id="nickName"
-                                               name="userVo.nickName" value="谱写生命的奇迹">
+                                    <div class="item_meic">
+                                        <span class="label_meic">身份证号：</span>
+                                        <div class="fl_e">
+                                            <div id="date">
+                                                <input type="text" name="brithday" value="{{$user['brithday']}}" class="itxt_succ">
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="item_meic">
-                                    <span class="label_meic">性别：</span>
-                                    <div class="fl_e">
-                                        <input type="radio" name="sex" class="jdradio" value="0">
-                                        <label class="mr10">男</label>
-                                        <input type="radio" name="sex" class="jdradio" value="0">
-                                        <label class="mr10">女</label>
-                                        <input type="radio" name="sex" class="jdradio" value="0">
-                                        <label class="mr10">保密</label>
+                                    <div class="item_meic">
+                                        <span class="label_meic">手机号：</span>
+                                        <div class="fl_e">
+                                            <div id="date">
+                                                <input type="number" name="mobile" value="{{$user['mobile']}}" class="itxt_succ">
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="item_meic">
-                                    <span class="label_meic">年龄：</span>
-                                    <div class="fl_e">
-                                        <div id="date">
-                                            <select name="year" class="area" id="year">
-                                                <option value="">选择年份</option>
-                                            </select>
-                                            <label class="ml5 mr5">年</label>
-                                            <select name="month" class="area" id="month">
-                                                <option value="">选择月份</option>
-                                            </select>
-                                            <label class="ml5 mr5">月</label>
-                                            <select id="days" class="area" class="day">
-                                                <option value="">选择日期</option>
-                                            </select>
-                                            <label class="ml5 mr5">日</label>
+                                    <div class="item_meic">
+                                        <span class="label_meic">邮箱：</span>
+                                        <div class="fl_e">
+                                            <strong>{{$user['email']}}</strong>
+                                        </div>
+                                    </div>
+                                    <div class="item_meic">
+                                        <span class="label_meic">地址：</span>
+                                        <div class="fl_e">
+                                            <div id="date">
+                                                <input type="text" name="site" class="itxt_succ" value="{{$user['site']}}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item_meic">
+                                        <span class="label_meic"><em>*</em> 姓名：</span>
+                                        <div class="fl_e">
+                                            <input type="text" name="username" value="{{$user['username']}}" class="user_address">
+                                            <p class="youh_tis ftx03">输入真实姓名，不得超过20个英文或10个汉字</p>
+                                        </div>
+                                    </div>
+                                    <div class="item_meic">
+                                        <span class="label_meic"> </span>
+                                        <div class="fl_e">
+                                           <button class="savebtn">保存</button>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="item_meic">
-                                    <span class="label_meic">邮箱：</span>
-                                    <div class="fl_e">
-                                        <strong>22*****88@qq.com</strong>
-                                        <a href="#" class="ftx05 ml10">修改</a>
-                                        <span class="ftx03">已验证</span>
-                                    </div>
-                                </div>
-                                <div class="item_meic">
-                                    <span class="label_meic"><em>*</em> 姓名：</span>
-                                    <div class="fl_e">
-                                        <input type="text" value="" class="user_address">
-                                        <p class="youh_tis ftx03">输入真实姓名，不得超过20个英文或10个汉字</p>
-                                    </div>
-                                </div>
-                                <div class="item_meic">
-                                    <span class="label_meic"> </span>
-                                    <div class="fl_e">
-                                        <input type="button" value="保存" class="savebtn">
-                                    </div>
-                                </div>
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -114,5 +102,14 @@
 @push('js')
     <script type="text/javascript" src="{{asset('org/receptionist')}}/js/jquery-1.11.1.min.js"></script>
     <script type="text/javascript" src="{{asset('org/receptionist')}}/js/select.js"></script>
+    <script src="{{asset('org/receptionist')}}/js/jquery-1.11.3.min.js"></script>
+    <script src="{{asset('org/receptionist')}}/js/index.js"></script>
+    <script type="text/javascript" src="{{asset('org/receptionist')}}/js/jquery1.42.min.js"></script>
+    <script type="text/javascript" src="{{asset('org/receptionist')}}/js/jquery.SuperSlide.2.1.1.source.js"></script>
 @endpush
+@push('css')
+    <link rel="stylesheet" type="text/css" href="{{asset('org/receptionist')}}/css/ziy.css">
+    <link rel="stylesheet" type="text/css" href="{{asset('org/receptionist')}}/css/index.css">
+@endpush
+
 
