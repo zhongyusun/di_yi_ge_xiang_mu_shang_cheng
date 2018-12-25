@@ -97,15 +97,18 @@ class HdModule extends Command
                 //找到站长这个角色
                 $role = Role::where('name', 'webmaster')->first();
                 //dump($role);
+                //return
                 //获取所有的权限
                 $permissions = Permission::pluck('name');
                 //dump($permissions);
                 //给角色同步权限
                 //执行完成之后 role_has_permissions 表应该有数据
                 $role->syncPermissions($permissions);
+                //dd(1);
+                //return;
                 //获得设置成站长的用户
                 $admin = Admin::find(1);
-                //dump($user);
+                //dd($admin);
                 //同步权限
                 //注意如果执行报错:App\User 模型中未定义assignRole,解决办法:需要在 User 模型中引入HasRoles类
                 $admin->assignRole('webmaster');

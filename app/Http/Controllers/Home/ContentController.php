@@ -6,6 +6,7 @@ use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Good;
 use App\Models\Spec;
+use Houdunwang\Arr\Arr;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -19,6 +20,9 @@ class ContentController extends CommonController
         //dd($spec);
         //获取所有的分类
         $categories = Category::all()->toArray();
+        //dd($categories);
+        //获取所有的父集分类和所有子集分类的数据
+        $categoryData = (new Arr())->channelLevel($categories, $parent_id = 0, $html = "&nbsp;", $fieldPri = 'id', $fieldPid = 'parent_id');
         //获取当前的商品所在的分类
         $list = $content->category_id;
         //面包屑(递归找父)
@@ -29,7 +33,7 @@ class ContentController extends CommonController
         //获取所有的购物车数据
         $carts = Cart::all()->where('user_id', auth()->id())->toArray();
         //dd($carts);
-        return view('home.content.index', compact('content', 'fatherData', 'spec','carts'));
+        return view('home.content.index', compact('content', 'fatherData', 'spec', 'carts','categoryData'));
     }
 
     //获取库存

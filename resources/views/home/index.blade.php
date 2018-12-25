@@ -6,13 +6,15 @@
         <!--本地生活-->
         <div class="bend_dhengh">
             <div class="neir_biaot">
-                <p>本地生活</p>
+                <p>精品推荐</p>
                 <p class="yingw">Local life</p>
             </div>
             <div class="jiank_meis">
                 <div class="kuang_1">
                     <a href="#">
-                        <img src="images/jiank_meis.jpg">
+                        @foreach($firgood as $vv)
+                            <img src="{{$vv->list_pic}}" height="90%" width="100%">
+                        @endforeach
                         <div class="jiank_meis_wenz">
                             <p>健康美食</p>
                             <span>让生活&nbsp;&nbsp;更健康&nbsp;&nbsp;更美味&nbsp;&nbsp;更舒心</span>
@@ -20,31 +22,11 @@
                     </a>
                 </div>
                 <div class="dianq_qvy">
-                    <div class="shiq">
-                        <h2>全部区域</h2>
-                        <ul>
-                            <li><a href="#">云岩区</a></li>
-                            <li><a href="#">南明区</a></li>
-                            <li><a href="#">白云区</a></li>
-                            <li><a href="#">乌当区</a></li>
-                            <li><a href="#">花溪区</a></li>
-                            <li><a href="#">清镇市</a></li>
-                            <li><a href="#">开阳县</a></li>
-                            <li><a href="#" class="hide">开阳县</a></li>
-                            <li><a href="#" class="hide">开阳县</a></li>
-                            <li id="show">更多</li>
-                        </ul>
-                    </div>
                     <div class="ktv_jiub">
                         <ul>
-                            <li><a href="#">KTV/酒吧</a></li>
-                            <li><a href="#">周边游</a></li>
-                            <li><a href="#">生活服务</a></li>
-                            <li><a href="#">真人CS</a></li>
-                            <li><a href="#">中医养生</a></li>
-                            <li><a href="#">体检/齿科</a></li>
-                            <li><a href="#">棋牌室</a></li>
-                            <li><a href="#">洗浴/汗蒸</a></li>
+                            @foreach($randomcategory as $v)
+                                <li><a href="{{route('home.list',$v)}}">{{$v->title}}</a></li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>
@@ -52,21 +34,17 @@
                     <div class="picScroll_left_1">
                         <div class="bd">
                             <ul class="picList">
-                                <li>
-                                    <div class="pic"><a href="#" target="_blank"><img src="images/lengy.jpg"/></a></div>
-                                    <div class="title"><a href="#" target="_blank">卡通美食冷饮</a><span>卡通美食冷饮全家福三人分</span>
-                                        <p>￥6.00</p></div>
-                                </li>
-                                <li>
-                                    <div class="pic"><a href="#" target="_blank"><img src="images/lengy.jpg"/></a></div>
-                                    <div class="title"><a href="#" target="_blank">卡通美食冷饮</a><span>卡通美食冷饮全家福三人分</span>
-                                        <p>￥6.00</p></div>
-                                </li>
-                                <li>
-                                    <div class="pic"><a href="#" target="_blank"><img src="images/lengy.jpg"/></a></div>
-                                    <div class="title"><a href="#" target="_blank">卡通美食冷饮</a><span>卡通美食冷饮全家福三人分</span>
-                                        <p>￥6.00</p></div>
-                                </li>
+                                @foreach($rangoods as $rangood)
+                                    <li>
+                                        <div class="pic"><a href="#" target="_blank">
+                                                <img style="" src={{$rangood->list_pic}}/></a>
+                                        </div>
+                                        <div class="title">
+                                            <a href="#" target="_blank">{{$rangood->title}}</a>
+                                        </div>
+                                    </li>
+                                @endforeach
+
                             </ul>
                         </div>
                         <div class="hd">
@@ -89,19 +67,22 @@
             </div>
             <div class="toum_">
                 <ul>
-                    <li><a href="#"><img src="images/jiudi_kez.jpg">
+                    <li><a href="{{route('home.list',6)}}"><img src="{{asset('icon/1..jpg')}}" height="166px"
+                                                                width="291px">
                             <div class="jiank_meis_wenz_1">
                                 <p>健康美食</p>
                             </div>
                         </a>
                     </li>
-                    <li class="sdfs"><a href="#"><img src="images/xiux_yvl.jpg">
+                    <li class="sdfs"><a href="{{route('home.list',5)}}"><img src="{{asset('icon/2.jpg')}}"
+                                                                             height="166px" width="291px">
                             <div class="jiank_meis_wenz_1">
                                 <p>休闲娱乐</p>
                             </div>
                         </a>
                     </li>
-                    <li><a href="#"><img src="images/liren.jpg">
+                    <li><a href="{{route('home.list',3)}}"><img src="{{asset('icon/3.jpg')}}" height="166px"
+                                                                width="291px">
                             <div class="jiank_meis_wenz_1">
                                 <p>丽人</p>
                             </div>
@@ -118,83 +99,22 @@
             </div>
             <div class="zhoub_neir">
                 <ul>
-                    <li><a href="#"><img src="images/zoub.jpg"></a></li>
-                    <li><a href="#"><img src="images/zoub2.jpg"></a></li>
-                    <li><a href="#"><img src="images/zoub3.jpg"></a></li>
+                    @foreach($latestGood as $v)
+                        <li><a href="{{route('home.content',$v->id)}}"><img src="{{$v->list_pic}}" height="100%"
+                                                                            width="165px"></a>
+                        </li>
+                    @endforeach
                 </ul>
             </div>
         </div>
 
     </div>
-
-    <!--快速通道栏-->
-    <div class="kuanjlan">
-        <ul class="clearfix">
-            <li>
-                <div class="list-li-box">
-                    <a class="list-img" href="#" data-code="index01004-1" target="_blank">
-                        <img src="images/meinv_1.jpg">
-                        <span class="list-bg"></span>
-                        <div class="list-cont">
-                            <p class="cont-item"><span>羽饰</span></p>
-                            <p class="cont-tile">秋季来点羽毛元素</p>
-                            <p class="cont-info">让你更加美丽迷人</p>
-                        </div>
-                    </a>
-                </div>
-
-            </li>
-            <li>
-                <div class="list-li-box">
-                    <a class="list-img" href="#" data-code="index01004-2" target="_blank">
-                        <img src="images/meinv_2.jpg">
-                        <span class="list-bg"></span>
-                        <div class="list-cont">
-                            <p class="cont-item"><span>原宿风</span></p>
-                            <p class="cont-tile">个性夸张美衣</p>
-                            <p class="cont-info">潮流原宿风</p>
-                        </div>
-                    </a>
-                </div>
-
-            </li>
-            <li>
-                <div class="list-li-box">
-                    <a class="list-img" href="#" data-code="index01004-3" target="_blank">
-                        <img src="images/meinv_3.jpg">
-                        <span class="list-bg"></span>
-                        <div class="list-cont">
-                            <p class="cont-item"><span>皮裤</span></p>
-                            <p class="cont-tile">高腰修身皮裤</p>
-                            <p class="cont-info">轻松享受女神感觉</p>
-                        </div>
-                    </a>
-                </div>
-
-            </li>
-            <li>
-                <div class="list-li-box">
-                    <a class="list-img" href="#" data-code="index01004-4" target="_blank">
-                        <img src="images/meinv_4.jpg">
-                        <span class="list-bg"></span>
-                        <div class="list-cont">
-                            <p class="cont-item"><span>服装</span></p>
-                            <p class="cont-tile">变身女神范儿</p>
-                            <p class="cont-info">几种搭配轻松打造</p>
-                        </div>
-                    </a>
-                </div>
-            </li>
-        </ul>
-    </div>
-
-
     @include('home.layouts.level')
 
 
     <!--广告图-->
     <div class="guangg_tu">
-        <a href="#"><img src="images/guang_tu.jpg"></a>
+        <a href="#"><img src="{{asset('icon/xmad_15454719135412_tSMjH.jpg')}}" width="100%"></a>
     </div>
 
 
@@ -205,48 +125,39 @@
             <div class="neir_biaot">
                 <p>特色商品</p>
                 <p class="yingw">featured</p>
-                <a href="#">MORE+</a>
             </div>
             <div class="tes_shangp_neir_k">
                 <div class="tes_dat">
-                    <a href="#">
-                        <h1><img class="tes_dat_dongh" src="images/te_se_shangp_da.jpg"></h1>
-                        <h2>苹果手机iPhone6(32G)全网</h2>
-                        <span>¥ 4999 .00</span>
-                    </a>
+                    @foreach($tesegoods as $tesegood)
+                        <a href="{{route('home.content',$tesegood->id)}}">
+                            <h1><img class="tes_dat_dongh" src="{{$tesegood->list_pic}}"></h1>
+                            <h2>{{$tesegood->title}}</h2>
+                            <span>¥ {{$tesegood->price}}</span>
+                        </a>
+                    @endforeach
                 </div>
                 <div class="tes_xiaot_beij">
                     <div class="tes_xiaot_shang">
-                        <div class="tes_xiaot_neir">
-                            <a href="#">
-                                <h1><img class="tes_xiaot_dongh" src="images/tes_shangp_xiao.jpg"></h1>
-                                <h2>海尔(Haier) BCD452WDPF 452</h2>
-                                <span>¥ 506 .00</span>
-                            </a>
-                        </div>
-                        <div class="tes_xiaot_neir tes_xiaot_wubian_kuang">
-                            <a href="#">
-                                <h1><img class="tes_xiaot_dongh" src="images/tes_shangp_xiao2.jpg"></h1>
-                                <h2>海尔(Haier) BCD452WDPF 452</h2>
-                                <span>¥ 506 .00</span>
-                            </a>
-                        </div>
+                        @foreach($tegoods as $tegood)
+                            <div class="tes_xiaot_neir">
+                                <a href="{{route('home.content',$tegood->id)}}">
+                                    <h1><img class="tes_xiaot_dongh" src="{{$tegood->list_pic}}"></h1>
+                                    <h2>{{$tegood->title}}</h2>
+                                    <span>¥ {{$tegood->price}}</span>
+                                </a>
+                            </div>
+                        @endforeach
                     </div>
                     <div class="tes_xiaot_shang tes_xiaot_xia">
-                        <div class="tes_xiaot_neir">
-                            <a href="#">
-                                <h1><img class="tes_xiaot_dongh" src="images/tes_shangp_xiao3.jpg"></h1>
-                                <h2>海尔(Haier) BCD452WDPF 452</h2>
-                                <span>¥ 506 .00</span>
-                            </a>
-                        </div>
-                        <div class="tes_xiaot_neir tes_xiaot_wubian_kuang">
-                            <a href="#">
-                                <h1><img class="tes_xiaot_dongh" src="images/tes_shangp_xiao4.jpg"></h1>
-                                <h2>海尔(Haier) BCD452WDPF 452</h2>
-                                <span>¥ 506 .00</span>
-                            </a>
-                        </div>
+                        @foreach($segoods as $segood)
+                            <div class="tes_xiaot_neir">
+                                <a href="{{route('home.content',$segood->id)}}">
+                                    <h1><img class="tes_xiaot_dongh" src="{{$segood->list_pic}}"></h1>
+                                    <h2>{{$segood->title}}</h2>
+                                    <span>¥ {{$segood->price}}</span>
+                                </a>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -256,7 +167,6 @@
             <div class="neir_biaot">
                 <p>热门商品</p>
                 <p class="yingw">Hot commodity</p>
-                <a href="#">MORE+</a>
             </div>
             <div class="rem_shangp_beij_k">
                 <!---->
@@ -266,48 +176,15 @@
                     </div>
                     <div class="bd">
                         <ul class="picList">
-                            <li>
-                                <div class="pic"><a href="#" target="_blank"><img src="images/rem_shangp.jpg"/></a>
-                                </div>
-                                <div class="title"><a href="#"
-                                                      target="_blank">佳能(Canon)EOS80D单反套机</a><span>¥ 506 .00</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="pic"><a href="#" target="_blank"><img src="images/rem_shangp1.jpg"/></a>
-                                </div>
-                                <div class="title"><a href="#"
-                                                      target="_blank">佳能(Canon)EOS80D单反套机</a><span>¥ 7940 .00</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="pic"><a href="#" target="_blank"><img src="images/rem_shangp.jpg"/></a>
-                                </div>
-                                <div class="title"><a href="#"
-                                                      target="_blank">佳能(Canon)EOS80D单反套机</a><span>¥ 506 .00</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="pic"><a href="#" target="_blank"><img src="images/rem_shangp1.jpg"/></a>
-                                </div>
-                                <div class="title"><a href="#"
-                                                      target="_blank">佳能(Canon)EOS80D单反套机</a><span>¥ 7940 .00</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="pic"><a href="#" target="_blank"><img src="images/rem_shangp1.jpg"/></a>
-                                </div>
-                                <div class="title"><a href="#"
-                                                      target="_blank">佳能(Canon)EOS80D单反套机</a><span>¥ 506 .00</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="pic"><a href="#" target="_blank"><img src="images/rem_shangp1.jpg"/></a>
-                                </div>
-                                <div class="title"><a href="#"
-                                                      target="_blank">佳能(Canon)EOS80D单反套机</a><span>¥ 7940 .00</span>
-                                </div>
-                            </li>
+                            @foreach($goods as $good)
+                                <li>
+                                    <div class="pic"><a href="{{route('home.content',$good->id)}}" target="_blank"><img src="{{$good->list_pic}}"/></a>
+                                    </div>
+                                    <div class="title" style="width: 210px">
+                                        <a href="{{route('home.content',$good->id)}}" target="_blank">{{$good->title}}</a><span>¥ {{$good->price}}</span>
+                                    </div>
+                                </li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>

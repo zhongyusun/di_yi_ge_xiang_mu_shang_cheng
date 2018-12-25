@@ -8,6 +8,7 @@ use Laravel\Scout\Searchable;
 
 class Category extends Model
 {
+    public static $temp = [];
     use Searchable;
 
     /**
@@ -61,14 +62,15 @@ class Category extends Model
     //获取子集分类
     public function getSon($data, $id)
     {
-        static $pas = [];
+       // static $pas = [];
         foreach ($data as $v) {
             if ($id == $v['parent_id']) {
-                $pas[] = $v['id'];
+                //$pas[] = $v['id'];
+                self::$temp[] = $v['id'];
                 $this->getSon($data, $v['id']);
             }
         }
-        return $pas;
+        return self::$temp;
     }
 
     //获取父集分类
@@ -83,5 +85,10 @@ class Category extends Model
         }
 
         return $temp;
+    }
+
+    //分类 关联商品
+    public function good(){
+        return $this->hasMany(Good::class);
     }
 }

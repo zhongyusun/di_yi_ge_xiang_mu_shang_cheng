@@ -11,13 +11,6 @@
             <div class="focus-b">
                 <ul>
                     <li><a href="{{route('home.home')}}">商城首页</a></li>
-                    <li><a href="#">本地生活</a></li>
-                    <li><a href="#">团购专区</a></li>
-                    <li><a href="#">积分商城 </a></li>
-                    <li><a href="#">分销系统</a></li>
-                    <li><a href="#">办公耗材</a></li>
-                    <li><a href="#">饰品礼品</a></li>
-                    <li><a href="#">休闲娱乐</a></li>
                 </ul>
             </div>
 
@@ -26,28 +19,54 @@
             <div class="subpage">
                 <h2></h2>
                 <div class="prosul dd-inner dd_inner_ziy" id="proinfo">
-                    <div class="font-item">
-                        <div class="item fore1">
-                            <h3>
-                                <a class="da_zhu" href="#">办公家具</a>
-                                <p>
-                                    <a href="#">五金</a>
-                                </p>
-                            </h3>
-                            <i>></i>
-                        </div>
-                        <div class="font-item1">
-                            <div class="font-lefty">
-                                <dl class="fore1">
-                                    <dt><a href="#">大家电<i>></i></a></dt>
-                                    <dd>
-                                        <a href="#">平板电视</a>
-                                    </dd>
-                                </dl>
+                    <?php $i = 0; ?>
+                    @foreach($categoryData as $v)
+                        <?php $i++;?>
+                        @if($i<8)
+                            <div class="font-item">
+                                <div class="item fore1">
+                                    <h3>
+                                        <a class="da_zhu"
+                                           href="{{route('home.list',['list'=>$v['id']])}}">{{$v['title']}}</a>
+                                        <p>
+                                            <?php $p = 0; ?>
+                                            @foreach($v['_data'] as $vv)
+                                                <?php $p++;?>
+                                                @if($p<4)
+                                                    <a href="{{route('home.list',['list'=>$vv['id']])}}">{{$vv['title']}}</a>
+                                                @endif
+                                            @endforeach
+                                        </p>
+                                    </h3>
+                                    <i>></i>
+                                </div>
+                                <div class="font-item1">
+                                    <div class="font-lefty">
+                                        <?php $q = 0; ?>
+                                        @foreach($v['_data'] as $vv)
+                                            <?php $q++;?>
+                                            @if($q<8)
+                                                <dl class="fore1">
+                                                    <dt>
+                                                        <a href="{{route('home.list',['list'=>$vv['id']])}}">{{$vv['title']}}
+                                                            <i>></i></a></dt>
+                                                    <dd>
+                                                        <?php $w = 0; ?>
+                                                        @foreach($vv['_data'] as $vvv)
+                                                            <?php $w++;?>
+                                                            @if($w<21)
+                                                                <a href="{{route('home.list',['list'=>$vvv['id']])}}">{{$vvv['title']}}</a>
+                                                            @endif
+                                                        @endforeach
+                                                    </dd>
+                                                </dl>
+                                            @endif
+                                        @endforeach
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-
+                        @endif
+                    @endforeach
                 </div>
             </div>
             <!--左边导航结束-->
@@ -84,7 +103,8 @@
             <ul>
                 @foreach($fatherData as $v)
                     <li>
-                        <a href="{{route('home.list',['list'=>$v['id']])}}" title="{{$v['title']}}" style="text-align: center;!important;">{{$v['title']}}</a>
+                        <a href="{{route('home.list',['list'=>$v['id']])}}" title="{{$v['title']}}"
+                           style="text-align: center;!important;">{{$v['title']}}</a>
                         <i class="icon-crumbs-right"></i>
                     </li>
                 @endforeach
@@ -116,24 +136,25 @@
         <div class="prd_firstscreen_left">
             <!---->
             <div id="magnifier">
-                <div class="small-box">
-                    <img src="{{$content->list_pic}}" width="312px" style="margin: 0 auto" alt="#">
-                    <span class="hover"></span>
-                </div>
-                <div class="thumbnail-box">
-                    <a href="javascript:;" class="btn btn-prev"></a>
-                    <a href="javascript:;" class="btn btn-next"></a>
-                    <div class="list">
-                        <ul class="wrapper">
-                            @foreach($content['pics'] as $v)
-                                <li class="item" data-src="{{$v}}"><img src="{{$v}}" alt="#">
-                                </li>
-                            @endforeach
-                        </ul>
+                <div class="con-FangDa" id="fangdajing">
+                    <div class="con-fangDaIMg">
+                        <!-- 正常显示的图片-->
+                        <img src="{{$content->list_pic}}" style="width: 300px;height: 350px;">
+                        <!-- 滑块-->
+                        <div class="magnifyingBegin"></div>
+                        <!-- 放大镜显示的图片 -->
+                        <div class="magnifyingShow"><img src="{{$content->list_pic}}"></div>
                     </div>
-                </div>
-                <div class="big-box">
-                    <img src="{{$content->list_pic}}" alt="#">
+                    <ul class="con-FangDa-ImgList">
+                        <!-- 图片显示列表 -->
+                        @foreach($content['pics'] as $v)
+                            <li class="active"><img src="{{$v}}" data-bigimg="{{$v}}"></li>
+                        @endforeach
+                        {{--<li><img src="images/thumb/2.jpg" data-bigimg="images/big/2.jpg"></li>--}}
+                        {{--<li><img src="images/thumb/3.jpg" data-bigimg="images/big/3.jpg"></li>--}}
+                        {{--<li><img src="images/thumb/4.jpg" data-bigimg="images/big/4.jpg"></li>--}}
+                        {{--<li><img src="images/thumb/5.jpg" data-bigimg="images/big/5.jpg"></li>--}}
+                    </ul>
                 </div>
             </div>
             {{--<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>--}}
@@ -449,7 +470,7 @@
                     <ul>
                         {{--产品介绍--}}
                         <div class="p_parameter">
-                            {{$content->description}}
+                            {!! $content->content !!}
                         </div>
                     </ul>
                     <!--售后保障-->
@@ -462,7 +483,7 @@
                             <div class="mc">
                                 <div class="item-detail item-detail-copyright">
                                     <div class="serve-agree-bd">
-                                        {!! $content->content !!}
+                                        {!! $content->description !!}
                                     </div>
                                     <div id="state">
                                         <strong>权利声明：</strong><br>wangid通城上的所有商品信息、客户评价、商品咨询、网友讨论等内容，是京东重要的经营资源，未经许可，禁止非法转载使用。
@@ -1012,17 +1033,21 @@
             });
         });
     </script>
-
 @endsection
 @push('css')
+    <link rel="stylesheet" type="text/css" href="{{asset('org/shangpingfangdajing')}}/css/zzsc.css">
     <link rel="stylesheet" type="text/css" href="{{asset('org/receptionist')}}/css/index.css">
     <link rel="stylesheet" type="text/css" href="{{asset('org/receptionist')}}/css/ziy.css">
     <link rel="stylesheet" type="text/css" href="{{asset('org/receptionist')}}/houl/jquery.fancybox-1.3.4.css">
     <link rel="stylesheet" type="text/css" href="{{asset('org/receptionist')}}/houl/style.css">
 @endpush
 @push('js')
+    <script type="text/javascript" class="library"
+            src="{{asset('org/shangpingfangdajing')}}/js/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" class="library"
+            src="{{asset('org/shangpingfangdajing')}}/js/jquery.colorbox-min.js"></script>
+    <script type="text/javascript" class="library" src="{{asset('org/shangpingfangdajing')}}/js/zzsc.js"></script>
     <script src="{{asset('org/receptionist')}}/js/jquery-1.11.3.min.js"></script>
-
     <script src="{{asset ('org/layer/layer.js')}}"></script>
 
     <script type="text/javascript" src="{{asset('org/receptionist')}}/js/jquery-1.11.1.min.js"></script>
@@ -1035,24 +1060,24 @@
         function addCart(obj) {
             if ($(obj).parents('.prd_buttons').siblings('.prd_properties').children('.prd-properties-2').children('.prd_properties_other').children('.prdRight').children('.prdcol').children('a').hasClass('select')) {
                 $.ajax({
-                    url:"{{route('home.cart.store')}}",
-                    type:'post',
-                    data:{
-                        id:"{{$content['id']}}",
-                        spec:$('.prdcol').find('.select').attr('spec'),
-                        num:$('.count-wrapper').find('input').val(),
-                        _token:'{{csrf_token()}}'
+                    url: "{{route('home.cart.store')}}",
+                    type: 'post',
+                    data: {
+                        id: "{{$content['id']}}",
+                        spec: $('.prdcol').find('.select').attr('spec'),
+                        num: $('.count-wrapper').find('input').val(),
+                        _token: '{{csrf_token()}}'
                     },
-                    dataType:'json',
-                    success:function (response) {
+                    dataType: 'json',
+                    success: function (response) {
                         // console.log(response)
-                        if(response.code ==0 ){
+                        if (response.code == 0) {
                             location.href = "{{route('home.login')}}?from={{url()->full()}}"
-                        }else{
-                            location.href ="{{route('home.cart.store')}}"
+                        } else {
+                            location.href = "{{route('home.cart.store')}}"
                         }
                     },
-                    error:function (error) {
+                    error: function (error) {
                         //console.log(error)
                     }
                 })
@@ -1086,10 +1111,12 @@
             }, 'json')
             //alert(1);
         }
+
         //选中
         function clicks(obj) {
             $(obj).addClass('select').parents('.prdmod').siblings('.prdmod').find('a').removeClass('select')
         }
+
         //数量加
         function jia() {
             //alert(1);
@@ -1104,6 +1131,7 @@
                 $('.quantity').val({{$content['total']}});
             }
         }
+
         //数量减
         function jian() {
             //alert(1);

@@ -7,13 +7,6 @@
         <div class="focus-b">
             <ul>
                 <li><a href="/">商城首页</a></li>
-                <li><a href="">本地生活</a></li>
-                <li><a href="#">团购专区</a></li>
-                <li><a href="#">积分商城 </a></li>
-                <li><a href="#">分销系统</a></li>
-                <li><a href="#">办公耗材</a></li>
-                <li><a href="#">饰品礼品</a></li>
-                <li><a href="#">休闲娱乐</a></li>
             </ul>
         </div>
         <!--左边导航-->

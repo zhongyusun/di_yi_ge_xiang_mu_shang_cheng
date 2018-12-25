@@ -393,6 +393,7 @@
                     axios.delete("/home/cart/" + v.id, {}).then((res) => {
                         if (res.status == 200) {
                             this.carts.splice(k, 1);
+                            location.reload();
                             layer.msg('删除成功')
                         }
                     })
