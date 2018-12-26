@@ -26,13 +26,30 @@ class UserController extends Controller
     //注册数据
     public function registerpost(RegisterRequest $request)
     {
-        // dd($request->all());
+        //接受所有请求数据
         $data = $request->all();
+
         $data['password'] = bcrypt($data['password']);
+
         $data['token'] = str_random(50);//给每个注册用户随机一个字符串
-        $data['icon'] = asset('icon/1.jpg.jpg');
-//        dd($data);
+
+        $data['icon'] = asset('icon/1.jpg.jpg');//默认头像
+
         $data['membership'] = 0;
+
+        if (filter_var($data['account'], FILTER_VALIDATE_EMAIL)) {
+            //dd(1);
+            //修改数据表中 email_verified_at 字段
+            $data['email_verified_at'] = now();//now()函数获取当前时间
+            $data['email'] = $data['account'];
+        } else {
+            //dd(2);
+            //dd(now());
+            $data['mobile_verified_at'] = now();//now()函数获取当前时间
+            $data['mobile'] = $data['account'];
+            $data['email'] = '';
+        }
+        //dd(1);
         User::create($data);
         return redirect()->route('home.login')->with('success', '注册成功');
     }
@@ -52,19 +69,21 @@ class UserController extends Controller
         //dd($request->all());
         //验证
         $this->validate($request, [
-            'email' => 'email',
+            'account' => 'required',
             'password' => 'required|min:3'
         ], [
-            'email.email' => '请输入邮箱',
+            'account.required' => '请输入邮箱或者手机号',
             'password.required' => '请输入登录密码',
             'password.min' => '密码不得少于3位置'
         ]);
-        //执行登录
-//        dd(1);
-        $credentials = $request->only('email', 'password');
-        if (\Auth::attempt($credentials, $request->remember)) {
+        if(filter_var($request['account'],FILTER_VALIDATE_EMAIL)){
+            $data['email'] = $request['account'];
+        }else{
+            $data['mobile'] = $request['account'];
+        }
+        $data['password'] = $request['password'];
+        if (\Auth::attempt($data, $request->remember)) {
             //登录成功，跳转到首页
-
             if ($request->from) {
 
                 return redirect($request->query('from'))->with('success', '登录成功');

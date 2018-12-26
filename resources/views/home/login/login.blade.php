@@ -27,28 +27,12 @@
         <div class="login_form">
             <div class="login_tab">
                 <h2>欢迎登录</h2>
-                {{--手机登录--}}
-                {{--<div class="dengl_erwm">--}}
-                {{--<a href="#"><img src="{{asset('org/receptionist')}}/images/er_wm.png"></a>--}}
-                {{--<div class="tanc_erwm_kuang">--}}
-                {{--<img src="{{asset('org/receptionist')}}/images/mb_wangid.png">--}}
-                {{--<div class="qrcode_panel">--}}
-                {{--<ul>--}}
-                {{--<li class="fore1">--}}
-                {{--<span>打开</span>--}}
-                {{--<a href="#" target="_blank"> <span class="red">手机通城</span></a>--}}
-                {{--</li>--}}
-                {{--<li>扫描二维码</li>--}}
-                {{--</ul>--}}
-                {{--</div>--}}
-                {{--</div>--}}
-                {{--</div>--}}
             </div>
             <form method="post" action="{{route('home.loginpost',['from'=>Request::query('from')])}}">
                 @csrf
                 <div class="kengl_kuang">
                     <div class="txt_kuang">
-                        <input type="email" name="email" class="itxt" placeholder="邮箱">
+                        <input type="text" name="account" class="itxt" placeholder="请输入邮箱或者手机号">
                         <input type="password" name="password" class="itxt" placeholder="密码">
                     </div>
                     <div class="remember">

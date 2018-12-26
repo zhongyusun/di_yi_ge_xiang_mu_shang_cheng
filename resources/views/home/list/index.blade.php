@@ -11,9 +11,6 @@
             <div class="focus-b">
                 <ul>
                     <li><a href="{{route('home.home')}}">首页</a></li>
-                    <li><a href="#">美食</a></li>
-                    <li><a href="#">今日新品</a></li>
-                    <li><a href="#">周边游 </a></li>
                 </ul>
             </div>
             @if($list>7)
@@ -61,45 +58,21 @@
     </div>
     <div class="beij_center bengd_hov">
         <div class="bengd_shengh_tout">
-            <div class="bend_dangq_qvy">
-                <h3>全部区域</h3>
-                <div class="bengd_qvy_kuang"><a href="#">云岩区</a><a href="#">南明区</a><a href="#">白云区</a><a
-                        href="#">乌当区</a><a
-                        href="#">花溪区</a><a href="#">观山湖区</a><a href="#">清镇市</a><a href="#">开阳县</a><a href="#">修文县</a><a
-                        href="#">息烽县</a></div>
-            </div>
-            <div class="bend_dangq_qvy bend_dangq_shangq">
-                <h3>热门商圈</h3>
-                <div class="bengd_qvy_kuang"><a href="#">飞山街</a><a href="#">花果园</a><a href="#">碰水池</a><a
-                        href="#">小何-黄河路</a><a
-                        href="#">鸿通城</a><a href="#">小十字</a><a href="#">亨特</a><a href="#">新添寨</a></div>
-            </div>
             <div class="tout_shangp_lieb">
                 <ul>
-                    <li>
-                        <a href="#" class="tout_tup_kuang"><img src="images/shangq_1.jpg"></a>
-                        <div class="neir">
-                            <a href="#">大龍自助火锅</a>
-                            <p>提供免费WiFi</p>
-                        </div>
-                        <span>￥:25.00</span>
-                    </li>
-                    <li>
-                        <a href="#" class="tout_tup_kuang"><img src="images/shangq_2.jpg"></a>
-                        <div class="neir">
-                            <a href="#">大龍自助火锅</a>
-                            <p>提供免费WiFi</p>
-                        </div>
-                        <span>￥:25.00</span>
-                    </li>
-                    <li>
-                        <a href="#" class="tout_tup_kuang"><img src="images/shangq_3.jpg"></a>
-                        <div class="neir">
-                            <a href="#">大龍自助火锅</a>
-                            <p>提供免费WiFi</p>
-                        </div>
-                        <span>￥:25.00</span>
-                    </li>
+                    @if(count($rangoods)==0)
+                        <h2 style="color: #adadad;font-size: 40px;font-weight: 600;text-align: center;margin-bottom: 200px;margin-top: 20px">暂无商品</h2>
+                    @else
+                        @foreach($rangoods as $rangood)
+                            <li>
+                                <a href="{{route('home.content',$rangood->id)}}" class="tout_tup_kuang"><img src="{{$rangood->list_pic}}"></a>
+                                <div class="neir">
+                                    <a href="{{route('home.content',$rangood->id)}}">{{$rangood->title}}</a>
+                                </div>
+                                <span>￥:{{$rangood->price}}</span>
+                            </li>
+                        @endforeach
+                    @endif
                 </ul>
             </div>
         </div>
@@ -125,7 +98,6 @@
                     @endforeach
                 </ul>
             </div>
-            <div class="meis_chak_quanb"><a href="#">查看全部</a></div>
         </div>
     </div>
 @endsection

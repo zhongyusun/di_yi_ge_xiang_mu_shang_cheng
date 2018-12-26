@@ -137,13 +137,14 @@
             <!---->
             <div id="magnifier">
                 <div class="con-FangDa" id="fangdajing">
-                    <div class="con-fangDaIMg">
+                    <div class="con-fangDaIMg" style="width: 300px;height: 350px;">
                         <!-- 正常显示的图片-->
                         <img src="{{$content->list_pic}}" style="width: 300px;height: 350px;">
                         <!-- 滑块-->
                         <div class="magnifyingBegin"></div>
                         <!-- 放大镜显示的图片 -->
-                        <div class="magnifyingShow"><img src="{{$content->list_pic}}"></div>
+                        <div class="magnifyingShow"><img src="{{$content->list_pic}}"
+                                                         style="width: 900px;height: 1050px;"></div>
                     </div>
                     <ul class="con-FangDa-ImgList">
                         <!-- 图片显示列表 -->
@@ -287,60 +288,26 @@
             <!---->
             <div class="multipleColumn" style="margin:0 auto">
                 <div class="bd">
-                    <div class="ulWrap">
+                    <div class="">
+                        {{--ulWrap  轮播class--}}
                         <ul><!-- 把每次滚动的n个li放到1个ul里面 -->
-                            <li>
-                                <div class="pic"><a href="#" target="_blank"><img src="images/xiangqtu_1.jpg"/></a>
-                                </div>
-                                <div class="title"><a href="#" target="_blank">￥68.00</a></div>
-                            </li>
-                            <li>
-                                <div class="pic"><a href="#" target="_blank"><img src="images/lieb_tupi3.jpg"/></a>
-                                </div>
-                                <div class="title"><a href="#" target="_blank">￥68.00</a></div>
-                            </li>
-                            <li>
-                                <div class="pic"><a href="#" target="_blank"><img src="images/big_3.jpg"/></a></div>
-                                <div class="title"><a href="#" target="_blank">￥68.00</a></div>
-                            </li>
-                        </ul>
-                        <ul><!-- 把每次滚动的n个li放到1个ul里面 -->
-                            <li>
-                                <div class="pic"><a href="#" target="_blank"><img src="images/xiangqtu_1.jpg"/></a>
-                                </div>
-                                <div class="title"><a href="#" target="_blank">￥68.00</a></div>
-                            </li>
-                            <li>
-                                <div class="pic"><a href="#" target="_blank"><img src="images/lieb_tupi3.jpg"/></a>
-                                </div>
-                                <div class="title"><a href="#" target="_blank">￥68.00</a></div>
-                            </li>
-                            <li>
-                                <div class="pic"><a href="#" target="_blank"><img src="images/big_3.jpg"/></a></div>
-                                <div class="title"><a href="#" target="_blank">￥68.00</a></div>
-                            </li>
-                        </ul>
-                        <ul><!-- 把每次滚动的n个li放到1个ul里面 -->
-                            <li>
-                                <div class="pic"><a href="#" target="_blank"><img src="images/xiangqtu_1.jpg"/></a>
-                                </div>
-                                <div class="title"><a href="#" target="_blank">￥68.00</a></div>
-                            </li>
-                            <li>
-                                <div class="pic"><a href="#" target="_blank"><img src="images/lieb_tupi3.jpg"/></a>
-                                </div>
-                                <div class="title"><a href="#" target="_blank">￥68.00</a></div>
-                            </li>
-                            <li>
-                                <div class="pic"><a href="#" target="_blank"><img src="images/big_3.jpg"/></a></div>
-                                <div class="title"><a href="#" target="_blank">￥68.00</a></div>
-                            </li>
+                            <?php $i = 0 ?>
+                            @foreach($ss as $s)
+                                <?php $i++ ?>
+                                @if($i<6)
+                                    <li>
+                                        <div class="pic">
+                                            <a href="{{route('home.content',$s->id)}}" target="_blank"><img
+                                                    src="{{$s->list_pic}}"/></a>
+                                        </div>
+                                        <div class="title"><a href="{{route('home.content',$s->id)}}"
+                                                              target="_blank">￥{{$s->price}}</a></div>
+                                    </li>
+                                @endif
+                            @endforeach
                         </ul>
                     </div><!-- ulWrap End -->
                 </div><!-- bd End -->
-                <div class="hd">
-                    <ul></ul>
-                </div>
             </div><!-- multipleColumn End -->
 
             <script type="text/javascript">
@@ -415,45 +382,6 @@
                     </div>
                 </div>
             </div>
-            <!---->
-            <div class="shangp_xiangq_left_biank">
-                <div class="stores-infos">
-                    <div class="ly-stores">
-                        <h2 class="fix-storesname shops-name" id="store_live800_wrap">
-                            <a class="name" title="本店商品" href="#" target="_blank">本店商品</a>
-                        </h2>
-                        <ul class="bend_shangp_lieb">
-                            <li>
-                                <a href="#">
-                                    <img src="images/lieb_tupi3.jpg">
-                                    <h3>￥58.00</h3>
-                                    <p>茵珠麗YinZhuli 春秋季新款韩版居家服女针织棉长袖情</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <!---->
-            <div class="shangp_xiangq_left_biank">
-                <div class="stores-infos">
-                    <div class="ly-stores">
-                        <h2 class="fix-storesname shops-name" id="store_live800_wrap">
-                            <a class="name" title="热门商品" href="#" target="_blank">热门商品</a>
-                        </h2>
-                        <ul class="bend_shangp_lieb">
-                            <li>
-                                <a href="#">
-                                    <img src="images/lieb_tupi3.jpg">
-                                    <h3>￥58.00</h3>
-                                    <p>茵珠麗YinZhuli 春秋季新款韩版居家服女针织棉长袖情</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <!---->
         </div>
         <!--right-->
         <div class="shangp_xiangq_right">
@@ -941,15 +869,20 @@
         <div class="mt">
             <h2 class="title">猜你喜欢</h2>
             <div class="extra">
-                <a href="#" class="change"><i class="ico"></i><span class="txt">换一批</span></a>
+                <a href="" class="change"><i class="ico"></i><span class="txt">换一批</span></a>
             </div>
         </div>
         <ul class="cain_xihuan_neir">
-            <li>
-                <div class="item_pic"><a href="#"><img src="images/lieb_tupi1.jpg"></a></div>
-                <div class="cain_xih_biaot"><a href="#">伊秋梦紫 2017夏季新款韩版小清新中长款碎花雪纺连衣裙8819(米白色 XXL棉麻连衣裙，舒适透气，MM</a></div>
-                <div class="cain_xih_jiaq"><p>￥560.00</p></div>
-            </li>
+            @foreach($rangs as $rang)
+                <li>
+                    <div class="item_pic">
+                        <a href="{{route('home.content',$rang->id)}}"><img src="{{$rang->list_pic}}"></a></div>
+                    <div class="cain_xih_biaot">
+                        <a href="{{route('home.content',$rang->id)}}">{{$rang->title}}</a>
+                    </div>
+                    <div class="cain_xih_jiaq"><p>￥{{$rang->price}}</p></div>
+                </li>
+            @endforeach
         </ul>
     </div>
 

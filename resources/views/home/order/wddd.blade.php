@@ -22,20 +22,6 @@
                             </ul>
                         </div>
                         <div class="wod_dingd_shuaix">
-                            <div class="combox">
-                                <div><span class="c-lable" val="1">全部订单</span><i></i></div>
-                                <ul class="c-list-value">
-                                    <li class=""><a href="#" val="1">近三个月的订单</a></li>
-                                    <li class=""><a href="#" val="2017">今年内订单</a></li>
-                                    <li class=""><a href="#" val="2016">2016年订单</a></li>
-                                    <li class=""><a href="#" val="2015">2015年订单</a></li>
-                                    <li class=""><a href="#" val="3">2015年以前订单</a></li>
-                                </ul>
-                            </div>
-                            <div class="search_box">
-                                <input type="text" value="" placeholder="订单编号" class="seach_inpt">
-                                <input type="button" value="" class="search-btn">
-                            </div>
                         </div>
                         <!--************************************-->
                         <table class="order-tb order-tb_1">
@@ -117,8 +103,7 @@
                                             <td rowspan="1">
                                                 <div class="operate">
                                                     @if($order->status==1)
-                                                        <p><p class="ftx-03">未支付</p>
-                                                        </p>
+                                                        <p> class="ftx-03">未支付</p>
                                                     @elseif($order->status==2)
                                                         <p class="ftx-03">已付款</p>
                                                     @elseif($order->status==3)
@@ -143,7 +128,7 @@
                                                     <a href="#" target="_blank" class="a-link">晒单</a><br>
                                                     @if($order->status==1)
                                                         <a href="{{route('home.index',['number'=>$order->number])}}"
-                                                           target="_blank" class="btn-def">立即购买</a>
+                                                           target="_blank" class="btn-def">立即支付</a>
                                                     @endif
                                                 </div>
                                             </td>

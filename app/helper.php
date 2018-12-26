@@ -26,10 +26,11 @@ if (!function_exists('hd_config')) {
 if( !function_exists( 'admin_has_permission' ) ){
     function admin_has_permission( $permission )
     {
-
+        //dd($permission);
         if( is_array( $permission ) ){
+            //dd($permission);
             //检测登陆的该用户是否有该权限
-            //dd(!auth( 'admin' )->user()->hasAnyPermission( $permission ));
+            //dd(auth( 'admin' )->user()->hasAnyPermission( $permission ));
             if( !auth( 'admin' )->user()->hasAnyPermission( $permission ) ){
                 throw  new \App\Exceptions\PermissionException( '暂无权限' );
             }

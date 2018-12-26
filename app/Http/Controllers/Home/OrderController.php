@@ -61,12 +61,7 @@ class OrderController extends Controller
         return view('home.order.wddd',compact('carts','orders','user'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request, Order $order)
     {
        // dd($request->all());
@@ -91,7 +86,6 @@ class OrderController extends Controller
         $order->save();
         //添加订单详情表
         foreach($cartData as $v){
-            //dd($v);
             $orderDetail = new OrderDetail();
             $orderDetail->order_id = $order->id;
             $orderDetail->title = $v['title'];
@@ -106,7 +100,6 @@ class OrderController extends Controller
         }
         //清除购物车对应数据
         Cart::whereIn('id',explode(',',$iqs))->where('user_id',auth()->id())->delete();
-
         DB::commit();
         return ['code'=>1,'msg'=>'提交成功','number'=>$order->number];
     }
@@ -124,9 +117,6 @@ class OrderController extends Controller
         //获取详细地址
         $sites=Site::all()->where('id',$order->site_id)->toArray();
         $sites=current($sites);
-        //dd($order);
-//        dd($datas['spec_id']);
-        //dd($user);
         return view('home.order.content',compact('carts','order','user','datas','sites'));
     }
 
@@ -144,7 +134,6 @@ class OrderController extends Controller
 
     public function destroy(Order $order)
     {
-        //dd(1);
         $order->delete();
         return ['code'=>1];
     }

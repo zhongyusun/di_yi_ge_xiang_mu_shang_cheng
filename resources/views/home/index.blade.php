@@ -192,8 +192,6 @@
             </div>
         </div>
     </div>
-
-
     <script type="text/javascript">
         jQuery(".picScroll_left").slide({
             titCell: ".hd ul",

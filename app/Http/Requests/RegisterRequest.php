@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\User;
 use Illuminate\Foundation\Http\FormRequest;
 
 class RegisterRequest extends FormRequest
@@ -24,8 +25,20 @@ class RegisterRequest extends FormRequest
     public function rules()
     {
         return [
+            'account' => [
+                'required',
+                function ($attribute, $value, $fail) {
+                    if (filter_var($value, FILTER_VALIDATE_EMAIL)) {
+                        $user = User::where('email', $value)->first();
+                    } else {
+                        $user = User::where('mobile', $value)->first();
+                    }
+                    if ($user) {
+                        return $fail('该账号已存在');
+                    }
+                },
+            ],
             'name' => 'required',
-            'email' => 'email|unique:users',
             'password' => 'required|min:3|confirmed',
             'code' => [
                 'required',
@@ -49,9 +62,8 @@ class RegisterRequest extends FormRequest
     public function messages()
     {
         return [
+            'account.required'     => '请输入注册邮箱' ,
             'name.required' => '请输入昵称',
-            'email.email' => '请输入正确邮箱',
-            'email.unique' => '该邮箱已注册',
             'password.required' => '请输入密码',
             'password.min' => '密码不得少于3位',
             'password.confirmed' => '两次输入密码不一致',

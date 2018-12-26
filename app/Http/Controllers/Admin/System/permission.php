@@ -15,5 +15,4 @@ return [
     ['title'=>'订单管理','name'=>'order'],
     ['title'=>'后台登录','name'=>'index'],
     ['title'=>'栏目管理','name'=>'category'],
-
 ];

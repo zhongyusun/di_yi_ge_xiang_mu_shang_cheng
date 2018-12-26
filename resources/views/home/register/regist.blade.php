@@ -36,14 +36,14 @@
               	<span class="reg-label">
                 	<label for="J_Name">用户名：</label>
               	</span>
-                    <input class="i-text" type="text" value="" name="name" placeholder="请输入用户名称">
+                    <input class="i-text" type="text" value="{{old ('name')}}" name="name" placeholder="请输入用户名称">
                 </div>
 
                 <div class="reg-items">
               	<span class="reg-label">
                 	<label for="J_Name">邮箱：</label>
               	</span>
-                    <input class="i-text" id="username" type="email" value="" name="email" placeholder="请输入邮箱">
+                    <input class="i-text" id="username" type="text" value="{{old('account')}}" name="account" placeholder="请输入邮箱或手机号">
                 </div>
 
                 <div class="reg-items">
@@ -103,8 +103,9 @@
 
     function send(obj) {
         var tew = $('#username').val();
+        //alert(tew);
         if (tew==''){
-            layer.msg('请输入邮箱')
+            layer.msg('请输入邮箱或手机号')
         }
         if ($(obj).is('layui-disabled')) {
             return false;
@@ -120,19 +121,21 @@
                 return;
             }
             //重新构建发送验证码按钮
-            $(obj).html(time + 's后再发');
+            $(obj).html(time + 's后再发');x
         }, 1000);
 
         var params = {
             "username":tew,
         }
-        {{--$.ajax({--}}
-            {{--url:{{route('util.code.send')}},--}}
-            {{--type: "POST",--}}
-            {{--data:params,--}}
-        {{--})--}}
         //发送异步请求发送验证码
-        $.post("{{route ('util.code.send')}}",params)
+        $.post("{{route ('util.code.send')}}",params,function (res) {
+            if (res.code==0){
+                layer.msg(res.message)
+            }else {
+                layer.msg(res.message)
+            }
+
+        })
     }
 </script>
 </html>
