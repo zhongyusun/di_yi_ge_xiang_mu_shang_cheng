@@ -39,6 +39,8 @@ Route::group(['prefix' => 'home', 'namespace' => 'Home', 'as' => 'home.'], funct
     Route::get('qqback','HomeController@qqback')->name('qqback');
     //扣扣
     Route::get('qq_login','UserController@qqLogin')->name('qq_login');
+    //收藏和取消收藏
+    Route::get('collect/make','CollectController@make')->name('collect_make');
     //登录数据
     Route::post('/loginpost', 'UserController@loginPost')->name('loginpost');
     //注销登录

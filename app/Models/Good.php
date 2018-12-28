@@ -27,4 +27,11 @@ class Good extends Model
     public function specs(){
         return $this->hasMany(Spec::class,'good_id','id');
     }
+
+
+    //收藏  多态
+    public function collect(){
+        //第一个参数关联模型,第二个参数跟数据迁移  collect_id  collect_type
+        return $this->morphMany(Collect::class,'collect');
+    }
 }

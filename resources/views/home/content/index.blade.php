@@ -169,15 +169,19 @@
             <!---->
             <div class="preview-info">
                 <div class="left-btns">
-                    <a class="share J-share" href="#">
-                        <i class="sprite-share"></i><em>分享</em>
-                    </a>
-                    <a class="" href="#">
-                        <i class="sprite-compare"></i><em>收藏商品（商品人气1500）</em>
-                    </a>
-                </div>
-                <div class="right-btns">
-                    <a class="report-btn" href="#">举报</a>
+                    @auth()
+                        <a class="" href="{{route('home.collect_make',['type'=>'good','id'=>$content['id']])}}">
+                            @if($content->collect->where('user_id',auth()->id())->first())
+                                <i class="sprite-compare" style="display:block;"></i><em>收藏商品（商品人气）</em>
+                            @else
+                                <i class="sprite-compare" style="display:none;"></i><em>收藏商品（商品人气变量）</em>
+                            @endif
+                        </a>
+                    @else
+                        <a class="" href="{{route('home.login')}}">
+                            <i class="sprite-compare" style="display:block;"></i><em>收藏商品（商品人气）</em>
+                        </a>
+                    @endauth
                 </div>
             </div>
         </div>
