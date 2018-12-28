@@ -56,8 +56,14 @@
                             @if(auth('admin')->user()->hasPermissionTo('Admin-config-search') || auth('admin')->user()->hasRole('config'))
                                 <li><a href="{{route('admin.config.edit',['name'=>'seach'])}}">搜索配置</a></li>
                             @endif
+                            @if(auth('admin')->user()->hasPermissionTo('Admin-config-message') || auth('admin')->user()->hasRole('config'))
+                                <li><a href="{{route('admin.config.edit',['name'=>'message'])}}">短信配置</a></li>
+                            @endif
                             @if(auth('admin')->user()->hasPermissionTo('Admin-flash') || auth('admin')->user()->hasRole('good'))
                                 <li><a href="{{route('admin.flash.index')}}">轮播图管理</a></li>
+                            @endif
+                            @if(auth('admin')->user()->hasPermissionTo('Admin-config-qq') || auth('admin')->user()->hasRole('config'))
+                                <li><a href="{{route('admin.config.edit',['name'=>'qq'])}}">qq登录配置</a></li>
                             @endif
                         </ul>
                     </li>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Home;
 
 use App\Models\Cart;
 use App\Models\Category;
+use App\Models\Flash;
 use App\Models\Good;
 use App\Models\Spec;
 use App\User;
@@ -99,7 +100,11 @@ class HomeController extends Controller
             $segoods=Good::inRandomOrder()->limit(2)->get();
             //随机获取6件商品
             $goods=Good::inRandomOrder()->limit(6)->get();
-        return view('home.index', compact('goods','tegoods','segoods','tesegoods','siFloor','siflash','threeflash','threeFloor','twoFloor','twoflash','categoryData', 'carts','latestGood','firgood','randomcategory','rangoods','oneFloor','oneflash'));
+
+            //获取轮播图数据
+        $flashs=Flash::all();
+        //dd($flashs);
+        return view('home.index', compact('flashs','goods','tegoods','segoods','tesegoods','siFloor','siflash','threeflash','threeFloor','twoFloor','twoflash','categoryData', 'carts','latestGood','firgood','randomcategory','rangoods','oneFloor','oneflash'));
 
     }
 

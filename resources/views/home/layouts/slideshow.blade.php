@@ -38,7 +38,8 @@
                                     <?php $q++;?>
                                     @if($q<8)
                                         <dl class="fore1">
-                                            <dt><a href="{{route('home.list',['list'=>$vv['id']])}}">{{$vv['title']}}<i>></i></a></dt>
+                                            <dt><a href="{{route('home.list',['list'=>$vv['id']])}}">{{$vv['title']}}<i>></i></a>
+                                            </dt>
                                             <dd>
                                                 <?php $w = 0; ?>
                                                 @foreach($vv['_data'] as $vvv)
@@ -63,10 +64,18 @@
 <!--轮播图-->
 <div id="lunbo">
     <ul id="one">
-        <li><a href=""><img src="{{asset('org/receptionist')}}/images/banner.jpg"></a></li>
-        <li><a href=""><img src="{{asset('org/receptionist')}}/images/banner1.jpg"></a></li>
-        <li><a href=""><img src="{{asset('org/receptionist')}}/images/banner.jpg"></a></li>
-        <li><a href=""><img src="{{asset('org/receptionist')}}/images/banner1.jpg"></a></li>
+        @if(count($flashs)==0)
+            <li><a href=""><img src="{{asset('org/receptionist')}}/images/banner.jpg"></a></li>
+            <li><a href=""><img src="{{asset('org/receptionist')}}/images/banner1.jpg"></a></li>
+            <li><a href=""><img src="{{asset('org/receptionist')}}/images/banner.jpg"></a></li>
+            <li><a href=""><img src="{{asset('org/receptionist')}}/images/banner1.jpg"></a></li>
+        @else
+            @foreach($flashs as $flash)
+                <li><a href=""><img src="{{$flash->path}}" style="text-align: center;height: 450px;width: 2863px"></a></li>
+            @endforeach
+        @endif
+
+
     </ul>
     <ul id="two">
         <li class="on">1</li>

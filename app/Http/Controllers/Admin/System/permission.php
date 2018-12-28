@@ -6,6 +6,8 @@ return [
     ['title'=>'站点配置管理','name'=>'config-website'],
     ['title'=>'前台用户管理','name'=>'user'],
     ['title'=>'上传配置管理','name'=>'config-upload'],
+    ['title'=>'qq登录配置管理','name'=>'config-qq'],
+    ['title'=>'短信配置','name'=>'config-message'],
     ['title'=>'邮件配置管理','name'=>'config-email'],
     ['title'=>'搜索配置管理','name'=>'config-search'],
     ['title'=>'管理后台管理员','name'=>'admin'],
