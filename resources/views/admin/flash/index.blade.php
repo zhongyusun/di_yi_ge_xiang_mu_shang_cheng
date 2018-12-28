@@ -38,7 +38,7 @@
                             <th>编号</th>
                             <th>轮播图标题</th>
                             <th>图片</th>
-                            <th>#</th>
+                            <th>操作</th>
                         </tr>
                         </thead>
                         <tbody class="list">
@@ -50,7 +50,15 @@
                                     <img width="60" src="{{$flash['path']}}" alt="">
                                 </td>
                                 <td>
-
+                                    <a href="{{route('admin.flash.edit',$flash)}}">
+                                        <i class="fa fa-pencil text-inverse m-r-10"></i>
+                                    </a>
+                                    <a href="javascript:;" onclick="del(this)" data-toggle="tooltip" data-original-title="Close">
+                                        <i class="fa fa-close text-danger"></i>
+                                    </a>
+                                    <form action="{{route('admin.flash.destroy',$flash)}}" method="post">
+                                        @csrf @method('DELETE')
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach
@@ -65,11 +73,23 @@
 @push('js')
     <script>
         function del(obj) {
-            require(['hdjs', 'bootstrap'], function (hdjs) {
-                hdjs.confirm('确定删除吗?', function () {
-                    $(obj).next('form').submit();
-                })
+            swal("确定删除？", {
+                buttons: {
+                    cancel: "取消",
+                    catch: {
+                        text: "确定",
+                        value: "catch",
+                    },
+                },
             })
+                .then((value) => {
+                    switch (value) {
+                        case "catch":
+                            $(obj).next('form').submit();
+                            break;
+                        default:
+                    }
+                });
         }
     </script>
 @endpush

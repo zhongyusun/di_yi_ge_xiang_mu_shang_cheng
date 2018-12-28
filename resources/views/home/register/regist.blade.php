@@ -43,7 +43,8 @@
               	<span class="reg-label">
                 	<label for="J_Name">邮箱：</label>
               	</span>
-                    <input class="i-text" id="username" type="text" value="{{old('account')}}" name="account" placeholder="请输入邮箱或手机号">
+                    <input class="i-text" id="username" type="text" value="{{old('account')}}" name="account"
+                           placeholder="请输入邮箱或手机号">
                 </div>
 
                 <div class="reg-items">
@@ -74,7 +75,14 @@
                 	<label for="J_Name"> </label>
               	</span>
                     <button class="reg-btn">立即注册</button>
+                    <ul style="float: left;margin-top: 10px">
+                        <li style="float: left;margin-left: 10px">
+                            <a href="{{route('home.qq')}}"><img src="{{asset('icon/qq.ico')}}" style="height: 20px;"
+                                                                    alt=""></a>
+                        </li>
+                    </ul>
                 </div>
+
             </form>
         </div>
         <div class="xiaogg">
@@ -104,7 +112,7 @@
     function send(obj) {
         var tew = $('#username').val();
         //alert(tew);
-        if (tew==''){
+        if (tew == '') {
             layer.msg('请输入邮箱或手机号')
         }
         if ($(obj).is('layui-disabled')) {
@@ -121,17 +129,18 @@
                 return;
             }
             //重新构建发送验证码按钮
-            $(obj).html(time + 's后再发');x
+            $(obj).html(time + 's后再发');
+            x
         }, 1000);
 
         var params = {
-            "username":tew,
+            "username": tew,
         }
         //发送异步请求发送验证码
-        $.post("{{route ('util.code.send')}}",params,function (res) {
-            if (res.code==0){
+        $.post("{{route ('util.code.send')}}", params, function (res) {
+            if (res.code == 0) {
                 layer.msg(res.message)
-            }else {
+            } else {
                 layer.msg(res.message)
             }
 

@@ -6,9 +6,11 @@ use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Good;
 use App\Models\Spec;
+use App\User;
 use Houdunwang\Arr\Arr;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Laravel\Socialite\Facades\Socialite;
 
 class HomeController extends Controller
 {
@@ -104,7 +106,21 @@ class HomeController extends Controller
     //扣扣回调地址
     public function qqback()
     {
-        echo 1;
+        $userinfo = Socialite::driver('qq')->user();
+        //dd($userinfo);
+        $user=User::all()->where('open_id',$userinfo->id)->first();
+        //dd($user);
+        if (!$user){
+            $user=new User();
+            $user->open_id=$userinfo->id;
+            $user->name=$userinfo->nickname;
+            $user->icon=$userinfo->avatar;
+            $user->save();
+        }
+        //执行登录
+        auth()->login($user);
+        //跳转
+        return redirect('/')->with('success','登录成功');
     }
 
     //搜索

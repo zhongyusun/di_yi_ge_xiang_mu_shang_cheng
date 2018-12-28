@@ -22,8 +22,13 @@
 
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('admin.flash.create')}}" class="nav-link active">
+                            <a href="{{route('admin.flash.create')}}" class="nav-link">
                                 添加轮播图
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('admin.flash.edit',$flash)}}" class="nav-link active">
+                                编辑轮播图
                             </a>
                         </li>
                     </ul>
@@ -33,29 +38,29 @@
             <div class="tab-content">
                 <div class="card-header"></div>
                 <div class="card-body">
-                    <form action="{{route('admin.flash.store')}}" method="post"
+                    <form action="{{route('admin.flash.update',$flash)}}" method="post"
                           class="form-horizontal ">
-                    @csrf
+                    @csrf  @method('PUT')
                     <!--/row-->
                         <div class="form-group row" style="margin-left: 250px">
                             <label class="control-label text-right ">轮播图标题</label>
                             <div class="col-md-9">
-                                <input type="text" name="title" placeholder="请输入轮播图标题" value="" class="form-control">
+                                <input type="text" name="title" placeholder="请输入轮播图标题" value="{{$flashs->title}}" class="form-control">
                             </div>
                         </div>
                         <div class="form-group row" style="margin-left: 210px">
                             <label class="control-label text-right">请上传轮播图图片</label>
                             <div class="col-md-9">
                                 <div class="layui-upload-drag" id="test10">
-                                    {{--@if($config['data']['site_logo']==null)--}}
+                                    @if($flashs->path==null)
                                         <i class="layui-icon"></i>
                                         <p>点击上传，或将文件拖拽到此处</p>
-                                    {{--@else--}}
-                                        {{--<img src="{{$config['data']['site_logo']}}" alt="" width="80"><input--}}
-                                            {{--type="hidden"--}}
-                                            {{--name="site_logo"--}}
-                                            {{--value="{{$config['data']['site_logo']}}">--}}
-                                    {{--@endif--}}
+                                    @else
+                                        <img src="{{$flashs->path}}" alt="" width="80"><input
+                                            type="hidden"
+                                            name="path"
+                                            value="{{$flashs->path}}">
+                                    @endif
                                 </div>
                             </div>
                         </div>

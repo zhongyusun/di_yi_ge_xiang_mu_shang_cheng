@@ -11,7 +11,7 @@
             </div>
             <div class="jiank_meis">
                 <div class="kuang_1">
-                    <a href="#">
+                    <a href="{{route('home.content',4)}}">
                         @foreach($firgood as $vv)
                             <img src="{{$vv->list_pic}}" height="90%" width="100%">
                         @endforeach
@@ -36,11 +36,11 @@
                             <ul class="picList">
                                 @foreach($rangoods as $rangood)
                                     <li>
-                                        <div class="pic"><a href="#" target="_blank">
+                                        <div class="pic"><a href="{{route('home.content',$rangood->id)}}" target="_blank">
                                                 <img style="" src={{$rangood->list_pic}}/></a>
                                         </div>
                                         <div class="title">
-                                            <a href="#" target="_blank">{{$rangood->title}}</a>
+                                            <a href="{{route('home.content',$rangood->id)}}" target="_blank">{{$rangood->title}}</a>
                                         </div>
                                     </li>
                                 @endforeach

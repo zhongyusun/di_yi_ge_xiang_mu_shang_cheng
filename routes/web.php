@@ -37,11 +37,12 @@ Route::group(['prefix' => 'home', 'namespace' => 'Home', 'as' => 'home.'], funct
     Route::get('/login', 'UserController@login')->name('login');
     //扣扣回掉登录
     Route::get('qqback','HomeController@qqback')->name('qqback');
+    //扣扣
+    Route::get('qq_login','UserController@qqLogin')->name('qq_login');
     //登录数据
     Route::post('/loginpost', 'UserController@loginPost')->name('loginpost');
     //注销登录
     Route::get('/loginout', 'UserController@logout')->name('loginout');
-
     //忘记密码
     Route::get('/changepassword', 'UserController@changepassword')->name('changepassword');
     Route::post('/passwordstore', 'UserController@passwordstore')->name('passwordstore');

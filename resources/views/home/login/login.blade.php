@@ -49,6 +49,11 @@
                 </div>
             </form>
             <div class="corp_login">
+                <ul style="float: left">
+                    <li style="float: left;margin-left: 10px" >
+                        <a href="{{route('home.qq_login')}}"><img src="{{asset('icon/qq.ico')}}" style="height: 20px;" alt=""></a>
+                    </li>
+                </ul>
                 <div class="regist_link"><a href="{{route('home.register')}}" target="_blank"><b></b>立即注册</a></div>
             </div>
 

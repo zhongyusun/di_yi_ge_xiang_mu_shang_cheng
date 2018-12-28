@@ -143,9 +143,9 @@
         <a class="biaoti">热门搜索：</a>
         <a href="{{route('home.search',['wd'=>'电视'])}}">电视</a>
         <a href="{{route('home.search',['wd'=>'手机'])}}">手机</a>
-        <a href="{{route('home.search',['wd'=>''])}}">潮流男鞋</a>
-        <a href="{{route('home.search',['wd'=>''])}}">特步女鞋</a>
-        <a href="{{route('home.search',['wd'=>''])}}">威士忌</a>
+        <a href="{{route('home.search',['wd'=>'男鞋'])}}">潮流男鞋</a>
+        <a href="{{route('home.search',['wd'=>'女鞋'])}}">特步女鞋</a>
+        <a href="{{route('home.search',['wd'=>'威士忌'])}}">威士忌</a>
     </div>
 </div>
 @yield('content')

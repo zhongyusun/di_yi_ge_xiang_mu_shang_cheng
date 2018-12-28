@@ -7,13 +7,14 @@ use App\Notifications\ResetPasswordNotify;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Laravel\Socialite\Facades\Socialite;
 
 class UserController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth', [
-            'except' => ['register', 'login', 'registerpost', 'loginPost'],
+            'except' => ['register', 'login', 'registerpost', 'loginPost','qqLogin'],
         ]);
     }
 
@@ -92,6 +93,12 @@ class UserController extends Controller
         }
 
         return redirect()->back()->with('danger', '用户名密码不正确');
+    }
+
+    //扣扣登录
+    public function qqLogin(){
+
+        return Socialite::with('qq')->redirect();
     }
 
     //注销登录

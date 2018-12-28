@@ -135,6 +135,7 @@ return [
     */
 
     'providers' => [
+        SocialiteProviders\Manager\ServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
 
         /*

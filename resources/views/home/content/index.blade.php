@@ -537,101 +537,11 @@
                                         </div>
                                     </li>
                                 </ol>
-                                <div class="com-table-footer">
-                                    <div class="ui-page-wrap">
-                                        <div class="ui-page">
-                                            <a rel="1" class="ui-page-curr" href="#">1</a>
-                                            <a rel="2" href="#">2</a>
-                                            <a rel="3" href="#">3</a>
-                                            <a rel="4" href="#">4</a>
-                                            <a rel="5" href="#">5</a>
-                                            <a rel="6" href="#">6</a>
-                                            <span>...</span>
-                                            <a rel="2" class="ui-pager-next" href="#">下一页</a>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                             <!---->
                             <div class="jkdhfld">
                                 <div class="mt"><h3>商品评价</h3></div>
                                 <div class="consult-rt">
-                                    <table class="consult-form">
-                                        <caption>我要发表咨询</caption>
-                                        <tbody>
-                                        <tr id="tr-zxlx">
-                                            <th>咨询类型:&nbsp;</th>
-                                            <td>
-                                                <label class="cst-type"><input type="radio" value="1">购买咨询</label>
-                                                <label class="cst-type"><input type="radio" value="2">促销优惠</label>
-                                                <label class="cst-type"><input type="radio" value="3">支付问题</label>
-                                                <label class="cst-type"><input type="radio" value="4">售后咨询</label>
-                                            </td>
-                                        </tr>
-                                        <tr class="consul_type_wrap">
-                                            <th>回复方式:&nbsp;</th>
-                                            <td>
-                                                <div>
-                                                    <label class="cst-type" for="consul_site">
-                                                        <input type="radio" value="consul_site" name="hffs-type"
-                                                               id="consul_site" checked="checked">网站
-                                                    </label>
-                                                    <label class="cst-type" for="consul_mail">
-                                                        <input type="radio" value="consul_mail" name="hffs-type"
-                                                               id="consul_mail">邮箱
-                                                    </label>
-                                                    <label class="cst-type" for="consul_weixin">
-                                                        <input type="radio" value="consul_weixin" name="hffs-type"
-                                                               id="consul_weixin">微信
-                                                    </label>
-                                                </div>
-                                                <div class="weixin-sm" style="display: none;">
-                                                    <div class="img-w">
-                                                        <img
-                                                            gome-src="//js.gomein.net.cn/f2eimage/ui/customer_service_weixin.jpg"
-                                                            alt="手机下单更优惠" title="手机下单更优惠">
-                                                    </div>
-                                                    <div class="text">
-                                                        <p>扫描二维码，关注客服中心公众号，我们将为您提供更加快速便捷的咨询服务</p>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr class="consul_type_wrap" id="email-address" style="display: none;">
-                                            <th>邮箱地址:&nbsp;</th>
-                                            <td>
-                                                <input type="text" value="请填写您的邮箱，以便客服回复！" maxlength="50"
-                                                       id="consul_type_text" name="consul_type_text">
-                                                <span class="email-error"></span>
-                                            </td>
-                                        </tr>
-                                        <tr id="gm-zxnr">
-                                            <th>咨询内容:&nbsp;</th>
-                                            <td>
-                                                <div class="txt-area-wrap">
-                                                    <textarea name="" id="quesTxt" class="txt-area"></textarea>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr id="gm-submit">
-                                            <th></th>
-                                            <td><a class="consult-smt-btn redlink">提交</a><span class="tips">0/200</span>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                    <div class="consult-lt">
-                                        <dl class="consult-question clearfix">
-                                            <dt>常见问题</dt>
-                                            <dd>•<a href="#" target="_blank" title="忘记密码如何操作？">忘记密码如何操作？</a></dd>
-                                            <dd>•<a href="#" target="_blank" title="如何增强账户安全系数？">如何增强账户安全系数？</a></dd>
-                                            <dd>•<a href="#" target="_blank" title="怎么操作商品签收？">怎么操作商品签收？</a></dd>
-                                            <dd>•<a href="#" target="_blank" title="如何电话订购？">如何电话订购？</a></dd>
-                                            <dd>•<a href="#" target="_blank" title="如何查询商品参数及包装清单？">如何查询商品参数及包装清单？</a>
-                                            </dd>
-                                            <dd>•<a href="#" target="_blank" title="商品无货怎么办？">商品无货怎么办？</a></dd>
-                                        </dl>
-                                    </div>
                                 </div>
                             </div>
                             <!---->
@@ -660,8 +570,8 @@
                                             <li>
                                                 <a href="#">中评<em>(40+)</em></a></li>
                                             <li><a href="#">差评<em>(20+)</em></a></li>
-                                            <li class="comm-curr-sku"><span><input
-                                                        type="checkbox"></span><label>只看当前商品评价</label></li>
+                                            <li class="comm-curr-sku"><span>
+                                                    <input type="checkbox"></span><label>只看当前商品评价</label></li>
                                         </ol>
                                         <div class="_extra_a">
                                             <div class="sort-select">
@@ -682,7 +592,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <!---->
                             <div class="tab_con">
                                 <ol class="replyListWrap">
                                     <li class="oh_de">
@@ -779,15 +688,6 @@
                                     <table class="consult-form">
                                         <caption>我要发表咨询</caption>
                                         <tbody>
-                                        <tr id="tr-zxlx">
-                                            <th>咨询类型:&nbsp;</th>
-                                            <td>
-                                                <label class="cst-type"><input type="radio" value="1">购买咨询</label>
-                                                <label class="cst-type"><input type="radio" value="2">促销优惠</label>
-                                                <label class="cst-type"><input type="radio" value="3">支付问题</label>
-                                                <label class="cst-type"><input type="radio" value="4">售后咨询</label>
-                                            </td>
-                                        </tr>
                                         <tr class="consul_type_wrap">
                                             <th>回复方式:&nbsp;</th>
                                             <td>
@@ -840,18 +740,6 @@
                                         </tr>
                                         </tbody>
                                     </table>
-                                    <div class="consult-lt">
-                                        <dl class="consult-question clearfix">
-                                            <dt>常见问题</dt>
-                                            <dd>•<a href="#" target="_blank" title="忘记密码如何操作？">忘记密码如何操作？</a></dd>
-                                            <dd>•<a href="#" target="_blank" title="如何增强账户安全系数？">如何增强账户安全系数？</a></dd>
-                                            <dd>•<a href="#" target="_blank" title="怎么操作商品签收？">怎么操作商品签收？</a></dd>
-                                            <dd>•<a href="#" target="_blank" title="如何电话订购？">如何电话订购？</a></dd>
-                                            <dd>•<a href="#" target="_blank" title="如何查询商品参数及包装清单？">如何查询商品参数及包装清单？</a>
-                                            </dd>
-                                            <dd>•<a href="#" target="_blank" title="商品无货怎么办？">商品无货怎么办？</a></dd>
-                                        </dl>
-                                    </div>
                                 </div>
                             </div>
                             <!---->
