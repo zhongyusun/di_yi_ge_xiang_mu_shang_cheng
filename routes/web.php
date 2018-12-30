@@ -55,6 +55,8 @@ Route::group(['prefix' => 'home', 'namespace' => 'Home', 'as' => 'home.'], funct
     Route::get('/personal/{personal}', 'PersonalcenterController@index')->name('personal');
     //个人资料
     Route::resource('basic','BasicController');
+    //我的收藏
+    Route::get('mycollect','PersonalcenterController@mycollect')->name('mycollect');
 });
 
 //后台需要验证的路由

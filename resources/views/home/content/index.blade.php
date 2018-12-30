@@ -143,24 +143,19 @@
                         <!-- 滑块-->
                         <div class="magnifyingBegin"></div>
                         <!-- 放大镜显示的图片 -->
-                        <div class="magnifyingShow"><img src="{{$content->list_pic}}"
-                                                         style="width: 900px;height: 1050px;"></div>
+                        <div class="magnifyingShow" style="z-index: 9999999999">
+                            <img src="{{$content->list_pic}}" style="width: 900px;height: 1050px;">
+                        </div>
                     </div>
                     <ul class="con-FangDa-ImgList">
                         <!-- 图片显示列表 -->
                         @foreach($content['pics'] as $v)
                             <li class="active"><img src="{{$v}}" data-bigimg="{{$v}}"></li>
                         @endforeach
-                        {{--<li><img src="images/thumb/2.jpg" data-bigimg="images/big/2.jpg"></li>--}}
-                        {{--<li><img src="images/thumb/3.jpg" data-bigimg="images/big/3.jpg"></li>--}}
-                        {{--<li><img src="images/thumb/4.jpg" data-bigimg="images/big/4.jpg"></li>--}}
-                        {{--<li><img src="images/thumb/5.jpg" data-bigimg="images/big/5.jpg"></li>--}}
                     </ul>
                 </div>
             </div>
-            {{--<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>--}}
             <script src="{{asset('org/receptionist')}}/js/magnifier.js"></script>
-
             <script>
                 $(function () {
                     $('#magnifier').magnifier();
@@ -174,7 +169,7 @@
                             @if($content->collect->where('user_id',auth()->id())->first())
                                 <i class="sprite-compare" style="display:block;"></i><em>收藏商品（商品人气）</em>
                             @else
-                                <i class="sprite-compare" style="display:none;"></i><em>收藏商品（商品人气变量）</em>
+                                <i class="sprite-compare" style="display:none;"></i><em>收藏商品（商品人气）</em>
                             @endif
                         </a>
                     @else

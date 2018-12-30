@@ -53,7 +53,8 @@
                                                     <td><span class="ftx-03">完成订单</span></td>
                                                 @endif
 
-                                                <td class="order-doi"><a target="_blank" href="{{route('home.order.show',$v['id'])}}">查看</a>
+                                                <td class="order-doi"><a target="_blank"
+                                                                         href="{{route('home.order.show',$v['id'])}}">查看</a>
                                                 </td>
                                             </tr>
                                             </tbody>
@@ -68,16 +69,28 @@
                 <div class="mod_main mod_main1 mod_main2">
                     <div class="mt">
                         <h3>我收藏的商品</h3>
-                        <div class="extra-r"><a href="#">查看更多</a></div>
+                        <div class="extra-r">
+                            <a href="{{route('home.mycollect',['type'=>'good'])}}">查看更多</a>
+                        </div>
                     </div>
                     <div class="follow">
                         <ul>
-                            <li>
-                                <a class="follow_tup_kuang" href="#"><img src="images/xiangqtu_1.jpg"></a>
-                                <p><a href="#">MI手机 小米Note3 全网通版 6GB+128GB 亮蓝 移动联通电信4G手机
-                                        双卡双待<span>(已有100+人评价)</span></a>
-                                <p class="p_color_1">￥52.00</p></p>
-                            </li>
+                            @if(count($collects)==0)
+
+                                <h2 style="color: lightgrey;font-size: 40px;font-weight: 400;text-align: center;margin-top: 30px;margin-bottom: 20px">暂无收藏</h2>
+                            @else
+                                @foreach($collects as $collect)
+                                    <li>
+                                        <a class="follow_tup_kuang"
+                                           href="{{route('home.content',$collect->collect_id)}}"><img
+                                                src="{{$collect->belongsModel->list_pic}}" height="100%"></a>
+                                        <p>
+                                            <a href="{{route('home.content',$collect->collect_id)}}">{{$collect->belongsModel->title}}</a>
+                                        <p class="p_color_1">￥{{$collect->belongsModel->price}}</p></p>
+                                    </li>
+                                @endforeach
+                            @endif
+
                         </ul>
                     </div>
                 </div>

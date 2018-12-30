@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Models\Collect;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -27,4 +28,9 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    //关联 收藏 模型
+    public function collect(){
+        return $this->hasMany(Collect::class);
+    }
 }

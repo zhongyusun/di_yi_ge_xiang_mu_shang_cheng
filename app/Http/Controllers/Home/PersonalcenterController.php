@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Home;
 
 use App\Models\Cart;
+use App\Models\Collect;
+use App\Models\Good;
 use App\Models\Order;
 use App\User;
 use Illuminate\Http\Request;
@@ -17,8 +19,9 @@ class PersonalcenterController extends Controller
             'except' => [],
         ]);
     }
+
     //个人中心
-    public function index($personal)
+    public function index($personal, Request $request)
     {
         //获取当前用户的id
         $datas = User::all()->where('id', $personal)->toArray();
@@ -26,8 +29,23 @@ class PersonalcenterController extends Controller
         $carts = Cart::all()->where('user_id', auth()->id())->toArray();
         //dd($carts);
         //订单数据
-        $orders=Order::all()->where('user_id',auth()->id());
+        $orders = Order::all()->where('user_id', auth()->id());
+        //获取当前用户
+        $user = auth()->user();
+        $collects = $user->collect()->where('collect_type', 'App\Models\Good')->get();
+        return view('home.personalcenter.index', compact('collects', 'datas', 'carts', 'orders'));
+    }
 
-        return view('home.personalcenter.index', compact('datas','carts','orders'));
+    //我的收藏
+    public function mycollect(Request $request)
+    {
+        //dd($request->all());
+        $type = $request->query('type');
+        $carts = Cart::all()->where('user_id', auth()->id())->toArray();
+        //获取当前用户
+        $user = auth()->user();
+        //获取收藏数据
+        $collects = $user->collect()->where('collect_type', 'App\Models\\' . ucfirst($type))->get();
+        return view('home.personalcenter.my_collect_' . $type, compact('carts','collects'));
     }
 }

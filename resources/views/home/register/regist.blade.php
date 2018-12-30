@@ -77,7 +77,7 @@
                     <button class="reg-btn">立即注册</button>
                     <ul style="float: left;margin-top: 10px">
                         <li style="float: left;margin-left: 10px">
-                            <a href="{{route('home.qq')}}"><img src="{{asset('icon/qq.ico')}}" style="height: 20px;"
+                            <a href="{{route('home.qq_login')}}"><img src="{{asset('icon/qq.ico')}}" style="height: 20px;"
                                                                     alt=""></a>
                         </li>
                     </ul>
@@ -114,6 +114,7 @@
         //alert(tew);
         if (tew == '') {
             layer.msg('请输入邮箱或手机号')
+            return;
         }
         if ($(obj).is('layui-disabled')) {
             return false;

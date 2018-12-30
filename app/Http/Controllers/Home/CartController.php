@@ -35,8 +35,10 @@ class CartController extends CommonController
         }
 
         $datas= json_encode($carts);
-        //dd($carts);
-        return view('home.cart.index', compact('carts', 'datas'));
+
+        //随机获取10商品数据
+        $randatas=Good::inRandomOrder()->limit(10)->get();
+        return view('home.cart.index', compact('carts', 'datas','randatas'));
     }
 
 
