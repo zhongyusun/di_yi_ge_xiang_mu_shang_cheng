@@ -48,23 +48,55 @@ class OrderController extends Controller
         return view('home.order.index', compact('carts', 'datas', 'sites', 'totalprice', 'defaultAddress'));
     }
 
-    public function create()
+    public function create(Request $request)
     {
-        //dd(1);
         //购物车的数据
         $carts = Cart::all()->where('user_id', auth()->id())->toArray();
-        //订单数据
-        $orders=Order::all()->where('user_id',auth()->id());
+
+        if ($request->query('start') == 1) {
+            //未支付
+            $orders = Order::all()->where('user_id', auth()->id())->where('status', 1);
+            //获取其他状态订单的数据
+            $weizhifu=Order::all()->where('user_id', auth()->id())->where('status', 1);
+            $daifahuo=Order::all()->where('user_id', auth()->id())->where('status', 2);
+            $daishouhuo=Order::all()->where('user_id', auth()->id())->where('status', 3);
+        }elseif ($request->query('start') == 2){
+            //待发货
+            $orders = Order::all()->where('user_id', auth()->id())->where('status', 2);
+            //获取其他状态订单的数据
+            $weizhifu=Order::all()->where('user_id', auth()->id())->where('status', 1);
+            $daifahuo=Order::all()->where('user_id', auth()->id())->where('status', 2);
+            $daishouhuo=Order::all()->where('user_id', auth()->id())->where('status', 3);
+        }elseif ($request->query('start') == 3) {
+            //待收货
+            $orders = Order::all()->where('user_id', auth()->id())->where('status', 3);
+            //dd($orders);
+            //获取其他状态订单的数据
+            $weizhifu=Order::all()->where('user_id', auth()->id())->where('status', 1);
+            $daifahuo=Order::all()->where('user_id', auth()->id())->where('status', 2);
+            $daishouhuo=Order::all()->where('user_id', auth()->id())->where('status', 3);
+        }else {
+            //订单数据  全部订单数据
+            //->paginate(1)
+            $orders = Order::all()->where('user_id', auth()->id());
+            //dd($orders);
+            //获取其他状态订单的数据
+            $weizhifu=Order::all()->where('user_id', auth()->id())->where('status', 1);
+            $daifahuo=Order::all()->where('user_id', auth()->id())->where('status', 2);
+            $daishouhuo=Order::all()->where('user_id', auth()->id())->where('status', 3);
+
+        };
         //找到当前用户的订单的收货人
-        $user=User::all()->where('id',auth()->id())->toArray();
-        $user=current($user);
-        return view('home.order.wddd',compact('carts','orders','user'));
+        $user = User::all()->where('id', auth()->id())->toArray();
+        //数组去重
+        $user = current($user);
+        return view('home.order.wddd', compact('carts', 'orders', 'user','weizhifu','daifahuo','daishouhuo'));
     }
 
 
     public function store(Request $request, Order $order)
     {
-       // dd($request->all());
+        // dd($request->all());
         $iqs = $request->iqs;
         //根据购物车 ids 获取所有数据
         $cartData = Cart::whereIn('id', explode(',', $iqs))->get();
@@ -77,7 +109,7 @@ class OrderController extends Controller
         //开启事务
         DB::beginTransaction();
         //添加订单表
-        $order->number = time().str_random(6);
+        $order->number = time() . str_random(6);
         $order->price = $total_price;
         $order->quantity = count($cartData);
         $order->user_id = auth()->id();
@@ -85,7 +117,7 @@ class OrderController extends Controller
         $order->status = 1;
         $order->save();
         //添加订单详情表
-        foreach($cartData as $v){
+        foreach ($cartData as $v) {
             $orderDetail = new OrderDetail();
             $orderDetail->order_id = $order->id;
             $orderDetail->title = $v['title'];
@@ -93,15 +125,15 @@ class OrderController extends Controller
             $orderDetail->list_pic = $v['list_pic'];
             $orderDetail->num = $v['num'];
             $orderDetail->spec = $v['spec'];
-            $orderDetail->sort=$v['sort'];
+            $orderDetail->sort = $v['sort'];
             $orderDetail->good_id = $v['good_id'];
             $orderDetail->spec_id = $v['spec_id'];
             $orderDetail->save();
         }
         //清除购物车对应数据
-        Cart::whereIn('id',explode(',',$iqs))->where('user_id',auth()->id())->delete();
+        Cart::whereIn('id', explode(',', $iqs))->where('user_id', auth()->id())->delete();
         DB::commit();
-        return ['code'=>1,'msg'=>'提交成功','number'=>$order->number];
+        return ['code' => 1, 'msg' => '提交成功', 'number' => $order->number];
     }
 
     public function show(Order $order)
@@ -109,15 +141,15 @@ class OrderController extends Controller
         //获取当前用户的所有的购物车数据
         $carts = Cart::all()->where('user_id', auth()->id())->toArray();
         //获取该订单的用户信息
-        $user=User::all()->where('id',$order->user_id)->toArray();
-        $user=current($user);
+        $user = User::all()->where('id', $order->user_id)->toArray();
+        $user = current($user);
         //获取订单详情信息
-        $datas=$order->orderDetail->toArray();
-        $datas=current($datas);
+        $datas = $order->orderDetail->toArray();
+        $datas = current($datas);
         //获取详细地址
-        $sites=Site::all()->where('id',$order->site_id)->toArray();
-        $sites=current($sites);
-        return view('home.order.content',compact('carts','order','user','datas','sites'));
+        $sites = Site::all()->where('id', $order->site_id)->toArray();
+        $sites = current($sites);
+        return view('home.order.content', compact('carts', 'order', 'user', 'datas', 'sites'));
     }
 
 
@@ -135,6 +167,6 @@ class OrderController extends Controller
     public function destroy(Order $order)
     {
         $order->delete();
-        return ['code'=>1];
+        return ['code' => 1];
     }
 }

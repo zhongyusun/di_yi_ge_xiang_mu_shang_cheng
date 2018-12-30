@@ -27,11 +27,11 @@ class PersonalcenterController extends Controller
         $datas = User::all()->where('id', $personal)->toArray();
         //获取当前用户的所有的购物车数据
         $carts = Cart::all()->where('user_id', auth()->id())->toArray();
-        //dd($carts);
-        //订单数据
+        //订单数据(订单可以包含很多商品)
         $orders = Order::all()->where('user_id', auth()->id());
         //获取当前用户
         $user = auth()->user();
+        //获取当前用户收藏的数据
         $collects = $user->collect()->where('collect_type', 'App\Models\Good')->get();
         return view('home.personalcenter.index', compact('collects', 'datas', 'carts', 'orders'));
     }

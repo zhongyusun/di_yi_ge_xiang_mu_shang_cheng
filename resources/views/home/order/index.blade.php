@@ -45,9 +45,6 @@
                     <li class="zhif_fangs cur">
                         <div class="dangq_xuanz_diz">在线支付</div>
                     </li>
-                    <li class="zhif_fangs">
-                        <div class="dangq_xuanz_diz">货到付款</div>
-                    </li>
                     <div class="addr-switch addr_switch_1 cur_e_1">
                         <p><span>更多 >></span></p>
                         <p><span>收起 <<</span></p>
