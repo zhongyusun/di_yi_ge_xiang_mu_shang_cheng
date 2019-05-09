@@ -3,9 +3,9 @@
     <div class="layui-box layui-laypage layui-laypage-default" id="layui-laypage-1">
         {{-- Previous Page Link --}}
         @if ($paginator->onFirstPage())
-            <a href="javascript:;" class="layui-laypage-prev layui-disabled" data-page="0">上一页</a>
+            <a href="javascript:;" class="layui-laypage-prev layui-disabled" data-page="0"></a>
         @else
-            <a href="javascript:;" class="layui-laypage-prev" data-page="0">下一页</a>
+            <a href="javascript:;" class="layui-laypage-prev" data-page="0"></a>
         @endif
 
         {{-- Pagination Elements --}}
@@ -32,9 +32,9 @@
 
         {{-- Next Page Link --}}
         @if ($paginator->hasMorePages())
-            <a href="{{ $paginator->nextPageUrl() }}" class="layui-laypage-next">上一页</a>
+            <a href="{{ $paginator->nextPageUrl() }}" class="layui-laypage-next"></a>
         @else
-            <a href="javascript:;" class="layui-laypage-next layui-disabled">下一页</a>
+            <a href="javascript:;" class="layui-laypage-next layui-disabled"></a>
         @endif
     </div>
 @endif

@@ -51,6 +51,7 @@
     @include('admin.layouts.header')
     {{--左侧边栏--}}
     @include('admin.layouts.left_sidebar')
+
     {{--底部导航栏--}}
     @include('admin.layouts.foot')
 </div>

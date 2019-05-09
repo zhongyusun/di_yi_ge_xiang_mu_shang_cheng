@@ -189,7 +189,7 @@
                             @endif
                         </table>
                         {{--引用自定义的分页视图--}}
-                        {{--{{$orders->appends()->links('vendor.pagination.list_page')}}--}}
+                        {{$orders->appends(['start'=>request()->query('start')])->links('vendor.pagination.list_page')}}
                     </div>
                 </div>
                 <!--左边内容结束-->

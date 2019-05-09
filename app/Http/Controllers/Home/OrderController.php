@@ -55,36 +55,35 @@ class OrderController extends Controller
 
         if ($request->query('start') == 1) {
             //未支付
-            $orders = Order::all()->where('user_id', auth()->id())->where('status', 1);
+            $orders = Order::where('user_id', auth()->id())->where('status', 1)->paginate(3);
             //获取其他状态订单的数据
-            $weizhifu=Order::all()->where('user_id', auth()->id())->where('status', 1);
-            $daifahuo=Order::all()->where('user_id', auth()->id())->where('status', 2);
-            $daishouhuo=Order::all()->where('user_id', auth()->id())->where('status', 3);
+            $weizhifu=Order::where('user_id', auth()->id())->where('status', 1)->paginate(3);
+            $daifahuo=Order::where('user_id', auth()->id())->where('status', 2)->paginate(3);
+            $daishouhuo=Order::where('user_id', auth()->id())->where('status', 3)->paginate(3);
         }elseif ($request->query('start') == 2){
             //待发货
-            $orders = Order::all()->where('user_id', auth()->id())->where('status', 2);
+            $orders = Order::where('user_id', auth()->id())->where('status', 2)->paginate(3);
             //获取其他状态订单的数据
-            $weizhifu=Order::all()->where('user_id', auth()->id())->where('status', 1);
-            $daifahuo=Order::all()->where('user_id', auth()->id())->where('status', 2);
-            $daishouhuo=Order::all()->where('user_id', auth()->id())->where('status', 3);
+            $weizhifu=Order::where('user_id', auth()->id())->where('status', 1)->paginate(3);
+            $daifahuo=Order::where('user_id', auth()->id())->where('status', 2)->paginate(3);
+            $daishouhuo=Order::where('user_id', auth()->id())->where('status', 3)->paginate(3);
         }elseif ($request->query('start') == 3) {
             //待收货
-            $orders = Order::all()->where('user_id', auth()->id())->where('status', 3);
+            $orders = Order::where('user_id', auth()->id())->where('status', 3)->paginate(3);
             //dd($orders);
             //获取其他状态订单的数据
-            $weizhifu=Order::all()->where('user_id', auth()->id())->where('status', 1);
-            $daifahuo=Order::all()->where('user_id', auth()->id())->where('status', 2);
-            $daishouhuo=Order::all()->where('user_id', auth()->id())->where('status', 3);
+            $weizhifu=Order::where('user_id', auth()->id())->where('status', 1)->paginate(3);
+            $daifahuo=Order::where('user_id', auth()->id())->where('status', 2)->paginate(3);
+            $daishouhuo=Order::where('user_id', auth()->id())->where('status', 3)->paginate(3);
         }else {
             //订单数据  全部订单数据
             //->paginate(1)
-            $orders = Order::all()->where('user_id', auth()->id());
+            $orders = Order::where('user_id', auth()->id())->paginate(3);
             //dd($orders);
             //获取其他状态订单的数据
-            $weizhifu=Order::all()->where('user_id', auth()->id())->where('status', 1);
-            $daifahuo=Order::all()->where('user_id', auth()->id())->where('status', 2);
-            $daishouhuo=Order::all()->where('user_id', auth()->id())->where('status', 3);
-
+            $weizhifu=Order::where('user_id', auth()->id())->where('status', 1)->paginate(3);
+            $daifahuo=Order::where('user_id', auth()->id())->where('status', 2)->paginate(3);
+            $daishouhuo=Order::where('user_id', auth()->id())->where('status', 3)->paginate(3);
         };
         //找到当前用户的订单的收货人
         $user = User::all()->where('id', auth()->id())->toArray();

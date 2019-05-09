@@ -55,7 +55,6 @@ class Category extends Model
         //dd($data);
 //        在查询构造器
         $qe = $this->whereNotIn('id', $data)->get();
-        //dd($qe);
         return $this->getTreeData($qe->toArray());
     }
 

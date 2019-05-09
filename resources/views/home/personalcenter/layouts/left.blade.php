@@ -20,7 +20,7 @@
             <ul>
                 <li>
                     <div class="count_item">
-                        <a href="#">
+                        <a href="{{route('home.order.create',['start'=>1])}}">
                             <i class="count_icon count_icon01"></i> 待付款
                             <em id="waitPay">2</em>
                         </a>
@@ -28,16 +28,16 @@
                 </li>
                 <li>
                     <div class="count_item">
-                        <a href="#">
-                            <i class="count_icon count_icon02"></i> 待收货
+                        <a href="{{route('home.order.create',['start'=>3])}}">
+                            <i class="count_icon count_icon02"></i> 待发货
                             <em id="waitPay">4</em>
                         </a>
                     </div>
                 </li>
                 <li>
                     <div class="count_item">
-                        <a href="#">
-                            <i class="count_icon count_icon03"></i> 待提货
+                        <a href="{{route('home.order.create',['start'=>5])}}">
+                            <i class="count_icon count_icon03"></i> 待收货
                             <em id="waitPay">0</em>
                         </a>
                     </div>
